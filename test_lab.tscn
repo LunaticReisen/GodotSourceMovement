@@ -1,0 +1,103 @@
+[gd_scene load_steps=13 format=3 uid="uid://bh8p6m1ee4b2b"]
+
+[ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="1_4ahgw"]
+[ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/cube.tscn" id="2_hjobj"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="3_lgupy"]
+[ext_resource type="Script" path="res://scripts/control_ui.gd" id="4_yyb83"]
+[ext_resource type="Texture2D" uid="uid://dbc68vt2pyma7" path="res://textures/input-prompts/keyboard_arrows_up_outline.png" id="5_be3am"]
+[ext_resource type="Texture2D" uid="uid://bgrdlsh8dskt1" path="res://textures/input-prompts/keyboard_arrows_down_outline.png" id="6_he0v0"]
+[ext_resource type="Texture2D" uid="uid://dh08p8vvg23ne" path="res://textures/input-prompts/keyboard_arrows_left_outline.png" id="7_ldvif"]
+[ext_resource type="Texture2D" uid="uid://c6nxjqrtw1ggb" path="res://textures/input-prompts/keyboard_caret.png" id="8_j74hb"]
+[ext_resource type="Texture2D" uid="uid://6ln6fks67btd" path="res://textures/input-prompts/keyboard_minus.png" id="9_rodya"]
+[ext_resource type="Texture2D" uid="uid://dl00lfmmhd3qv" path="res://textures/input-prompts/keyboard_arrows_right_outline.png" id="10_uscul"]
+
+[sub_resource type="Environment" id="Environment_xea04"]
+background_mode = 1
+background_color = Color(0.956863, 0.94902, 0.960784, 1)
+ambient_light_color = Color(0.372549, 0.372549, 0.372549, 1)
+ssao_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_6b3d3"]
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.396078)
+
+[node name="test_lab" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xea04")
+
+[node name="Player" parent="." instance=ExtResource("1_4ahgw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.61707, 0)
+AIR_ADD_SPEED = 8.0
+WALK_SPEED = 8.0
+gravity = 34
+
+[node name="Level" type="Node" parent="."]
+
+[node name="Node3D" parent="Level" instance=ExtResource("2_hjobj")]
+
+[node name="Node3D2" type="Node3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.398, 2, 0)
+
+[node name="TEST_HUD" type="CanvasLayer" parent="."]
+script = ExtResource("3_lgupy")
+
+[node name="TEXT" type="Label" parent="TEST_HUD"]
+anchors_preset = -1
+anchor_right = 0.171875
+anchor_bottom = 0.0229167
+offset_right = 40.0
+offset_bottom = 23.0
+text = "wadawdadwawd"
+label_settings = SubResource("LabelSettings_6b3d3")
+metadata/_edit_use_anchors_ = true
+
+[node name="CONTROL" type="Control" parent="TEST_HUD"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("4_yyb83")
+metadata/_edit_use_anchors_ = true
+
+[node name="up" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-100, -100)
+scale = Vector2(2, 2)
+texture = ExtResource("5_be3am")
+
+[node name="down" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-100, -100)
+scale = Vector2(2, 2)
+texture = ExtResource("6_he0v0")
+
+[node name="left" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-100, -100)
+scale = Vector2(2, 2)
+texture = ExtResource("7_ldvif")
+
+[node name="dash" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-165, -133)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_j74hb")
+
+[node name="space" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-36, -133)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_rodya")
+
+[node name="right" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-100, -100)
+scale = Vector2(2, 2)
+texture = ExtResource("10_uscul")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, 0, 37.9462, 0)
+
+[connection signal="DEBUGING_" from="Player" to="TEST_HUD" method="_on_player_debuging_"]
