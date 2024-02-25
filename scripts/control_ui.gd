@@ -14,3 +14,4 @@ func _physics_process(delta):
 	$right.modulate.a = lerp($right.modulate.a,float(Input.is_action_pressed("move_right")),delta*25)
 	$space.modulate.a = lerp($space.modulate.a,float(Input.is_action_pressed("jump")),delta*25)
 	$dash.modulate.a = lerp($dash.modulate.a,float(Input.is_action_pressed("dash")),delta*25)
+	$crouch.modulate.a = lerp($crouch.modulate.a,float(Input.is_action_pressed("crouch")),delta*25)

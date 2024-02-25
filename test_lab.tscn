@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/cube.tscn" id="2_hjobj"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="3_lgupy"]
 [ext_resource type="Script" path="res://scripts/control_ui.gd" id="4_yyb83"]
-[ext_resource type="Texture2D" uid="uid://dbc68vt2pyma7" path="res://textures/input-prompts/keyboard_arrows_up_outline.png" id="5_be3am"]
-[ext_resource type="Texture2D" uid="uid://bgrdlsh8dskt1" path="res://textures/input-prompts/keyboard_arrows_down_outline.png" id="6_he0v0"]
-[ext_resource type="Texture2D" uid="uid://dh08p8vvg23ne" path="res://textures/input-prompts/keyboard_arrows_left_outline.png" id="7_ldvif"]
+[ext_resource type="Texture2D" uid="uid://bntspsjru3brd" path="res://textures/input-prompts/keyboard_arrow_up.png" id="5_600c0"]
+[ext_resource type="Texture2D" uid="uid://dv7sf7f75e7an" path="res://textures/input-prompts/keyboard_arrow_down.png" id="6_h15bu"]
+[ext_resource type="Texture2D" uid="uid://dlpuwjafs7ceh" path="res://textures/input-prompts/keyboard_arrow_right.png" id="7_diya2"]
+[ext_resource type="Texture2D" uid="uid://njy40gwqd2hj" path="res://textures/input-prompts/keyboard_arrow_left.png" id="8_ciyb3"]
 [ext_resource type="Texture2D" uid="uid://c6nxjqrtw1ggb" path="res://textures/input-prompts/keyboard_caret.png" id="8_j74hb"]
 [ext_resource type="Texture2D" uid="uid://6ln6fks67btd" path="res://textures/input-prompts/keyboard_minus.png" id="9_rodya"]
-[ext_resource type="Texture2D" uid="uid://dl00lfmmhd3qv" path="res://textures/input-prompts/keyboard_arrows_right_outline.png" id="10_uscul"]
 
 [sub_resource type="Environment" id="Environment_xea04"]
 background_mode = 1
@@ -28,17 +28,16 @@ shadow_color = Color(0, 0, 0, 0.396078)
 environment = SubResource("Environment_xea04")
 
 [node name="Player" parent="." instance=ExtResource("1_4ahgw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.61707, 0)
-AIR_ADD_SPEED = 8.0
-WALK_SPEED = 8.0
-gravity = 34
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+AIR_ADD_SPEED = 6.0
+WALK_SPEED = 6.0
+AIR_CONTROL = 0.3
+CROUCH_AIR_ADD_SPEED = 6.0
+gravity = 36
 
 [node name="Level" type="Node" parent="."]
 
 [node name="Node3D" parent="Level" instance=ExtResource("2_hjobj")]
-
-[node name="Node3D2" type="Node3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.398, 2, 0)
 
 [node name="TEST_HUD" type="CanvasLayer" parent="."]
 script = ExtResource("3_lgupy")
@@ -69,35 +68,42 @@ metadata/_edit_use_anchors_ = true
 
 [node name="up" type="Sprite2D" parent="TEST_HUD/CONTROL"]
 position = Vector2(-100, -100)
-scale = Vector2(2, 2)
-texture = ExtResource("5_be3am")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_600c0")
 
 [node name="down" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-100, -100)
-scale = Vector2(2, 2)
-texture = ExtResource("6_he0v0")
+position = Vector2(-100, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_h15bu")
+
+[node name="right" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-50, -50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_diya2")
 
 [node name="left" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-100, -100)
-scale = Vector2(2, 2)
-texture = ExtResource("7_ldvif")
+position = Vector2(-150, -50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_ciyb3")
 
 [node name="dash" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-165, -133)
+position = Vector2(-50, -100)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_j74hb")
 
+[node name="crouch" type="Sprite2D" parent="TEST_HUD/CONTROL"]
+position = Vector2(-50, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_j74hb")
+flip_v = true
+
 [node name="space" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-36, -133)
+position = Vector2(-100, -50)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_rodya")
 
-[node name="right" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-100, -100)
-scale = Vector2(2, 2)
-texture = ExtResource("10_uscul")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, 0, 37.9462, 0)
+transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, 0, 6.52153, 0)
+shadow_enabled = true
 
 [connection signal="DEBUGING_" from="Player" to="TEST_HUD" method="_on_player_debuging_"]

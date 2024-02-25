@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var mouseSensitrivity = 2.0
-@onready var root_character : CharacterBody3D = get_parent()
+@onready var root_character : CharacterBody3D = get_parent().get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

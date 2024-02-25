@@ -2,6 +2,7 @@
 
 Use Godot 4.2
 
+v1.1 : Add crouch, the gravity in ground movment looks weird
 v1.0 : Can strafe jumping but no crouch
 
 use kenny's asset

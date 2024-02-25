@@ -1,0 +1,4 @@
+res://test_lab.tscn
+res://scripts/player.gd
+res://meshs/cube.tscn
+res://textures/new_standard_material_3d.tres
