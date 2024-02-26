@@ -2,9 +2,23 @@
 
 Use Godot 4.2
 
-v1.1 : Add crouch, the gravity in ground movment looks weird
+## v1.2 
 
-v1.0 : Can strafe jumping but no crouch
+Almost done!
+
+Add 2 line to fix werid gravity problem
+
+Change some speed number to make it more smooth
+
+## v1.1
+
+Add crouch, can do a little starfe jumping in crouch, the gravity in ground movment looks weird
+
+## v1.0 
+
+Can strafe jumping but no crouch
+
+## Ref:
 
 use kenny's asset
 
@@ -14,7 +28,6 @@ https://www.kenney.nl/assets/prototype-textures
 
 Ported from https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
 
-Ref:
 
 https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
 
