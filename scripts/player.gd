@@ -10,12 +10,18 @@
 extends CharacterBody3D
 
 @export_subgroup("speed")
-@export var AIR_ADD_SPEED :float = 5
-@export var WALK_SPEED :float = 10
-var CROUCH_SPEED :float = 5
+@export var AIR_ADD_SPEED :float = 4
+@export var WALK_SPEED :float = 6
 @export var DASH_SPEED :float = 15
-@export var MAX_SPEED :float = 20
 @export var JUMP_FORCE :float = 10
+var CROUCH_SPEED :float = 5
+
+@export_subgroup("crouch")
+@export var CROUCH_MAX_SPEED :float = 3
+@export var CROUCH_AIR_ADD_SPEED : float = 4
+@export var CROUCH_HEIGHT : float = .8			#crouch height
+@export var CAMERA_HEIGHT :float = 1.2			#crouch camera height
+var stand_height : float = 1.5
 
 @export_subgroup("accelration")
 @export var RUN_ACCEL :float = 14
@@ -26,32 +32,29 @@ var CROUCH_SPEED :float = 5
 @export var AIR_CONTROL :float = 0
 @export var FRICTION :float = 6
 
-@export_subgroup("crouch")
-@export var CROUCH_MAX_SPEED :float = 3
-@export var CROUCH_AIR_ADD_SPEED : float = 5
-@export var CROUCH_HEIGHT : float = .8			#crouch height
-@export var CAMERA_HEIGHT :float = 1.2			#crouch camera height
-var stand_height : float = 1.5
-
 @export_subgroup("sensitrivity")
 @export var MOUSE_SENSITRIVITY = 2
-#TODO: CONTROLLER SUPPORT
-var CONTORLLER_SENSITRIVITY = 700
-
 
 #DEBUG
-@onready var collider_shape :CollisionShape3D = $Collider
-@onready var ceilingcast :RayCast3D = $Root/CeilingCast
-@onready var ceilingcast2 :RayCast3D = $Root/CeilingCast2
-@onready var collider : CapsuleShape3D
-@onready var head = $Root
 @export_subgroup("DEBUG")
-@export var _air_controlAdditionForward :float = 32
-@export var gravity = 30
-var vel : Vector3 = Vector3.ZERO
-var TOP_SPEED :float = 0
+@export var gravity = 34
+#region debug
+@onready var collider_shape :CollisionShape3D = $Collider		#collider
+@onready var collider : CapsuleShape3D							#collider shape
+@onready var ceilingcast :RayCast3D = $Root/CeilingCast			#fornt raycast
+@onready var ceilingcast2 :RayCast3D = $Root/CeilingCast2		#back raycast
+@onready var head = $Root
+
+var _air_controlAdditionForward :float = 32
+var topspeed :float = 0
 var currentspeed : float
 var player_friction :float = 0
+
+var vel : Vector3 = Vector3.ZERO
+var appliedVelocity : Vector3
+var DEBUG_origin_transform :Vector3
+var DEBUG_wishdir :Vector3
+
 var _wishJump : bool = false 
 var _jumpQueue : bool = false 
 var is_falling : bool = false 
@@ -62,15 +65,16 @@ var mouse : bool = false
 var is_last_frame_collide :bool = false
 var is_collide :bool = false
 var collide :bool = false
-@export var normal_height : float = 1
-var appliedVelocity : Vector3
-var DEBUG_origin_transform :Vector3
+
 var raw_input
-var DEBUG_wishdir :Vector3
 var dir
+
+#crouch timer
 var t1 : float
 var t2 : float
+#endregion
 
+#hud signal
 signal DEBUGING_
 
 func _ready():
@@ -102,8 +106,8 @@ func _physics_process(delta):
 	handel_crouch(delta)
 	var udp :Vector3 = vel
 	udp.y = 0
-	if(udp.length() > TOP_SPEED):
-		TOP_SPEED = udp.length()
+	if(udp.length() > topspeed):
+		topspeed = udp.length()
 	
 func process_movement(delta) -> void:
 	raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")	#Initialize
@@ -127,6 +131,10 @@ func ground_move(delta) -> void:
 	wish_speed *= currentspeed
 	accelerate(wish_dir, wish_speed, RUN_ACCEL, delta)
 	
+	#fix werid gravity problem, reset velocity.y
+	if (is_on_floor()):
+		vel.y = 0
+
 	if (_wishJump):
 		vel.y = JUMP_FORCE
 		_wishJump = false
@@ -155,7 +163,7 @@ func air_move(delta) -> void:
 		accel = AIR_DECCEL
 	else :
 		accel = AIR_ACCEL
-	#forward&backward to accelerate	
+	#left or right move to accelerate	
 	if (dir.z == 0.0 and dir.x != 0.0):
 		if (wish_speed > STARFE_SPEED):
 			wish_speed = STARFE_SPEED
@@ -170,6 +178,7 @@ func air_move(delta) -> void:
 func air_control(wish_dir : Vector3, wish_speed : float, delta) -> void:
 	if(abs(raw_input.y) < 0.1 or abs(wish_speed) < 0.1 ):
 		return
+	#speed too slow can't not accelerate
 	if(vel.dot(wish_dir) <= 0.2):
 		return
 	var zspeed: float= vel.y
@@ -186,7 +195,7 @@ func air_control(wish_dir : Vector3, wish_speed : float, delta) -> void:
 		vel.z = vel.z *speed + wish_dir.z * k
 		vel = vel.normalized()
 	vel.x *= speed
-	vel.y  = zspeed # Note this line
+	vel.y  = zspeed # Notice this line
 	vel.z *= speed
 
 func accelerate(wish_dir : Vector3, wish_speed : float, accel : float, delta) -> void:
@@ -195,12 +204,12 @@ func accelerate(wish_dir : Vector3, wish_speed : float, accel : float, delta) ->
 	var _currentspeed : float
 	# control crouch max speed
 	# if crouch speed lower than 5, it will not accelerate, so i just clamp it
-	#TODO
 	if(is_crouching):
 		if (velocity.length() > CROUCH_MAX_SPEED and is_on_floor()):
 			return
 		if(!is_on_floor() and velocity.length() > CROUCH_AIR_ADD_SPEED):
 			return
+
 	_currentspeed = vel.dot(wish_dir)
 	addspeed = wish_speed - _currentspeed
 	if(addspeed <= 0):
@@ -233,7 +242,7 @@ func handel_friction(t : float, delta) -> void:
 	if (speed > 0) : 
 		newspeed /= speed
 		
-	player_friction = newspeed 
+	player_friction = newspeed #debug
 	vel.x *= newspeed
 	vel.z *= newspeed
 
@@ -326,6 +335,6 @@ func DEBUG_FUNTION():
 	+ "last frame collide: " + var_to_str(is_last_frame_collide) + "\n" \
 	+ var_to_str(raw_input) + "\n" \
 	+ "FRICTION " + var_to_str(player_friction) + "\n" \
-	+ "topspeed: " + var_to_str(TOP_SPEED) + "\n" \
+	+ "topspeed: " + var_to_str(topspeed) + "\n" \
 	+ "speed " + var_to_str(velocity.length()) )	
 	

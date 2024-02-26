@@ -29,10 +29,7 @@ environment = SubResource("Environment_xea04")
 
 [node name="Player" parent="." instance=ExtResource("1_4ahgw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-AIR_ADD_SPEED = 6.0
-WALK_SPEED = 6.0
 AIR_CONTROL = 0.3
-CROUCH_AIR_ADD_SPEED = 6.0
 gravity = 36
 
 [node name="Level" type="Node" parent="."]
