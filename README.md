@@ -4,7 +4,13 @@ Use Godot 4.2.1
 
 [简体中文](README/README.zh_CN.md)
 
-## v1.2.1
+## HOW TO USE
+
+Clone it and unzip it on any where you like ,then use godot to import the project, that it!
+
+## Update Log
+
+### v1.2.1
 
 Change the project name
 
@@ -22,7 +28,7 @@ known issue:
 
 - no surf(still work on it)
 
-## v1.2 
+### v1.2 
 
 Almost done!
 
@@ -30,11 +36,11 @@ Add 2 line to fix werid gravity problem
 
 Change some speed number to make it more smooth
 
-## v1.1
+### v1.1
 
 Add crouch, can do a little starfe jumping in crouch, the gravity in ground movment looks weird
 
-## v1.0 
+### v1.0 
 
 Can strafe jumping but no crouch
 
