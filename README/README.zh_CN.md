@@ -1,42 +1,25 @@
 # GodotSourceMovment
 
-Use Godot 4.2.1
-
-[简体中文](README/README.zh_CN.md)
+使用 Godot 4.2.1
 
 ## v1.2.1
 
-Change the project name
+更改项目名称
 
-Optimize variable to a separate class
+优化变量到一个单独的类
 
-Change the ceiling cast object from RayCast3D to ShapeCast3D
+把天花板检测物体从Raycast3d变更为Shapecast3d
 
-Change the current speed calculation
+更改了目前速度的计算方式（从自带函数变成了手写，数字大了点
 
-Remake auto bunny hop
+重做了自动兔子跳
 
-known issue: 
+已知问题：
 
-- player can collision multiple wall to able to add speed
+1.玩家可以碰撞墙壁并跳跃去获得加速
 
-- no surf(still work on it)
+2.没有滑翔（我还在做
 
-## v1.2 
-
-Almost done!
-
-Add 2 line to fix werid gravity problem
-
-Change some speed number to make it more smooth
-
-## v1.1
-
-Add crouch, can do a little starfe jumping in crouch, the gravity in ground movment looks weird
-
-## v1.0 
-
-Can strafe jumping but no crouch
 
 ## Ref:
 

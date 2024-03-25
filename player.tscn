@@ -1,17 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://rn24b4x6mmga"]
+[gd_scene load_steps=6 format=3 uid="uid://rn24b4x6mmga"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_cclu0"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_385kn"]
+[ext_resource type="Script" path="res://scripts/movementData.gd" id="3_cg64s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pc4qx"]
 radius = 0.4
 height = 1.4
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q5a2y"]
+height = 0.7
+radius = 0.35
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_cclu0")
-gravity = 32
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -20,13 +24,10 @@ shape = SubResource("CapsuleShape3D_pc4qx")
 [node name="Root" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="CeilingCast2" type="RayCast3D" parent="Root"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, -0.5)
-target_position = Vector3(0, 0.5, 0)
-
-[node name="CeilingCast" type="RayCast3D" parent="Root"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0.5)
-target_position = Vector3(0, 0.5, 0)
+[node name="CeilingCast" type="ShapeCast3D" parent="Root"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("CylinderShape3D_q5a2y")
+target_position = Vector3(0, 0, 0)
 
 [node name="Head" type="Node3D" parent="Root"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
@@ -36,3 +37,6 @@ script = ExtResource("3_385kn")
 fov = 90.0
 
 [node name="Hand" type="Node3D" parent="Root/Head"]
+
+[node name="Movement_Data" type="Node" parent="."]
+script = ExtResource("3_cg64s")
