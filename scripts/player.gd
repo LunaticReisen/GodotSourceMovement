@@ -23,6 +23,8 @@ var topspeed :float = 0
 var currentspeed : float
 var player_friction :float = 0
 var _friction :float
+var vel_x : float
+var last_frame_rotation : float
 
 var vel : Vector3 = Vector3.ZERO
 var appliedVelocity : Vector3
@@ -37,6 +39,7 @@ var mouse : bool = false
 var is_last_frame_collide :bool = false
 var is_collide :bool = false
 var collide :bool = false
+var air_accel_switch :bool = false
 
 var raw_input
 var dir
@@ -70,7 +73,7 @@ func _physics_process(delta):
 	speed_changer()
 	process_movement(delta)
 	
-	appliedVelocity = velocity.lerp(vel, delta * 10)
+	appliedVelocity = velocity.lerp(vel, delta * 17)
 	velocity = appliedVelocity
 	move_and_slide()
 	
@@ -115,8 +118,7 @@ func ground_move(delta) -> void:
 func air_move(delta) -> void:
 	# no more starfing on ceiling
 	if (is_on_ceiling()):
-		var jumpvel = vel.y
-		vel.y = jumpvel
+		vel.y = 0
 		vel.y -= _data.gravity * _data.gravity_precent * delta * 5	
 	var wish_dir : Vector3	
 	var _wishvel : float= _data.AIR_ACCEL
@@ -131,45 +133,52 @@ func air_move(delta) -> void:
 		add_speed = _data.AIR_ADD_SPEED
 	wish_speed *= add_speed
 	wish_dir = wish_dir.normalized()
-	var wish_speed2 : float = wish_speed
 	if(vel.dot(wish_dir) < 0.0):
 		accel = _data.AIR_DECCEL
 	else :
 		accel = _data.AIR_ACCEL
 	#left or right move to accelerate	
-	if (dir.z == 0.0 and dir.x != 0.0):
-		if (wish_speed > _data.STARFE_SPEED):
-			wish_speed =_data.STARFE_SPEED
+	if (raw_input.y == 0.0 and abs(dir.x) > 0.0):
+		if (wish_speed > _data.AIR_MAX_SPEED):
+			wish_speed =_data.AIR_MAX_SPEED
 		accel = _data.AIR_ACCEL
 	
-	accelerate(wish_dir, wish_speed, accel, delta)
-	if (_data.AIR_CONTROL > 0):
-		air_control(wish_dir, wish_speed2, delta)	
+	air_accelerate(wish_dir, wish_speed, accel, delta)
+
+	#if player move left/right but didn not move mouse,it will not accel
+	if (global_rotation.y != last_frame_rotation):
+		accelerate(wish_dir, wish_speed, accel, delta)
+		last_frame_rotation = global_rotation.y
 	 
 	vel.y -= _data.gravity * _data.gravity_precent * delta
-		
-func air_control(wish_dir : Vector3, wish_speed : float, delta) -> void:
-	if(abs(raw_input.y) < 0.1 or abs(wish_speed) < 0.1 ):
-		return
-	#speed too slow can't not accelerate
-	if(vel.dot(wish_dir) <= 0.2): 
-		return
-	var zspeed: float= vel.y
-	vel.y = 0
-	var speed: float = vel.length()
-	vel = vel.normalized()
-	var dot: float= vel.dot(wish_dir)
-	var k: float = _data._air_controlAdditionForward
-	k *= _data.AIR_CONTROL * dot * dot * delta
+	air_accel_switch =false
+
+func air_accelerate(wish_dir : Vector3, wish_speed : float, accel : float, delta):     #air accel
+	var addspeed : float
+	var accelspeed : float
+	var _currentspeed : float
+	var wishspd = wish_speed
 	
-	if (dot > 0):
-		vel.x = vel.x *speed + wish_dir.x * k
-		vel.y = vel.y *speed + wish_dir.y * k
-		vel.z = vel.z *speed + wish_dir.z * k
-		vel = vel.normalized()
-	vel.x *= speed
-	vel.y  = zspeed # Notice this line
-	vel.z *= speed
+	#clamp it to a resonable value
+	if (_data.clamp_air_speed == true):
+		wishspd = clamp((wishspd / _data.AIR_CAP - _data.AIR_CAP * _data.AIR_CAP), _data.AIR_CAP, _data.AIR_MAX_SPEED)
+	else :
+		wishspd = clamp((wishspd / _data.AIR_CAP - _data.AIR_CAP * _data.AIR_CAP), _data.AIR_CAP, _data.AIR_MAX_SPEED*100)
+	_currentspeed = vel.dot(wish_dir)
+	addspeed = wishspd - _currentspeed
+	
+	if(addspeed <= 0):
+		return Vector3.ZERO
+		
+	accelspeed = accel * wishspd * delta
+
+	accelspeed = min(accelspeed,addspeed)
+	air_accel_switch = true
+	
+	vel_x  = vel.x + (accelspeed * wish_dir.x * _data.air_accel_precent)
+	vel.x += accelspeed * wish_dir.x * _data.air_accel_precent * 0.7
+	vel.y += accelspeed * wish_dir.y * _data.air_accel_precent
+	vel.z += accelspeed * wish_dir.z * _data.air_accel_precent
 
 func accelerate(wish_dir : Vector3, wish_speed : float, accel : float, delta) -> void:
 	var addspeed : float
@@ -184,8 +193,17 @@ func accelerate(wish_dir : Vector3, wish_speed : float, accel : float, delta) ->
 	if(accelspeed > addspeed):
 		accelspeed = addspeed
 	
-	vel.x += accelspeed * wish_dir.x
-	vel.z += accelspeed * wish_dir.z
+	#little boost
+	if (velocity.length() > 30): #in game 90 ups
+		_data.accel_precent = .8
+	else : 
+		_data.accel_precent = .75
+
+	if (!air_accel_switch):
+		vel += accelspeed * wish_dir * _data.accel_precent
+	else :
+		vel.x = vel_x
+		vel += accelspeed * wish_dir * .5
 	
 func handel_friction(t : float, delta) -> void:
 	var vec : Vector3 = vel
@@ -279,7 +297,7 @@ func handel_crouch(delta) -> void:
 func speed_changer() -> void:
 	if (Input.is_action_pressed("dash") and !is_crouching):
 		currentspeed = _data.DASH_SPEED
-	elif (is_crouching):
+	elif (is_crouching or is_on_crouching):
 		currentspeed = _data.CROUCH_SPEED
 	else :
 		currentspeed = _data.WALK_SPEED
@@ -297,10 +315,10 @@ func DEBUG_FUNTION():
 	
 	current_speed_function()
 	#signal to hud
-	DEBUGING_.emit(var_to_str(global_position) + "\n" \
-	+ var_to_str(vel) + "\n" \
-	+ var_to_str(dir) + "\n" \
-	+ var_to_str(velocity) + "\n" \
+	DEBUGING_.emit("global_position: " +var_to_str(global_position) + "\n" \
+	+ "vel: " + var_to_str(vel) + "\n" \
+	+ "dir: " + var_to_str(dir) + "\n" \
+	+ "velocity: " + var_to_str(velocity) + "\n" \
 	+ "ground: " + var_to_str(is_on_floor()) + "\n" \
 	+ "wish jump: " + var_to_str(_wishJump) + "\n" \
 	+ "is_crouching: " + var_to_str(is_crouching) + "\n" \

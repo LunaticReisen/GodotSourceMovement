@@ -10,6 +10,12 @@ Clone it and unzip it on any where you like ,then use godot to import the projec
 
 ## Update Log
 
+### v1.2.2
+
+Can jump first then move left/right in air to acclerate right now
+
+While jumping, you can not acclerate by move left/right right now
+
 ### v1.2.1
 
 Change the project name

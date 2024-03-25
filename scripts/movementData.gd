@@ -3,8 +3,8 @@ extends Node
 class_name Movement_Data
 
 @export_subgroup("speed")
-@export var AIR_ADD_SPEED        :float = 4
-@export var WALK_SPEED           :float = 4
+@export var AIR_ADD_SPEED        :float = 5
+@export var WALK_SPEED           :float = 5
 @export var CROUCH_SPEED         :float = 1.5
 @export var DASH_SPEED           :float = 6
 @export var MAX_SPEED            :float = 20
@@ -12,14 +12,14 @@ class_name Movement_Data
 
 @export_subgroup("accelration")
 @export var RUN_ACCEL            :float = 8
-@export var RUN_DECEEL           :float = 6
-@export var STARFE_SPEED         :float = 2
+@export var RUN_DECEEL           :float = 4
+@export var AIR_MAX_SPEED        :float = 30
 @export var AIR_ACCEL            :float = 2
-@export var AIR_DECCEL           :float = 2
-@export var AIR_CONTROL          :float = 0.3
-@export var STAND_FRICTION       :float = 3.5
+@export var AIR_DECCEL           :float = 1
+@export var STAND_FRICTION       :float = 5
 @export var CROUCH_FRICTION      :float = 1
 @export var SURFACE_FRICTION     :float = 1
+@export var AIR_CAP              : float = 4
 
 @export_subgroup("crouch")
 #@export var CROUCH_MAX_SPEED:float = 3
@@ -40,6 +40,11 @@ var CONTORLLER_SENSITRIVITY = 700
 @export var _air_controlAdditionForward :float = 32
 @export var gravity = 32
 @export var gravity_precent : float = 1
+@export var accel_precent : float = .75
+@export var air_accel_precent : float = .9
+@export var move_precent : float = 1
 @export var friction_precent : float = 1
 @export var auto_bunny : bool = true
+@export var clamp_air_speed : bool = false
+
 

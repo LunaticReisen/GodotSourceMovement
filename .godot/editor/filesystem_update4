@@ -1,5 +1,5 @@
-res://player.tscn
+res://scene.tscn
 res://textures/new_standard_material_3d.tres
 res://test_lab.tscn
-res://scene.tscn
 res://meshs/cube.tscn
+res://player.tscn
