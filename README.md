@@ -11,6 +11,7 @@ Use Godot 4.2.1
 - [x] Air Strafe
 - [x] Crouching
 - [x] Mouse Scroll Jumpping
+- [x] Crouch Jumping
 
 ## HOW TO USE
 

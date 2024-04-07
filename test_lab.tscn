@@ -61,7 +61,7 @@ anchor_right = 0.171875
 anchor_bottom = 0.0229167
 offset_right = 40.0
 offset_bottom = 23.0
-text = "wadawdadwawd"
+text = "waht? you shouldn't see this text"
 label_settings = SubResource("LabelSettings_6b3d3")
 
 [node name="Keys" type="Control" parent="HUD"]
@@ -221,6 +221,31 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
+[node name="bunnyswitch" type="CheckButton" parent="HUD/PauseMenu/bg/bg2"]
+layout_mode = 0
+anchor_left = 0.021875
+anchor_top = 0.289583
+anchor_right = 0.4375
+anchor_bottom = 0.321875
+text = "autobunny"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="info" type="Label" parent="HUD/PauseMenu/bg"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.119531
+anchor_top = 0.614583
+anchor_right = 0.335156
+anchor_bottom = 0.726042
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "\"W\",\"A\",\"S\",\"D\" to move
+\"Space\"or\"Mouse scroll up\" to jump
+\"F3\" to hide the debug text
+\"Escape\" to open the pause menu"
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, -12.4591, 6.52153, 0)
 shadow_enabled = true
@@ -229,3 +254,4 @@ shadow_enabled = true
 [connection signal="body_entered" from="Level/Drop" to="Player" method="_on_area_3d_body_entered"]
 [connection signal="pressed" from="HUD/PauseMenu/bg/bg2/VBoxContainer/CountineButton" to="HUD" method="_on_countine_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/bg/bg2/VBoxContainer/QuitButton" to="HUD" method="_on_quit_button_pressed"]
+[connection signal="toggled" from="HUD/PauseMenu/bg/bg2/bunnyswitch" to="Player" method="_on_check_button_toggled"]

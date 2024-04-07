@@ -273,7 +273,7 @@ func DEBUG_FUNTION():
 		topspeed = 0
 		
 	#signal to hud
-	DEBUGING_.emit("F3 to hide" +  "\n" \
+	DEBUGING_.emit("F3 to hide , Escpace to open pause menu" +  "\n" \
 	+ "global_position: " +var_to_str(global_position) + "\n" \
 	+ "vel: " + var_to_str(vel) + "\n" \
 	+ "dir: " + var_to_str(dir) + "\n" \
@@ -298,3 +298,9 @@ func get_delta_time():
 #trigger the area3d will put you up
 func _on_area_3d_body_entered(body:Node3D) -> void:
 	position = DEBUG_origin_transform
+
+func _on_check_button_toggled(toggled_on : bool) -> void:
+	if toggled_on:
+		_data.auto_bunny = true
+	if !toggled_on:
+		_data.auto_bunny = false

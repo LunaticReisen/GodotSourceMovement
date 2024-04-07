@@ -9,6 +9,7 @@
 - [x] Air Strafe [(空中走位?](https://wiki.teamfortress.com/wiki/Strafing/zh-hans)反正就是旋转跳啥的身法)
 - [x] 蹲伏
 - [x] 滚轮跳
+- [x] 蹲跳
 
 ## 如何使用
 
