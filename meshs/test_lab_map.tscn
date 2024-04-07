@@ -1,12 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://olnhtseloali"]
+[gd_scene load_steps=10 format=3 uid="uid://olnhtseloali"]
 
 [ext_resource type="Material" uid="uid://bc0cqxcsbx8ck" path="res://textures/dev-1024-o.tres" id="1_4c4dp"]
-[ext_resource type="ArrayMesh" uid="uid://s445fyfo1c5b" path="res://meshs/cube.res" id="1_aa28x"]
 [ext_resource type="Material" uid="uid://dygevgn3am8sf" path="res://textures/new_standard_material_3d.tres" id="3_xixgl"]
 [ext_resource type="Material" uid="uid://b5rftpg3g78c3" path="res://textures/tri.tres" id="6_nmivl"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_trkvi"]
-data = PackedVector3Array(-0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 1, 0.5, 0.5, 1, -0.5, 0.5, 1, 0.5, -0.5, 1, 0.5, -0.5, 1, -0.5, 0.5, 1, -0.5, 0.5, 0, -0.5, -0.5, 1, -0.5, -0.5, 0, -0.5, 0.5, 0, -0.5, 0.5, 1, -0.5, -0.5, 1, -0.5, -0.5, 0, 0.5, 0.5, 1, 0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, -0.5, 1, 0.5, 0.5, 1, 0.5, 0.5, 0, 0.5, 0.5, 1, -0.5, 0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 1, 0.5, 0.5, 1, -0.5, -0.5, 0, -0.5, -0.5, 1, 0.5, -0.5, 0, 0.5, -0.5, 0, -0.5, -0.5, 1, -0.5, -0.5, 1, 0.5)
 
 [sub_resource type="Curve3D" id="Curve3D_chw76"]
 _data = {
@@ -178,85 +174,61 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 2.5)
 size = Vector3(3, 3, 3)
 
 [node name="Area Jumpping" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
 
-[node name="cube28" type="MeshInstance3D" parent="Area Jumpping"]
-transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 17, 0, -2)
-material_override = ExtResource("1_4c4dp")
-mesh = ExtResource("1_aa28x")
-skeleton = NodePath("")
+[node name="CSGBox3D" type="CSGBox3D" parent="Area Jumpping"]
+transform = Transform3D(1, 0, -2.4869e-14, 0, 1, 0, 2.4869e-14, 0, 1, 1, 1, -2)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = ExtResource("1_4c4dp")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Area Jumpping/cube28"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Area Jumpping"]
+transform = Transform3D(1, 0, -2.4869e-14, 0, 1, 0, 2.4869e-14, 0, 1, 1, 0.95, 0)
+use_collision = true
+size = Vector3(2, 1.9, 2)
+material = ExtResource("1_4c4dp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area Jumpping/cube28/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_trkvi")
+[node name="CSGBox3D3" type="CSGBox3D" parent="Area Jumpping"]
+transform = Transform3D(1, 0, -2.4869e-14, 0, 1, 0, 2.4869e-14, 0, 1, 1, 0.925, 2)
+use_collision = true
+size = Vector3(2, 1.85, 2)
+material = ExtResource("1_4c4dp")
 
-[node name="Label3D" type="Label3D" parent="Area Jumpping/cube28"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.233686, -0.505821)
+[node name="CSGBox3D4" type="CSGBox3D" parent="Area Jumpping"]
+transform = Transform3D(1, 0, -2.4869e-14, 0, 1, 0, 2.4869e-14, 0, 1, 1, 0.9, 4)
+use_collision = true
+size = Vector3(2, 1.8, 2)
+material = ExtResource("1_4c4dp")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Area Jumpping"]
+transform = Transform3D(1, 0, -2.4869e-14, 0, 1, 0, 2.4869e-14, 0, 1, 1, 0.875, 6)
+use_collision = true
+size = Vector3(2, 1.75, 2)
+material = ExtResource("1_4c4dp")
+
+[node name="Label3D" type="Label3D" parent="Area Jumpping"]
+transform = Transform3D(2.62268e-07, 0, -2, 0, 2, 0, 2, 0, 2.62268e-07, -0.0116425, 0.467372, -2)
 text = "2.00"
 
-[node name="cube29" type="MeshInstance3D" parent="Area Jumpping"]
-transform = Transform3D(-8.74228e-08, 0, 2, 0, 1.9, 0, -2, 0, -8.74228e-08, 17, 0, 0)
-material_override = ExtResource("1_4c4dp")
-mesh = ExtResource("1_aa28x")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Area Jumpping/cube29"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area Jumpping/cube29/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_trkvi")
-
-[node name="Label3D" type="Label3D" parent="Area Jumpping/cube29"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.257401, -0.515584)
+[node name="Label3D2" type="Label3D" parent="Area Jumpping"]
+transform = Transform3D(2.62268e-07, 0, -2, 0, 1.9, 0, 2, 0, 2.62268e-07, -0.031168, 0.489062, 4.50738e-08)
 outline_modulate = Color(0, 0, 0, 0.964706)
 text = "1.90
 "
 
-[node name="cube32" type="MeshInstance3D" parent="Area Jumpping"]
-transform = Transform3D(-8.74228e-08, 0, 2, 0, 1.85, 0, -2, 0, -8.74228e-08, 17, 0, 2)
-material_override = ExtResource("1_4c4dp")
-mesh = ExtResource("1_aa28x")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Area Jumpping/cube32"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area Jumpping/cube32/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_trkvi")
-
-[node name="Label3D" type="Label3D" parent="Area Jumpping/cube32"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.257401, -0.515584)
+[node name="Label3D3" type="Label3D" parent="Area Jumpping"]
+transform = Transform3D(2.62268e-07, 0, -2, 0, 1.85, 0, 2, 0, 2.62268e-07, -0.031168, 0.476192, 2)
 outline_modulate = Color(0, 0, 0, 0.964706)
 text = "1.85"
 
-[node name="cube30" type="MeshInstance3D" parent="Area Jumpping"]
-transform = Transform3D(-8.74228e-08, 0, 2, 0, 1.8, 0, -2, 0, -8.74228e-08, 17, 0, 4)
-material_override = ExtResource("1_4c4dp")
-mesh = ExtResource("1_aa28x")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Area Jumpping/cube30"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area Jumpping/cube30/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_trkvi")
-
-[node name="Label3D" type="Label3D" parent="Area Jumpping/cube30"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.257401, -0.515584)
+[node name="Label3D4" type="Label3D" parent="Area Jumpping"]
+transform = Transform3D(2.62268e-07, 0, -2, 0, 1.8, 0, 2, 0, 2.62268e-07, -0.031168, 0.463322, 4)
 outline_modulate = Color(0, 0, 0, 0.964706)
 text = "1.80
 "
 
-[node name="cube31" type="MeshInstance3D" parent="Area Jumpping"]
-transform = Transform3D(-8.74228e-08, 0, 2, 0, 1.75, 0, -2, 0, -8.74228e-08, 17, 0, 6)
-material_override = ExtResource("1_4c4dp")
-mesh = ExtResource("1_aa28x")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Area Jumpping/cube31"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area Jumpping/cube31/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_trkvi")
-
-[node name="Label3D" type="Label3D" parent="Area Jumpping/cube31"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.257401, -0.515584)
+[node name="Label3D5" type="Label3D" parent="Area Jumpping"]
+transform = Transform3D(2.62268e-07, 0, -2, 0, 1.75, 0, 2, 0, 2.62268e-07, -0.031168, 0.450452, 6)
 outline_modulate = Color(0, 0, 0, 0.964706)
 text = "1.75
 "
