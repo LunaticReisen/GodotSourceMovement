@@ -13,6 +13,8 @@ ambient_light_color = Color(0.486275, 0.486275, 0.486275, 1)
 [node name="Node3D" parent="." instance=ExtResource("1_7hno7")]
 
 [node name="Player" parent="." instance=ExtResource("1_i3lxp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.7362, -33.2964)
+floor_block_on_wall = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_65v6p")

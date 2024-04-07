@@ -35,6 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
 script = ExtResource("3_385kn")
 
 [node name="Camera" type="Camera3D" parent="Root/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 fov = 90.0
 
 [node name="Hand" type="Node3D" parent="Root/Head"]

@@ -2,6 +2,14 @@
 
 使用 Godot 4.2.1
 
+## 已实现的功能
+
+- [x] 兔子跳
+- [x] 滑翔
+- [x] Air Strafe [(空中走位?](https://wiki.teamfortress.com/wiki/Strafing/zh-hans)反正就是旋转跳啥的身法)
+- [x] 蹲伏
+- [x] 滚轮跳
+
 ## 如何使用
 
 clone然后解压到你想要的位置，然后在godot导入项目即可
@@ -9,6 +17,10 @@ clone然后解压到你想要的位置，然后在godot导入项目即可
 ## 更新日志：
 
 (老的我懒得重新写了)
+
+### v1.3.0
+
+更顺滑的移动，以及滑翔！现在能滑翔了
 
 ### v1.2.2
 
@@ -56,3 +68,5 @@ https://github.com/id-Software/Quake-III-Arena/blob/master/code/game/bg_pmove.c#
 https://github.com/dwlcj/Godot-Strafe-Jumping/blob/main/Scenes/Player.gd#L161
 
 https://github.com/AkimBowX2/Godot-4_FPS_controller/blob/main/scenes/player/player.gd
+
+https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/

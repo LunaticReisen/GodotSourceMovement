@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh8p6m1ee4b2b"]
+[gd_scene load_steps=14 format=3 uid="uid://bh8p6m1ee4b2b"]
 
 [ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="1_4ahgw"]
-[ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/cube.tscn" id="2_hjobj"]
+[ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/test_lab_map.tscn" id="2_3cr6i"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="3_lgupy"]
 [ext_resource type="Script" path="res://scripts/control_ui.gd" id="4_yyb83"]
 [ext_resource type="Texture2D" uid="uid://bntspsjru3brd" path="res://textures/input-prompts/keyboard_arrow_up.png" id="5_600c0"]
@@ -17,6 +17,9 @@ background_color = Color(0.956863, 0.94902, 0.960784, 1)
 ambient_light_color = Color(0.372549, 0.372549, 0.372549, 1)
 ssao_enabled = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_r2jyx"]
+size = Vector3(397.922, 19.1265, 259.838)
+
 [sub_resource type="LabelSettings" id="LabelSettings_6b3d3"]
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
@@ -28,16 +31,31 @@ shadow_color = Color(0, 0, 0, 0.396078)
 environment = SubResource("Environment_xea04")
 
 [node name="Player" parent="." instance=ExtResource("1_4ahgw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.55071, 0.103076, 0)
 
 [node name="Level" type="Node" parent="."]
 
-[node name="Node3D" parent="Level" instance=ExtResource("2_hjobj")]
+[node name="map" parent="Level" instance=ExtResource("2_3cr6i")]
 
-[node name="TEST_HUD" type="CanvasLayer" parent="."]
+[node name="Drop" type="Area3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.0604, -45.6647, -25.1389)
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Drop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.9868, -13.3714, -23.7643)
+shape = SubResource("BoxShape3D_r2jyx")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("3_lgupy")
 
-[node name="TEXT" type="Label" parent="TEST_HUD"]
+[node name="DEBUG_TEXT" type="Label" parent="HUD"]
+layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.171875
 anchor_bottom = 0.0229167
@@ -45,60 +63,169 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "wadawdadwawd"
 label_settings = SubResource("LabelSettings_6b3d3")
-metadata/_edit_use_anchors_ = true
 
-[node name="CONTROL" type="Control" parent="TEST_HUD"]
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+[node name="Keys" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("4_yyb83")
 metadata/_edit_use_anchors_ = true
 
-[node name="up" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-100, -100)
+[node name="ColorRect" type="ColorRect" parent="HUD/Keys"]
+layout_mode = 2
+anchor_left = 0.80625
+anchor_top = 0.741667
+anchor_right = 0.934375
+anchor_bottom = 0.9125
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.388235)
+metadata/_edit_use_anchors_ = true
+
+[node name="up" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1114, 744)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_600c0")
 
-[node name="down" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-100, 0)
+[node name="down" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1114, 844)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_h15bu")
 
-[node name="right" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-50, -50)
+[node name="right" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1164, 794)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_diya2")
 
-[node name="left" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-150, -50)
+[node name="left" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1064, 794)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_ciyb3")
 
-[node name="dash" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-50, -100)
+[node name="dash" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1164, 744)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_j74hb")
 
-[node name="crouch" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-50, 0)
+[node name="crouch" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1164, 844)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_j74hb")
 flip_v = true
 
-[node name="space" type="Sprite2D" parent="TEST_HUD/CONTROL"]
-position = Vector2(-100, -50)
+[node name="space" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1114, 794)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_rodya")
 
+[node name="PauseMenu" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" type="ColorRect" parent="HUD/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.337255)
+
+[node name="bg2" type="ColorRect" parent="HUD/PauseMenu/bg"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.35
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.337255)
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/bg/bg2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.333333
+anchor_right = 1.0
+anchor_bottom = 0.6
+grow_horizontal = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CountineButton" type="Button" parent="HUD/PauseMenu/bg/bg2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_lock_ = true
+
+[node name="CountineLabel" type="Label" parent="HUD/PauseMenu/bg/bg2/VBoxContainer/CountineButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.816532
+anchor_right = 1.0
+anchor_bottom = 1.81653
+grow_horizontal = 2
+grow_vertical = 2
+text = "Countine
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="SettingsButton" type="Button" parent="HUD/PauseMenu/bg/bg2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_lock_ = true
+
+[node name="SettingsLabel" type="Label" parent="HUD/PauseMenu/bg/bg2/VBoxContainer/SettingsButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.9375
+anchor_right = 1.0
+anchor_bottom = 1.9375
+offset_top = 7.5
+offset_bottom = -7.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="QuitButton" type="Button" parent="HUD/PauseMenu/bg/bg2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_lock_ = true
+
+[node name="QuitLabe" type="Label" parent="HUD/PauseMenu/bg/bg2/VBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.9375
+anchor_right = 1.0
+anchor_bottom = 1.9375
+offset_top = 7.5
+offset_bottom = -7.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, 0, 6.52153, 0)
+transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, -12.4591, 6.52153, 0)
 shadow_enabled = true
 
-[connection signal="DEBUGING_" from="Player" to="TEST_HUD" method="_on_player_debuging_"]
+[connection signal="DEBUGING_" from="Player" to="HUD" method="_on_player_debuging_"]
+[connection signal="body_entered" from="Level/Drop" to="Player" method="_on_area_3d_body_entered"]
+[connection signal="pressed" from="HUD/PauseMenu/bg/bg2/VBoxContainer/CountineButton" to="HUD" method="_on_countine_button_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/bg/bg2/VBoxContainer/QuitButton" to="HUD" method="_on_quit_button_pressed"]
