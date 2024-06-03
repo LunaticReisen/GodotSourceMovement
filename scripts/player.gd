@@ -47,13 +47,15 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	DEBUG_origin_transform = global_position
 	_data.on_floor = false
+	Global.player = self
 	
-# func _input(event):
-	#move to HUD.gd
+func _input(event):	
+	if(Input.is_action_just_pressed("test_reset")):
+		get_tree().reload_current_scene()
+
 
 func _physics_process(delta):
-
-	DEBUG_FUNTION()
+	debug_var()
 	speed_changer()
 	process_movement(delta)
 
@@ -64,7 +66,7 @@ func _physics_process(delta):
 
 	crouching = handel_crouch(delta)
 	handel_jump()
-
+	print(ceilingcast.is_colliding())
 	#top speed calculation
 	if (get_current_speed() > topspeed):
 		topspeed = get_current_speed()
@@ -121,7 +123,7 @@ func air_move(delta) -> void:
 	wish_speed *= add_speed
 
 	#left or right move to accelerate	
-	if (raw_input.y == 0.0 and abs(dir.x) > 0.0):
+	if (raw_input.y < 0.1 and abs(dir.x) > 0.0):
 		if (wish_speed > _data.AIR_MAX_SPEED):
 			wish_speed =_data.AIR_MAX_SPEED
 		if (crouching):
@@ -224,7 +226,7 @@ func move_and_slide_own() -> bool:
 	checkMotion.y  -= _data.gravity * (1/360.)
 		
 	var testcol := move_and_collide(checkMotion, true)
-	print(testcol)
+	# print(testcol)
 	if testcol:
 		var testNormal = testcol.get_normal()
 		if (testNormal.angle_to(up_direction) < _data.SLOPE_LIMIT):
@@ -236,6 +238,18 @@ func move_and_slide_own() -> bool:
 	for step in max_slides:
 		
 		var collision := move_and_collide(motion)
+
+		if move_and_collide(motion,true) :
+			var test : KinematicCollision3D = move_and_collide(motion,true)
+			if test.get_collider() is RigidBody3D :
+				# print(test.get_collider())
+				var _p : float = 1
+				print(test.get_collider().mass)
+				if test.get_collider().mass <1:
+					_p = test.get_collider().mass * 5
+				if test.get_collider().mass >1:
+					_p = clamp(test.get_collider().mass * .5 , 0.1 , 1)
+				test.get_collider().apply_central_impulse(-test.get_normal() * (_p * Global.player_data.push_power))
 		
 		if not collision:
 			# No collision, so move has finished
@@ -243,11 +257,11 @@ func move_and_slide_own() -> bool:
 
 		# Calculate velocity to slide along the surface
 		var normal = collision.get_normal()
-		print(velocity)
+		# print(velocity)
 		
 		motion = collision.get_remainder().slide(normal)
 		velocity = velocity.slide(normal)
-		print(velocity)
+		# print(velocity)
 		# Collision has occurred
 		collided = true
 	return collided
@@ -264,31 +278,13 @@ func get_current_speed():
 	pos = velocity
 	pos.y = 0
 	return pos.length()
-		
-func DEBUG_FUNTION():
-	#default button "R"
-	if(Input.is_action_just_pressed("test_reset")):
-		position = DEBUG_origin_transform
-		vel = Vector3.ZERO
-		topspeed = 0
-		
-	#signal to hud
-	DEBUGING_.emit("F3 to hide , Escpace to open pause menu" +  "\n" \
-	+ "global_position: " +var_to_str(global_position) + "\n" \
-	+ "vel: " + var_to_str(vel) + "\n" \
-	+ "dir: " + var_to_str(dir) + "\n" \
-	+ "velocity: " + var_to_str(velocity) + "\n" \
-	+ "raw_input: " + var_to_str(raw_input) + "\n" \
-	+ "ground: " + var_to_str(_data.on_floor) + "\n" \
-	+ "wish jump: " + var_to_str(_wishJump) + "\n" \
-	+ "is_crouching: " + var_to_str(is_crouching) + "\n" \
-	+ "collide: " + var_to_str(is_collide) + "\n" \
-	+ "last frame collide: " + var_to_str(is_last_frame_collide) + "\n" \
-	# + "FRICTION " + var_to_str(player_friction) + "\n" \
-	+ "wishspeed: " + var_to_str(_wishspeed) + "\n" \
-	+ "floor_collided: " + var_to_str(is_it_collide) + "\n" \
-	+ "topspeed: " + var_to_str(topspeed) + "\n" \
- 	+ "speed " + var_to_str(get_current_speed()) )	
+
+func debug_var():
+	Global.debug_panel.add_property("velocity", velocity ,1)
+	Global.debug_panel.add_property("raw_input", raw_input ,2)
+	Global.debug_panel.add_property("position", global_position ,4)
+	Global.debug_panel.add_property("topspeed", topspeed ,5)
+	Global.debug_panel.add_property("speed", get_current_speed() ,6)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():

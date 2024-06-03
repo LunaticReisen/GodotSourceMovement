@@ -1,15 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bh8p6m1ee4b2b"]
+[gd_scene load_steps=6 format=3 uid="uid://coxfhoysaumpo"]
 
 [ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="1_4ahgw"]
 [ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/test_lab_map.tscn" id="2_3cr6i"]
-[ext_resource type="Script" path="res://scripts/hud.gd" id="3_lgupy"]
-[ext_resource type="Script" path="res://scripts/control_ui.gd" id="4_yyb83"]
-[ext_resource type="Texture2D" uid="uid://bntspsjru3brd" path="res://textures/input-prompts/keyboard_arrow_up.png" id="5_600c0"]
-[ext_resource type="Texture2D" uid="uid://dv7sf7f75e7an" path="res://textures/input-prompts/keyboard_arrow_down.png" id="6_h15bu"]
-[ext_resource type="Texture2D" uid="uid://dlpuwjafs7ceh" path="res://textures/input-prompts/keyboard_arrow_right.png" id="7_diya2"]
-[ext_resource type="Texture2D" uid="uid://njy40gwqd2hj" path="res://textures/input-prompts/keyboard_arrow_left.png" id="8_ciyb3"]
-[ext_resource type="Texture2D" uid="uid://c6nxjqrtw1ggb" path="res://textures/input-prompts/keyboard_caret.png" id="8_j74hb"]
-[ext_resource type="Texture2D" uid="uid://6ln6fks67btd" path="res://textures/input-prompts/keyboard_minus.png" id="9_rodya"]
+[ext_resource type="PackedScene" uid="uid://cpofycvn67fgn" path="res://pause_menu.tscn" id="10_vdg25"]
 
 [sub_resource type="Environment" id="Environment_xea04"]
 background_mode = 1
@@ -19,11 +12,6 @@ ssao_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r2jyx"]
 size = Vector3(397.922, 19.1265, 259.838)
-
-[sub_resource type="LabelSettings" id="LabelSettings_6b3d3"]
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 0.396078)
 
 [node name="test_lab" type="Node3D"]
 
@@ -45,213 +33,10 @@ collision_mask = 7
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.9868, -13.3714, -23.7643)
 shape = SubResource("BoxShape3D_r2jyx")
 
-[node name="HUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_lgupy")
-
-[node name="DEBUG_TEXT" type="Label" parent="HUD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.171875
-anchor_bottom = 0.0229167
-offset_right = 40.0
-offset_bottom = 23.0
-text = "waht? you shouldn't see this text"
-label_settings = SubResource("LabelSettings_6b3d3")
-
-[node name="Keys" type="Control" parent="HUD"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("4_yyb83")
-metadata/_edit_use_anchors_ = true
-
-[node name="ColorRect" type="ColorRect" parent="HUD/Keys"]
-layout_mode = 2
-anchor_left = 0.80625
-anchor_top = 0.741667
-anchor_right = 0.934375
-anchor_bottom = 0.9125
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.388235)
-metadata/_edit_use_anchors_ = true
-
-[node name="up" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1114, 744)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_600c0")
-
-[node name="down" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1114, 844)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_h15bu")
-
-[node name="right" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1164, 794)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_diya2")
-
-[node name="left" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1064, 794)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_ciyb3")
-
-[node name="dash" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1164, 744)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_j74hb")
-
-[node name="crouch" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1164, 844)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_j74hb")
-flip_v = true
-
-[node name="space" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1114, 794)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_rodya")
-
-[node name="PauseMenu" type="Control" parent="HUD"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="bg" type="ColorRect" parent="HUD/PauseMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.337255)
-
-[node name="bg2" type="ColorRect" parent="HUD/PauseMenu/bg"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_right = 0.35
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.337255)
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/bg/bg2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.333333
-anchor_right = 1.0
-anchor_bottom = 0.6
-grow_horizontal = 2
-alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="CountineButton" type="Button" parent="HUD/PauseMenu/bg/bg2/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-metadata/_edit_lock_ = true
-
-[node name="CountineLabel" type="Label" parent="HUD/PauseMenu/bg/bg2/VBoxContainer/CountineButton"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.816532
-anchor_right = 1.0
-anchor_bottom = 1.81653
-grow_horizontal = 2
-grow_vertical = 2
-text = "Countine
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="SettingsButton" type="Button" parent="HUD/PauseMenu/bg/bg2/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-metadata/_edit_lock_ = true
-
-[node name="SettingsLabel" type="Label" parent="HUD/PauseMenu/bg/bg2/VBoxContainer/SettingsButton"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.9375
-anchor_right = 1.0
-anchor_bottom = 1.9375
-offset_top = 7.5
-offset_bottom = -7.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Settings"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="QuitButton" type="Button" parent="HUD/PauseMenu/bg/bg2/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-metadata/_edit_lock_ = true
-
-[node name="QuitLabe" type="Label" parent="HUD/PauseMenu/bg/bg2/VBoxContainer/QuitButton"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.9375
-anchor_right = 1.0
-anchor_bottom = 1.9375
-offset_top = 7.5
-offset_bottom = -7.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Quit"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="bunnyswitch" type="CheckButton" parent="HUD/PauseMenu/bg/bg2"]
-layout_mode = 0
-anchor_left = 0.021875
-anchor_top = 0.289583
-anchor_right = 0.4375
-anchor_bottom = 0.321875
-text = "autobunny"
-flat = true
-metadata/_edit_use_anchors_ = true
-
-[node name="info" type="Label" parent="HUD/PauseMenu/bg"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.119531
-anchor_top = 0.614583
-anchor_right = 0.335156
-anchor_bottom = 0.726042
-offset_bottom = 177.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "\"W\",\"A\",\"S\",\"D\" to move
-\"Space\"or\"Mouse scroll up\" to jump
-\"F3\" to hide the debug text
-\"Escape\" to open the pause menu"
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, -12.4591, 6.52153, 0)
 shadow_enabled = true
 
-[connection signal="DEBUGING_" from="Player" to="HUD" method="_on_player_debuging_"]
+[node name="PauseMenu" parent="." instance=ExtResource("10_vdg25")]
+
 [connection signal="body_entered" from="Level/Drop" to="Player" method="_on_area_3d_body_entered"]
-[connection signal="pressed" from="HUD/PauseMenu/bg/bg2/VBoxContainer/CountineButton" to="HUD" method="_on_countine_button_pressed"]
-[connection signal="pressed" from="HUD/PauseMenu/bg/bg2/VBoxContainer/QuitButton" to="HUD" method="_on_quit_button_pressed"]
-[connection signal="toggled" from="HUD/PauseMenu/bg/bg2/bunnyswitch" to="Player" method="_on_check_button_toggled"]

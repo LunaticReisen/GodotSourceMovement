@@ -1,9 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://rn24b4x6mmga"]
+[gd_scene load_steps=17 format=3 uid="uid://rn24b4x6mmga"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_cclu0"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_385kn"]
 [ext_resource type="Script" path="res://scripts/player_physic.gd" id="4_ek334"]
 [ext_resource type="Script" path="res://scripts/movementData.gd" id="5_t5om0"]
+[ext_resource type="Script" path="res://scripts/control_ui.gd" id="6_bl3c1"]
+[ext_resource type="Texture2D" uid="uid://bntspsjru3brd" path="res://textures/input-prompts/keyboard_arrow_up.png" id="7_5w6ga"]
+[ext_resource type="Texture2D" uid="uid://dv7sf7f75e7an" path="res://textures/input-prompts/keyboard_arrow_down.png" id="8_oy7qu"]
+[ext_resource type="Texture2D" uid="uid://dlpuwjafs7ceh" path="res://textures/input-prompts/keyboard_arrow_right.png" id="9_oksfo"]
+[ext_resource type="Texture2D" uid="uid://njy40gwqd2hj" path="res://textures/input-prompts/keyboard_arrow_left.png" id="10_pvhqh"]
+[ext_resource type="Texture2D" uid="uid://c6nxjqrtw1ggb" path="res://textures/input-prompts/keyboard_caret.png" id="11_rx8s6"]
+[ext_resource type="Texture2D" uid="uid://6ln6fks67btd" path="res://textures/input-prompts/keyboard_minus.png" id="12_drlw7"]
+[ext_resource type="Script" path="res://scripts/debug_panel.gd" id="13_odvkc"]
+[ext_resource type="Script" path="res://scripts/player_data.gd" id="13_qtn6t"]
+[ext_resource type="Script" path="res://scripts/grab.gd" id="14_3a036"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1j0je"]
 radius = 0.4
@@ -39,8 +49,107 @@ fov = 90.0
 
 [node name="Hand" type="Node3D" parent="Root/Head"]
 
+[node name="Interaction" type="RayCast3D" parent="Root/Head/Hand"]
+target_position = Vector3(0, 0, -3)
+collision_mask = 4
+
+[node name="Joint" type="Generic6DOFJoint3D" parent="Root/Head/Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+node_a = NodePath("../GrabStaticBody")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+
+[node name="GrabStaticBody" type="StaticBody3D" parent="Root/Head/Hand"]
+
+[node name="marker3d" type="Marker3D" parent="Root/Head/Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+gizmo_extents = 0.5
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Keys" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_bl3c1")
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Keys"]
+layout_mode = 2
+anchor_left = 0.80625
+anchor_top = 0.741667
+anchor_right = 0.934375
+anchor_bottom = 0.9125
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.388235)
+metadata/_edit_use_anchors_ = true
+
+[node name="up" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1114, 744)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_5w6ga")
+
+[node name="down" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1114, 844)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_oy7qu")
+
+[node name="right" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1164, 794)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_oksfo")
+
+[node name="left" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1064, 794)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_pvhqh")
+
+[node name="dash" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1164, 744)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_rx8s6")
+
+[node name="crouch" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1164, 844)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_rx8s6")
+flip_v = true
+
+[node name="space" type="Sprite2D" parent="HUD/Keys"]
+position = Vector2(1114, 794)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_drlw7")
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+layout_mode = 2
+offset_left = 7.0
+offset_top = 10.0
+offset_right = 37.0
+offset_bottom = 40.0
+script = ExtResource("13_odvkc")
+
+[node name="debug_VBoxContainer" type="VBoxContainer" parent="HUD/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="Player_Physic" type="Node" parent="."]
 script = ExtResource("4_ek334")
 
 [node name="Movement_Data" type="Node" parent="."]
 script = ExtResource("5_t5om0")
+
+[node name="Player_Data" type="Node" parent="."]
+script = ExtResource("13_qtn6t")
+
+[node name="Grab_Fuction" type="Node" parent="."]
+script = ExtResource("14_3a036")

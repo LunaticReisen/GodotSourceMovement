@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://73gqn2c4b1bg"]
 
-[ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/cube.tscn" id="1_7hno7"]
+[ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/test_lab_map.tscn" id="1_7hno7"]
 [ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="1_i3lxp"]
 
 [sub_resource type="Environment" id="Environment_65v6p"]

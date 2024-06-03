@@ -13,11 +13,24 @@ Use Godot 4.2.1
 - [x] Mouse Scroll Jumpping
 - [x] Crouch Jumping
 
+Additional Content
+
+- [x] Interact with objects
+
+
 ## HOW TO USE
 
 Clone it and unzip it on any where you like ,then use godot to import the project, that it! Have fun!
 
 ## Update Log
+
+### v1.4.0
+
+Remake the debug ui
+
+Now can pause the demo
+
+Now can interact with objects
 
 ### v1.3.0
 

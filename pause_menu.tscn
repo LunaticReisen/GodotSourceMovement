@@ -1,0 +1,143 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpofycvn67fgn"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_4swyj"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4swyj")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.337255)
+
+[node name="bg2" type="ColorRect" parent="bg"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.35
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.337255)
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bg/bg2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.333333
+anchor_right = 1.0
+anchor_bottom = 0.6
+grow_horizontal = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CountineButton" type="Button" parent="bg/bg2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_lock_ = true
+
+[node name="CountineLabel" type="Label" parent="bg/bg2/VBoxContainer/CountineButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.816532
+anchor_right = 1.0
+anchor_bottom = 1.81653
+grow_horizontal = 2
+grow_vertical = 2
+text = "Countine
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="SettingsButton" type="Button" parent="bg/bg2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_lock_ = true
+
+[node name="SettingsLabel" type="Label" parent="bg/bg2/VBoxContainer/SettingsButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.9375
+anchor_right = 1.0
+anchor_bottom = 1.9375
+offset_top = 7.5
+offset_bottom = -7.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit to Map Select Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="QuitButton" type="Button" parent="bg/bg2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_lock_ = true
+
+[node name="QuitLabe" type="Label" parent="bg/bg2/VBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.9375
+anchor_right = 1.0
+anchor_bottom = 1.9375
+offset_top = 7.5
+offset_bottom = -7.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit the DEMO"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="bunnyswitch" type="CheckButton" parent="bg/bg2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021875
+anchor_top = 0.289583
+anchor_right = 0.4375
+anchor_bottom = 0.321875
+text = "autobunny"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="info" type="Label" parent="bg"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.119531
+anchor_top = 0.614583
+anchor_right = 0.335156
+anchor_bottom = 0.726042
+offset_left = -20.9997
+offset_top = 2.00031
+offset_right = 112.0
+offset_bottom = 179.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "\"W\",\"A\",\"S\",\"D\" to move
+\"Space\"to jump
+\"CTRL+R\" to reload_current_scene
+\"F\" can pick up rigidbody object
+\"Mouse Left\" to throwing object
+\"Mouse Right\" or \"F\" to drop object
+\"Mouse Wheel\" can make the object farther or closer 
+\"Escape\" to open the pause menu"
+
+[connection signal="pressed" from="bg/bg2/VBoxContainer/CountineButton" to="." method="_on_countine_button_pressed"]
+[connection signal="pressed" from="bg/bg2/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="bg/bg2/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="toggled" from="bg/bg2/bunnyswitch" to="." method="_on_bunnyswitch_toggled"]
