@@ -13,7 +13,13 @@ Use Godot 4.2.1
 - [x] Mouse Scroll Jumpping
 - [x] Crouch Jumping
 
-Additional Content
+#### TO-DO
+
+- [ ] Stairs
+- [ ] Ladder
+- [ ] Swimming
+
+### Additional Content
 
 - [x] Interact with objects
 
