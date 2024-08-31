@@ -1,6 +1,4 @@
+res://test_lab.tscn
+res://datas/main_data.tres
+res://player.tscn
 res://meshs/test_lab_map.tscn
-res://scripts/player.gd
-res://README.md
-res://scripts/player_physic.gd
-res://scripts/movementData.gd
-res://scripts/player_data.gd

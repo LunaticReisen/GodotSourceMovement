@@ -1,10 +1,10 @@
 extends CharacterBody3D
 
 #region debug
+@export var _data :Resource
 @onready var collider :CollisionShape3D = $PlayerCollider		#collider
 @onready var collider_shape 									#collider shape
 @onready var ceilingcast :ShapeCast3D = $Root/CeilingCast		#raycast
-@onready var _data : Movement_Data = $Movement_Data				#movement data
 @onready var player_physic : Player_Physic = $Player_Physic		#player_physic
 @onready var head = $Root
 

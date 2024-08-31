@@ -2,7 +2,8 @@ extends Node
 
 class_name Player_Physic
 
-@onready var _data  = $"../Movement_Data"
+# await Global.player._data != null
+@onready var _data :Resource = Global.player._data
 @onready var camera = $"../Root/Head/Camera"
 
 var step_height: Vector3
@@ -54,7 +55,7 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 		accelspeed = addspeed
 	
 	#little "boost"
-	if (_data.player.velocity.length() > 15):
+	if (Global.player.velocity.length() > 15):
 		accel_precent = .45
 
 	vel += accelspeed * wish_dir * _data.accel_precent
@@ -88,7 +89,7 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 	if (speed > 0) : 
 		newspeed /= speed
 		
-	_data.player.player_friction = newspeed #debug
+	Global.player.player_friction = newspeed #debug
 	vel *= newspeed
 
 	return vel
