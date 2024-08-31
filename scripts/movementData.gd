@@ -43,4 +43,3 @@ var stand_height                        : float = 1.6 #player's collision height
 @export var friction_precent            : float = 1
 @export var auto_bunny                  :  bool = false
 var on_floor                            :  bool = false
-

@@ -5,6 +5,16 @@ class_name Player_Physic
 @onready var _data  = $"../Movement_Data"
 @onready var camera = $"../Root/Head/Camera"
 
+var step_height: Vector3
+var step_incremental_check_height: Vector3
+var stair_stepping_in_air
+
+
+class Step_Result:
+	var position: Vector3 = Vector3.ZERO
+	var normal: Vector3 = Vector3.ZERO
+	var is_step_up: bool = false
+
 func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta):     #air accel
 	# clamp speed
 	wish_speed = min(wish_speed,_data.AIR_CAP)
@@ -82,6 +92,16 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 	vel *= newspeed
 
 	return vel
+
+
+# step function
+func step_check(delta: float , is_jumping: bool , result: Step_Result) -> bool:
+	var is_step : bool = false
+	
+	return false
+	pass
+
+
 
 func get_movement_axis():
 	#Initialize
