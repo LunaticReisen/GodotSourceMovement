@@ -1,5 +1,8 @@
-extends Resource
+extends Node
 class_name Player_Datas
+
+func _ready():
+	Global.player_data = self
 
 @export_subgroup("speed")
 @export var WALK_SPEED                  : float = 6

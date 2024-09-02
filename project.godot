@@ -19,6 +19,7 @@ config/layer_3="interation"
 [autoload]
 
 Global="*res://scripts/global.gd"
+PlayerData="*res://scripts/player_data.gd"
 
 [display]
 

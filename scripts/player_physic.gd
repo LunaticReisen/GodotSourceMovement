@@ -2,14 +2,11 @@ extends Node
 
 class_name Player_Physic
 
-# await Global.player._data != null
-@onready var _data :Resource = Global.player._data
 @onready var camera = $"../Root/Head/Camera"
 
 var step_height: Vector3
 var step_incremental_check_height: Vector3
 var stair_stepping_in_air
-
 
 class Step_Result:
 	var position: Vector3 = Vector3.ZERO
@@ -18,7 +15,7 @@ class Step_Result:
 
 func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta):     #air accel
 	# clamp speed
-	wish_speed = min(wish_speed,_data.AIR_CAP)
+	wish_speed = min(wish_speed,Global.player_data.AIR_CAP)
 	var _currentspeed : float = vel.dot(wish_dir)
 	var addspeed : float = wish_speed - _currentspeed
 	
@@ -29,22 +26,22 @@ func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel 
 
 	accelspeed = min(accelspeed,addspeed)
 	for i in range(3):
-		vel += accelspeed * wish_dir * _data.air_accel_precent
+		vel += accelspeed * wish_dir * Global.player_data.air_accel_precent
 
 	return vel
 
 func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, is_crouching :bool, delta): #ground accel
 	var accelspeed : float
-	var accel_precent :float = _data.accel_precent
+	var accel_precent :float = Global.player_data.accel_precent
 
-	if (vel.length() >= _data.MAX_SPEED):
+	if (vel.length() >= Global.player_data.MAX_SPEED):
 		return vel
 
 	if (is_crouching):
-		if (_data.on_floor):
-			accelspeed = _data.CROUCH_ACCEL
+		if (Global.player_data.on_floor):
+			accelspeed = Global.player_data.CROUCH_ACCEL
 		else :
-			accelspeed = _data.CROUCH_AIR_ACCEL
+			accelspeed = Global.player_data.CROUCH_AIR_ACCEL
 
 	var _currentspeed : float = vel.dot(wish_dir)
 	var addspeed : float = wish_speed - _currentspeed
@@ -58,7 +55,7 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 	if (Global.player.velocity.length() > 15):
 		accel_precent = .45
 
-	vel += accelspeed * wish_dir * _data.accel_precent
+	vel += accelspeed * wish_dir * Global.player_data.accel_precent
 	
 	return vel
 
@@ -70,17 +67,17 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 	var _friction
 
 	if (is_crouching):
-		_friction = _data.CROUCH_FRICTION
+		_friction = Global.player_data.CROUCH_FRICTION
 	else :
-		_friction = _data.STAND_FRICTION
+		_friction = Global.player_data.STAND_FRICTION
 
-	if(_data.on_floor):
+	if(Global.player_data.on_floor):
 		var control :float 
-		if (speed < _data.RUN_DECEEL):
-			control = _data.RUN_DECEEL
+		if (speed < Global.player_data.RUN_DECEEL):
+			control = Global.player_data.RUN_DECEEL
 		else :
 			control = speed
-		drop = control * _friction * delta * t * _data.friction_precent
+		drop = control * _friction * delta * t * Global.player_data.friction_precent
 	
 	var newspeed : float = speed - drop
 	
@@ -100,7 +97,6 @@ func step_check(delta: float , is_jumping: bool , result: Step_Result) -> bool:
 	var is_step : bool = false
 	
 	return false
-	pass
 
 
 

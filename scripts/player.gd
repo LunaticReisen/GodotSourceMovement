@@ -1,7 +1,6 @@
 extends CharacterBody3D
 
 #region debug
-@export var _data :Resource
 @onready var collider :CollisionShape3D = $PlayerCollider		#collider
 @onready var collider_shape 									#collider shape
 @onready var ceilingcast :ShapeCast3D = $Root/CeilingCast		#raycast
@@ -44,10 +43,10 @@ var t2 : float
 signal DEBUGING_
 
 func _ready():
+	Global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	DEBUG_origin_transform = global_position
-	_data.on_floor = false
-	Global.player = self
+	Global.player_data.on_floor = false
 	
 func _input(event):	
 	if(Input.is_action_just_pressed("test_reset")):
@@ -74,7 +73,7 @@ func _physics_process(delta):
 func process_movement(delta) -> void:
 	raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")	#Initialize
 	dir = player_physic.get_movement_axis()
-	if (_data.on_floor):
+	if (Global.player_data.on_floor):
 		ground_move(delta)
 		checker_movement = "ground"
 	else :
@@ -83,7 +82,7 @@ func process_movement(delta) -> void:
 
 #See more in https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
 func ground_move(delta) -> void:
-	_data.on_floor = true
+	Global.player_data.on_floor = true
 	var accle : float
 	if (!_wishJump):
 		vel = player_physic.handel_friction(vel,1,crouching,delta)
@@ -95,14 +94,14 @@ func ground_move(delta) -> void:
 	var wish_speed : float = wish_dir.length()
 	wish_speed *= currentspeed
 	if (crouching):
-		accle = _data.CROUCH_ACCEL
+		accle = Global.player_data.CROUCH_ACCEL
 	else :
-		accle = _data.RUN_ACCEL 
+		accle = Global.player_data.RUN_ACCEL 
 
 	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, crouching, delta)
 
 	if (_wishJump):
-		vel.y = _data.JUMP_FORCE
+		vel.y = Global.player_data.JUMP_FORCE
 		_wishJump = false
 
 	_wishspeed = wish_speed
@@ -111,48 +110,48 @@ func ground_move(delta) -> void:
 func air_move(delta) -> void:
 	var accel : float
 	var add_speed :float 
-	var _wishvel : float= _data.AIR_ACCEL
+	var _wishvel : float= Global.player_data.AIR_ACCEL
 	var wish_dir : Vector3	 = Vector3(dir.x, 0, dir.z).normalized()
 	var wish_speed :float = wish_dir.length()
 	DEBUG_wishdir = wish_dir
 
 	if(is_crouching):
-		add_speed = _data.CROUCH_AIR_ADD_SPEED
+		add_speed = Global.player_data.CROUCH_AIR_ADD_SPEED
 	else :
-		add_speed = _data.AIR_ADD_SPEED
+		add_speed = Global.player_data.AIR_ADD_SPEED
 	wish_speed *= add_speed
 
 	#left or right move to accelerate	
 	if (raw_input.y < 0.1 and abs(dir.x) > 0.0):
-		if (wish_speed > _data.AIR_MAX_SPEED):
-			wish_speed =_data.AIR_MAX_SPEED
+		if (wish_speed > Global.player_data.AIR_MAX_SPEED):
+			wish_speed =Global.player_data.AIR_MAX_SPEED
 		if (crouching):
-			accel = _data.CROUCH_AIR_ACCEL
+			accel = Global.player_data.CROUCH_AIR_ACCEL
 		else :
-			accel = _data.AIR_ACCEL
+			accel = Global.player_data.AIR_ACCEL
 	
 	#clamp the max speed
-	if wish_speed != 0.0 and wish_speed > _data.AIR_MAX_SPEED:
-		wish_speed = _data.AIR_MAX_SPEED
+	if wish_speed != 0.0 and wish_speed > Global.player_data.AIR_MAX_SPEED:
+		wish_speed = Global.player_data.AIR_MAX_SPEED
 	
 	vel = player_physic.air_accelerate(vel,wish_dir, wish_speed, accel, delta)
 	
-	vel.y -= _data.gravity * delta * _data.gravity_precent
+	vel.y -= Global.player_data.gravity * delta * Global.player_data.gravity_precent
 
 	_wishspeed = wish_speed #debug
 
 
 func handel_jump() -> void:
-	if (Input.is_action_just_pressed("jump") && _data.on_floor):
+	if (Input.is_action_just_pressed("jump") && Global.player_data.on_floor):
 		_wishJump = true
 
 	# if auto bunny is on ,hold jump button will always jumpping ,unless released button
-	if (_data.auto_bunny and Input.is_action_pressed("jump")):
+	if (Global.player_data.auto_bunny and Input.is_action_pressed("jump")):
 		if (_wishJump == true):
 			return
 		else :
 			_wishJump = true
-	elif (_data.auto_bunny and Input.is_action_just_released("jump")):
+	elif (Global.player_data.auto_bunny and Input.is_action_just_released("jump")):
 		_wishJump = false
 
 func handel_crouch(delta) -> bool:
@@ -160,13 +159,13 @@ func handel_crouch(delta) -> bool:
 	collide = ceilingcast.is_colliding()	#Initialize
 	if (Input.is_action_pressed("crouch") or is_on_crouching):
 		t1 += delta * 15	#smooth the position
-		collider_shape.height = _data.CROUCH_HEIGHT		#control colldier height
+		collider_shape.height = Global.player_data.CROUCH_HEIGHT		#control colldier height
 		if (!collide):
-			head.position.y = lerp(head.position.y,_data.CAMERA_HEIGHT,t1)	#control camera height
+			head.position.y = lerp(head.position.y,Global.player_data.CAMERA_HEIGHT,t1)	#control camera height
 		is_on_crouching = true
-		if(head.position.y >= _data.CAMERA_HEIGHT):
-			if(head.position.y - _data.CAMERA_HEIGHT <= 0.01):
-				head.position.y = _data.CAMERA_HEIGHT
+		if(head.position.y >= Global.player_data.CAMERA_HEIGHT):
+			if(head.position.y - Global.player_data.CAMERA_HEIGHT <= 0.01):
+				head.position.y = Global.player_data.CAMERA_HEIGHT
 			t1 = 0	#reset
 			is_crouching = true
 			is_on_crouching = false
@@ -185,11 +184,11 @@ func handel_crouch(delta) -> bool:
 			if(Input.is_action_just_released("crouch") or is_on_stand) :
 				#position.y += 0.55		#if you want a goldscr style jumping, ctrl+/ this line
 				t2 += delta * 5		#smooth the position
-				head.position.y = lerp(head.position.y,_data.stand_height,t2)		#control camera height
-				collider_shape.height = _data.stand_height		#control colldier height
+				head.position.y = lerp(head.position.y,Global.player_data.stand_height,t2)		#control camera height
+				collider_shape.height = Global.player_data.stand_height		#control colldier height
 				is_on_stand = true
 				is_last_frame_collide = is_collide
-				if (head.position.y >= _data.stand_height) :
+				if (head.position.y >= Global.player_data.stand_height) :
 					t2 = 0		#reset
 					is_on_stand = false
 					is_crouching =false
@@ -199,8 +198,8 @@ func handel_crouch(delta) -> bool:
 			elif (is_last_frame_collide == true and !Input.is_action_pressed("crouch")) : #just copy and paste
 				#position.y += 0.55		#if you want a goldscr style jumping, ctrl+/ this line
 				t2 += delta * 5		#smooth the position
-				head.position.y = lerp(head.position.y,_data.stand_height,t2)		#control camera height
-				collider_shape.height = _data.stand_height		#control colldier height
+				head.position.y = lerp(head.position.y,Global.player_data.stand_height,t2)		#control camera height
+				collider_shape.height = Global.player_data.stand_height		#control colldier height
 				is_on_stand = true
 				is_last_frame_collide = is_collide
 
@@ -219,18 +218,18 @@ func move_and_slide_own() -> bool:
 	var collided := false
 
 	# Reset previously detected floor
-	_data.on_floor = false
+	Global.player_data.on_floor = false
 
 	#check floor
 	var checkMotion := velocity * (1/60.)
-	checkMotion.y  -= _data.gravity * (1/360.)
+	checkMotion.y  -= Global.player_data.gravity * (1/360.)
 		
 	var testcol := move_and_collide(checkMotion, true)
 	# print(testcol)
 	if testcol:
 		var testNormal = testcol.get_normal()
-		if (testNormal.angle_to(up_direction) < _data.SLOPE_LIMIT):
-			_data.on_floor = true
+		if (testNormal.angle_to(up_direction) < Global.player_data.SLOPE_LIMIT):
+			Global.player_data.on_floor = true
 
 	# Loop performing the move
 	var motion = velocity * get_delta_time()
@@ -268,11 +267,11 @@ func move_and_slide_own() -> bool:
 
 func speed_changer() -> void:
 	if (Input.is_action_pressed("dash") and !is_crouching):
-		currentspeed = _data.DASH_SPEED
+		currentspeed = Global.player_data.DASH_SPEED
 	elif (is_crouching or is_on_crouching):
-		currentspeed = _data.CROUCH_SPEED
+		currentspeed = Global.player_data.CROUCH_SPEED
 	else :
-		currentspeed = _data.WALK_SPEED
+		currentspeed = Global.player_data.WALK_SPEED
 
 func get_current_speed():
 	pos = velocity
@@ -297,6 +296,6 @@ func _on_area_3d_body_entered(body:Node3D) -> void:
 
 func _on_check_button_toggled(toggled_on : bool) -> void:
 	if toggled_on:
-		_data.auto_bunny = true
+		Global.player_data.auto_bunny = true
 	if !toggled_on:
-		_data.auto_bunny = false
+		Global.player_data.auto_bunny = false

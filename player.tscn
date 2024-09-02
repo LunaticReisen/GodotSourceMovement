@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://rn24b4x6mmga"]
+[gd_scene load_steps=16 format=3 uid="uid://rn24b4x6mmga"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_cclu0"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_385kn"]
 [ext_resource type="Script" path="res://scripts/player_physic.gd" id="4_ek334"]
-[ext_resource type="Script" path="res://scripts/movementData.gd" id="5_t5om0"]
 [ext_resource type="Script" path="res://scripts/control_ui.gd" id="6_bl3c1"]
 [ext_resource type="Texture2D" uid="uid://bntspsjru3brd" path="res://textures/input-prompts/keyboard_arrow_up.png" id="7_5w6ga"]
 [ext_resource type="Texture2D" uid="uid://dv7sf7f75e7an" path="res://textures/input-prompts/keyboard_arrow_down.png" id="8_oy7qu"]
@@ -11,9 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://njy40gwqd2hj" path="res://textures/input-prompts/keyboard_arrow_left.png" id="10_pvhqh"]
 [ext_resource type="Texture2D" uid="uid://c6nxjqrtw1ggb" path="res://textures/input-prompts/keyboard_caret.png" id="11_rx8s6"]
 [ext_resource type="Texture2D" uid="uid://6ln6fks67btd" path="res://textures/input-prompts/keyboard_minus.png" id="12_drlw7"]
-[ext_resource type="Resource" uid="uid://byjgq5lj4omak" path="res://datas/main_data.tres" id="12_gshab"]
 [ext_resource type="Script" path="res://scripts/debug_panel.gd" id="13_odvkc"]
-[ext_resource type="Script" path="res://scripts/player_data.gd" id="13_qtn6t"]
+[ext_resource type="Script" path="res://scripts/data/player_data.gd" id="13_uys3g"]
 [ext_resource type="Script" path="res://scripts/grab.gd" id="14_3a036"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1j0je"]
@@ -28,7 +26,6 @@ radius = 0.4
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_cclu0")
-_data = ExtResource("12_gshab")
 
 [node name="PlayerCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
@@ -147,11 +144,8 @@ layout_mode = 2
 [node name="Player_Physic" type="Node" parent="."]
 script = ExtResource("4_ek334")
 
-[node name="Movement_Data" type="Node" parent="."]
-script = ExtResource("5_t5om0")
-
-[node name="Player_Data" type="Node" parent="."]
-script = ExtResource("13_qtn6t")
-
 [node name="Grab_Fuction" type="Node" parent="."]
 script = ExtResource("14_3a036")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("13_uys3g")
