@@ -7,6 +7,7 @@ class_name Player_Physic
 var step_height: Vector3
 var step_incremental_check_height: Vector3
 var stair_stepping_in_air
+var data = Global.player_data
 
 class Step_Result:
 	var position: Vector3 = Vector3.ZERO
@@ -93,9 +94,65 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 
 
 # step function
-func step_check(delta: float , is_jumping: bool , result: Step_Result) -> bool:
+func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Result) -> bool:
 	var is_step : bool = false
-	
+	step_height = data.STEP_HEIGH_DEFAULT
+	step_incremental_check_height = data.STEP_HEIGH_DEFAULT / data.STEP_CHECK_COUNT
+
+	# if !data.on_floor and is_stepping_in_air:
+		# pass
+
+	if vel.y >= 0 :
+		for i in range(data.STEP_CHECK_COUNT):
+			var test_motion_result : PhysicsTestMotionResult3D  = PhysicsTestMotionResult3D.new()
+			var step_height :Vector3 = step_height - i * step_incremental_check_height
+			var transfrom3d : Transform3D = get_node("..").global_transform
+			var motion :Vector3 = step_height
+			var test_motion_params : PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new()
+
+			test_motion_params.from = transfrom3d
+			test_motion_params.motion = motion
+
+			var is_collided :bool = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
+			
+			if is_collided and test_motion_result.get_collision_normal().y < 0 :
+				continue
+
+			#--------
+
+			transfrom3d.origin += step_height
+			motion = vel * delta
+
+			test_motion_params.from = transfrom3d
+			test_motion_params.motion = motion
+
+			is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
+
+			if !is_collided:
+				transfrom3d.origin += motion
+				motion = -step_height
+				test_motion_params.from = transfrom3d
+				test_motion_params.motion = motion
+
+				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
+
+			if is_collided:
+				if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(data.STEP_MAX_SLOPE_DEGREED):
+					is_step = true
+
+					result.is_step_up = true
+
+					result.position = -test_motion_result.get_remainder()
+					result.normal = test_motion_result.get_collision_normal()
+
+					break
+
+
+
+
+
+
+
 	return false
 
 
