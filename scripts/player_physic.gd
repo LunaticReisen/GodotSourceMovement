@@ -136,24 +136,89 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 
 				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
 
-			if is_collided:
-				if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(data.STEP_MAX_SLOPE_DEGREED):
-					is_step = true
+				if is_collided:
+					if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(data.STEP_MAX_SLOPE_DEGREED):
+						is_step = true
 
-					result.is_step_up = true
+						result.is_step_up = true
+						result.position = -test_motion_result.get_remainder()
+						result.normal = test_motion_result.get_collision_normal()
 
-					result.position = -test_motion_result.get_remainder()
-					result.normal = test_motion_result.get_collision_normal()
+						break
+			else :
+				var wall_collision_normal : Vector3 = test_motion_result.get_collision_normal()
+				transfrom3d.origin += wall_collision_normal * data.WALL_MARGIN
+				motion = (vel * delta ).slide(wall_collision_normal)
+				test_motion_params.from = transfrom3d
+				test_motion_params.motion = motion
+									
+				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
 
-					break
+				if !is_collided:
+					transfrom3d.origin += motion
+					motion = -step_height
 
+					test_motion_params.from = transfrom3d
+					test_motion_params.motion = motion
 
+					is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
 
+					if is_collided:
+						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(data.STEP_MAX_SLOPE_DEGREED):
+							is_step = true
 
+							result.is_step_up = true
+							result.position = -test_motion_result.get_remainder()
+							result.normal = test_motion_result.get_collision_normal()
 
+							break
 
+	if not data.wish_jump and !is_step and data.on_floor:
+		result.is_step_up = false
 
-	return false
+		var test_motion_result : PhysicsTestMotionResult3D  = PhysicsTestMotionResult3D.new()
+		var transfrom3d : Transform3D = get_node("..").global_transform
+		var motion :Vector3 = vel * delta
+		var test_motion_params : PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new()
+		
+		test_motion_params.from = transfrom3d
+		test_motion_params.motion = motion
+
+		test_motion_params.recovery_as_collision = true
+
+		var is_collided :bool = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
+		if !is_collided:
+			transfrom3d.origin += motion
+			motion = -step_height
+			test_motion_params.from = transfrom3d
+			test_motion_params.motion = motio
+			is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result
+			if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(data.STEP_MAX_SLOPE_DEGREED):
+				is_step = true
+				result.position = -test_motion_result.get_travel()
+				result.normal = test_motion_result.get_collision_normal()
+		elif is_zero_approx(test_motion_result.get_collision_normal().y):
+			var wall_collision_normal :Vector3 = test_motion_result.get_collision_normal()
+			transfrom3d.origin += wall_collision_normal * data.WALL_MARGIN
+			motion = (vel * delta).slide(wall_collision_normal)
+			test_motion_params.from = transfrom3d
+			test_motion_params.motion = motion
+
+			is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
+			if !is_collided:
+				transfrom3d.origin += motion
+				motion = -step_height
+				test_motion_params.from = transfrom3d
+				test_motion_params.motion = motion
+
+				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
+				
+				if is_collided and test_motion_result.get_travel().y < -data.STEP_DOWN_MARGIN:
+						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(data.STEP_MAX_SLOPE_DEGREED):
+							is_step = true
+							result.position = -test_motion_result.get_travel()
+							result.normal = test_motion_result.get_collision_normal()
+	return is_step
 
 
 

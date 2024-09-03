@@ -37,7 +37,8 @@ var dir
 #crouch timer
 var t1 : float
 var t2 : float
-#endregion
+
+#endregion 
 
 #hud signal
 signal DEBUGING_
@@ -57,6 +58,7 @@ func _physics_process(delta):
 	debug_var()
 	speed_changer()
 	process_movement(delta)
+	Global.player_data.wish_jump = _wishJump
 
 	#Let the magic come true
 	velocity = vel

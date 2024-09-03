@@ -63,3 +63,4 @@ func _ready():
 @export var friction_precent            : float = 1
 @export var auto_bunny                  :  bool = false
 var on_floor                            :  bool = false
+var wish_jump                           :  bool = false

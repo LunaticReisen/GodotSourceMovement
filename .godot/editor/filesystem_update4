@@ -1,11 +1,3 @@
-res://scripts/data/player_data.gd
 res://scripts/player_physic.gd
 res://scripts/player.gd
-res://test_lab.tscn
-res://meshs/test_lab_map.tscn
-res://player.tscn
-res://scripts/player_data.gd
-res://scripts/grab.gd
-res://scripts/global.gd
-res://scripts/camera.gd
-res://datas/main_data.tres
+res://scripts/data/player_data.gd
