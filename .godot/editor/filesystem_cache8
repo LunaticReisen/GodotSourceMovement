@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1725354437
+::res://::1725527515
 icon.svg::CompressedTexture2D::8500553733123771618::1724307489::1724307686::1::::<><>::
 main_menu.tscn::PackedScene::4333204042356592623::1724307489::0::1::::<><>::res://scripts/main_menu.gd
 pause_menu.tscn::PackedScene::5854921892652018237::1724307489::0::1::::<><>::res://scripts/hud.gd
@@ -23,10 +23,10 @@ grab.gd::GDScript::-1::1725270709::0::1::::Grab_Fuction<>Node<>::
 hud.gd::GDScript::-1::1724307489::0::1::::<>Control<>::
 main_menu.gd::GDScript::-1::1724307489::0::1::::<>Control<>::
 movementData.gd::GDScript::-1::1725091489::0::1::::Movement_Data<>Node<>::
-player.gd::GDScript::-1::1725270647::0::1::::<>CharacterBody3D<>::
-player_physic.gd::GDScript::-1::1725274445::0::1::::Player_Physic<>Node<>::
+player.gd::GDScript::-1::1725356714::0::1::::<>CharacterBody3D<>::
+player_physic.gd::GDScript::-1::1725360813::0::1::::Player_Physic<>Node<>::
 ::res://scripts/data/::1725098572
-player_data.gd::GDScript::-1::1725270731::0::1::::Player_Datas<>Node<>::
+player_data.gd::GDScript::-1::1725356659::0::1::::Player_Datas<>Node<>::
 ::res://textures/::1724307489
 dev-1024-o.tres::StandardMaterial3D::2578559033455449818::1724307489::0::1::::<><>::uid://cbw5fke1yhmsy::::res://textures/dev_textures/texture_01.png
 dev-1024x2-o.tres::StandardMaterial3D::3132773037061973719::1724307489::0::1::::<><>::uid://cbw5fke1yhmsy::::res://textures/dev_textures/texture_01.png

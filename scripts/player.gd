@@ -20,6 +20,10 @@ var DEBUG_wishdir :Vector3
 
 var _wishJump : bool = false 
 
+var is_step : bool = false
+
+var head_offset : Vector3 = Vector3.ZERO
+
 #crouch var
 var is_crouching : bool = false 
 var is_on_crouching : bool = false 
@@ -59,6 +63,27 @@ func _physics_process(delta):
 	speed_changer()
 	process_movement(delta)
 	Global.player_data.wish_jump = _wishJump
+
+	var step_result : Step_Result = Step_Result.new()
+
+
+	is_step = player_physic.step_check(delta , _wishJump , vel , step_result)
+
+	print(is_step)
+
+	if is_step:
+		var can_stepping :bool = true
+		if step_result.is_step_up and !Global.player_data.on_floor and !can_stepping:
+			can_stepping = false
+		
+		if can_stepping:
+			global_transform.origin += step_result.position
+			head_offset = step_result.position
+	else :
+		head_offset = head_offset.lerp(Vector3.ZERO , delta * currentspeed * Global.player_data.STAIRS_FEELING_COEFFICIENT)
+
+		if abs(head_offset.y) <= 0.01:
+			pass
 
 	#Let the magic come true
 	velocity = vel
@@ -272,6 +297,9 @@ func speed_changer() -> void:
 		currentspeed = Global.player_data.DASH_SPEED
 	elif (is_crouching or is_on_crouching):
 		currentspeed = Global.player_data.CROUCH_SPEED
+	elif is_step:
+		# currentspeed = Global.player_data.STEP_SPEED
+		currentspeed = currentspeed * .75
 	else :
 		currentspeed = Global.player_data.WALK_SPEED
 

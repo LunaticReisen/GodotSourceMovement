@@ -438,3 +438,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(50, 1, 50)
 material = ExtResource("3_xixgl")
+
+[node name="Area Step" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Area Step"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0182767, 0.0818041, -0.362793)
+use_collision = true
+size = Vector3(1, 0.05, 0.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Area Step"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0182767, 0.177447, -0.653374)
+use_collision = true
+size = Vector3(1, 0.05, 0.2)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Area Step"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0182767, 0.264486, -0.912019)
+use_collision = true
+size = Vector3(1, 0.05, 0.2)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Area Step"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35027, 0.0818041, -0.362793)
+use_collision = true
+size = Vector3(1, 0.145, 0.2)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Area Step"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35027, 0.24039, -0.653374)
+use_collision = true
+size = Vector3(1, 0.145, 0.2)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Area Step"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35027, 0.419224, -0.912019)
+use_collision = true
+size = Vector3(1, 0.145, 0.2)
