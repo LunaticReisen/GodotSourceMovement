@@ -168,7 +168,7 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 
 							break
 
-	if not Global.player_data.wish_jump and !is_step and Global.player_data.on_floor:
+	if !Global.player_data.wish_jump and !is_step and Global.player_data.on_floor == true:
 		result.is_step_up = false
 
 		var test_motion_result : PhysicsTestMotionResult3D  = PhysicsTestMotionResult3D.new()

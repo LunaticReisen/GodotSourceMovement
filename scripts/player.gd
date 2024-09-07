@@ -62,14 +62,14 @@ func _physics_process(delta):
 	debug_var()
 	speed_changer()
 	process_movement(delta)
+
 	Global.player_data.wish_jump = _wishJump
 
 	var step_result : Step_Result = Step_Result.new()
 
-
 	is_step = player_physic.step_check(delta , _wishJump , vel , step_result)
-
-	print(is_step)
+	# is_step = false
+	Global.debug_panel.add_property("step_check", is_step , 7)
 
 	if is_step:
 		var can_stepping :bool = true

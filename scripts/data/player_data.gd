@@ -43,7 +43,7 @@ func _ready():
 @export var grab_power                  : float = 8.0
 @export var rotation_power              : float = 0.05
 @export var throw_power                 : float = 3
-@export var distance_power              : float = 0.05
+@export var distance_power              : float = 0.05 
 @export var push_power	                : float = 1
 
 @export_subgroup("Step")
@@ -51,7 +51,7 @@ func _ready():
 @export var STEP_DOWN_MARGIN : float = 0.001
 @export var STEP_HEIGHT_DEFAULT : Vector3 = Vector3(0 , 0.6 , 0)
 @export var STEP_HEIGHT_IN_AIR_DEFAULT : Vector3 = Vector3(0 , 2 , 0)
-@export var STEP_MAX_SLOPE_DEGREED : float = 40.0
+@export var STEP_MAX_SLOPE_DEGREED : float = 45.0
 @export var STEP_CHECK_COUNT : int = 2
 @export var WALL_MARGIN : float = 0.001
 @export var STAIRS_FEELING_COEFFICIENT : float = 2.5
