@@ -77,13 +77,13 @@ func _physics_process(delta):
 			can_stepping = false
 		
 		if can_stepping:
-			global_transform.origin += step_result.position
+			# We can let the magic come true , right?
+			position += step_result.position
 			head_offset = step_result.position
 	else :
 		head_offset = head_offset.lerp(Vector3.ZERO , delta * currentspeed * Global.player_data.STAIRS_FEELING_COEFFICIENT)
-
-		if abs(head_offset.y) <= 0.01:
-			pass
+		# if abs(head_offset.y) <= 0.01:
+		# 	pass
 
 	#Let the magic come true
 	velocity = vel
@@ -92,7 +92,7 @@ func _physics_process(delta):
 
 	crouching = handel_crouch(delta)
 	handel_jump()
-	print(ceilingcast.is_colliding())
+	# print(ceilingcast.is_colliding())
 	#top speed calculation
 	if (get_current_speed() > topspeed):
 		topspeed = get_current_speed()
@@ -314,6 +314,7 @@ func debug_var():
 	Global.debug_panel.add_property("position", global_position ,4)
 	Global.debug_panel.add_property("topspeed", topspeed ,5)
 	Global.debug_panel.add_property("speed", get_current_speed() ,6)
+	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,8)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():

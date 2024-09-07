@@ -20,7 +20,7 @@ environment = SubResource("Environment_xea04")
 
 [node name="Player" parent="." instance=ExtResource("1_4ahgw")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.55071, 0.103076, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.551, 1.0369, 0)
 
 [node name="Level" type="Node" parent="."]
 
