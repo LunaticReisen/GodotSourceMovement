@@ -26,6 +26,10 @@ PlayerData="*res://scripts/player_data.gd"
 window/size/viewport_width=640
 window/size/viewport_height=480
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
+
 [input]
 
 move_left={

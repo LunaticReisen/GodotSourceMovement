@@ -1,10 +1,10 @@
 [gd_scene load_steps=17 format=3 uid="uid://qg1ttebv16qf"]
 
-[ext_resource type="Material" uid="uid://bkvskxh742nnb" path="res://textures/dev-1024x2-o.tres" id="1_8kdaq"]
-[ext_resource type="Material" uid="uid://bc0cqxcsbx8ck" path="res://textures/dev-1024-o.tres" id="2_fguum"]
-[ext_resource type="Material" uid="uid://dygevgn3am8sf" path="res://textures/new_standard_material_3d.tres" id="3_twb6w"]
-[ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="4_ypa5a"]
-[ext_resource type="PackedScene" uid="uid://cpofycvn67fgn" path="res://pause_menu.tscn" id="5_g25hg"]
+[ext_resource type="Material" uid="uid://bkvskxh742nnb" path="res://textures/dev-1024x2-o.tres" id="1_bqsoe"]
+[ext_resource type="Material" uid="uid://bc0cqxcsbx8ck" path="res://textures/dev-1024-o.tres" id="2_2h2os"]
+[ext_resource type="Material" uid="uid://dygevgn3am8sf" path="res://textures/new_standard_material_3d.tres" id="3_mbjsf"]
+[ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="4_c4vik"]
+[ext_resource type="PackedScene" uid="uid://cpofycvn67fgn" path="res://pause_menu.tscn" id="5_m1ndn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_stlgw"]
 size = Vector2(50, 50)
@@ -52,19 +52,19 @@ collision_mask = 15
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 size = Vector3(50, 6, 50)
-material = ExtResource("1_8kdaq")
+material = ExtResource("1_bqsoe")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15146, 0)
 operation = 2
 size = Vector3(49, 8.70377, 49)
-material = ExtResource("2_fguum")
+material = ExtResource("2_2h2os")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(0.384, 0, 0, 0, 1, 0, 0, 0, 0.337, 0, 0, 0)
 use_collision = true
 mesh = SubResource("PlaneMesh_stlgw")
-material = ExtResource("3_twb6w")
+material = ExtResource("3_mbjsf")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i0cdm")
@@ -207,6 +207,6 @@ shape = SubResource("SphereShape3D_ue6h5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 text = "1kg"
 
-[node name="Player" parent="." instance=ExtResource("4_ypa5a")]
+[node name="Player" parent="." instance=ExtResource("4_c4vik")]
 
-[node name="PauseMenu" parent="Player" instance=ExtResource("5_g25hg")]
+[node name="PauseMenu" parent="Player" instance=ExtResource("5_m1ndn")]
