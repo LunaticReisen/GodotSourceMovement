@@ -25,6 +25,7 @@ radius = 0.4
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 5
+wall_min_slide_angle = 0.0872665
 script = ExtResource("1_cclu0")
 
 [node name="PlayerCollider" type="CollisionShape3D" parent="."]

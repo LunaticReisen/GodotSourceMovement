@@ -63,6 +63,7 @@ func _physics_process(delta):
 	speed_changer()
 	process_movement(delta)
 
+	print(vel)
 	Global.player_data.wish_jump = _wishJump
 
 	var step_result : Step_Result = Step_Result.new()
@@ -138,7 +139,7 @@ func air_move(delta) -> void:
 	var accel : float
 	var add_speed :float 
 	var _wishvel : float= Global.player_data.AIR_ACCEL
-	var wish_dir : Vector3	 = Vector3(dir.x, 0, dir.z).normalized()
+	var wish_dir : Vector3	 = Vector3(dir.x, 0, dir.z).normalized() * Global.player_data.air_move_precent
 	var wish_speed :float = wish_dir.length()
 	DEBUG_wishdir = wish_dir
 
@@ -149,7 +150,7 @@ func air_move(delta) -> void:
 	wish_speed *= add_speed
 
 	#left or right move to accelerate	
-	if (raw_input.y < 0.1 and abs(dir.x) > 0.0):
+	if (raw_input.y == 0 and raw_input.x != 0):
 		if (wish_speed > Global.player_data.AIR_MAX_SPEED):
 			wish_speed =Global.player_data.AIR_MAX_SPEED
 		if (crouching):
@@ -297,9 +298,9 @@ func speed_changer() -> void:
 		currentspeed = Global.player_data.DASH_SPEED
 	elif (is_crouching or is_on_crouching):
 		currentspeed = Global.player_data.CROUCH_SPEED
-	elif is_step:
-		# currentspeed = Global.player_data.STEP_SPEED
-		currentspeed = currentspeed * .75
+	# elif is_step:
+	# 	# currentspeed = Global.player_data.STEP_SPEED
+	# 	currentspeed = currentspeed * .75
 	else :
 		currentspeed = Global.player_data.WALK_SPEED
 
