@@ -9,7 +9,7 @@ func _ready():
 @export var CROUCH_SPEED                : float = 2
 @export var DASH_SPEED                  : float = 8
 @export var MAX_SPEED                   : float = 40
-@export var JUMP_FORCE                  : float = 8
+@export var JUMP_FORCE                  : float = 7
 
 @export_subgroup("accelration")
 @export var RUN_ACCEL                   : float = 7
@@ -32,7 +32,7 @@ func _ready():
 @export var stand_height                : float = 1.6 #player's collision height
 
 @export_subgroup("slope")
-@export var SLOPE_LIMIT                 : float = 0.785
+@export var SLOPE_LIMIT                 : float = 65
 
 @export_subgroup("sensitrivity")
 @export_range(0.1,10.00,0.01)  var MOUSE_SENSITRIVITY :float = 1
@@ -47,13 +47,13 @@ func _ready():
 @export var push_power	                : float = 1
 
 @export_subgroup("Step")
-@export var STEP_SPEED : float = 4
-@export var STEP_DOWN_MARGIN : float = 0.001
+# @export var STEP_SPEED : float = 4
+@export var STEP_DOWN_MARGIN : float = .09
 @export var STEP_HEIGHT_DEFAULT : Vector3 = Vector3(0 , 0.6 , 0)
-@export var STEP_HEIGHT_IN_AIR_DEFAULT : Vector3 = Vector3(0 , 2 , 0)
-@export var STEP_MAX_SLOPE_DEGREED : float = 45.0
+@export var STEP_HEIGHT_IN_AIR_DEFAULT : Vector3 = Vector3(0 , 0.6 , 0)
+@export var STEP_MAX_SLOPE_DEGREED : float = 90
 @export var STEP_CHECK_COUNT : int = 2
-@export var WALL_MARGIN : float = 0.001
+@export var WALL_MARGIN : float = 0.01
 @export var STAIRS_FEELING_COEFFICIENT : float = 2.5
 
 @export_subgroup("Debug")
@@ -67,3 +67,4 @@ func _ready():
 @export var can_step                    :  bool = true
 var on_floor                            :  bool = false
 var wish_jump                           :  bool = false
+var step_switch                         :  bool = true

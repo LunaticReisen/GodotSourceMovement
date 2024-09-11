@@ -63,14 +63,14 @@ func _physics_process(delta):
 	speed_changer()
 	process_movement(delta)
 
-	print(vel)
+	# print(vel)
 	Global.player_data.wish_jump = _wishJump
 
 	var step_result : Step_Result = Step_Result.new()
-
-	is_step = player_physic.step_check(delta , _wishJump , vel , step_result)
-	# is_step = false
-	Global.debug_panel.add_property("step_check", is_step , 7)
+	if Global.player_data.step_switch:
+		is_step = player_physic.step_check(delta , _wishJump , vel , step_result)
+		# is_step = false
+		Global.debug_panel.add_property("step_check", is_step , 7)
 
 	if is_step:
 		var can_stepping :bool = true
@@ -79,6 +79,7 @@ func _physics_process(delta):
 		
 		if can_stepping:
 			# We can let the magic come true , right?
+			# global_transform.origin += step_result.position
 			position += step_result.position
 			head_offset = step_result.position
 	else :
@@ -89,6 +90,7 @@ func _physics_process(delta):
 	#Let the magic come true
 	velocity = vel
 	is_it_collide =move_and_slide_own()
+	# move_and_slide()
 	vel = velocity
 
 	crouching = handel_crouch(delta)
@@ -256,7 +258,7 @@ func move_and_slide_own() -> bool:
 	# print(testcol)
 	if testcol:
 		var testNormal = testcol.get_normal()
-		if (testNormal.angle_to(up_direction) < Global.player_data.SLOPE_LIMIT):
+		if (testNormal.angle_to(up_direction) < deg_to_rad(Global.player_data.SLOPE_LIMIT)):
 			Global.player_data.on_floor = true
 
 	# Loop performing the move
@@ -271,7 +273,7 @@ func move_and_slide_own() -> bool:
 			if test.get_collider() is RigidBody3D :
 				# print(test.get_collider())
 				var _p : float = 1
-				print(test.get_collider().mass)
+				# print(test.get_collider().mass)
 				if test.get_collider().mass <1:
 					_p = test.get_collider().mass * 5
 				if test.get_collider().mass >1:

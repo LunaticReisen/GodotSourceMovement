@@ -1,3 +1,4 @@
+res://scripts/data/player_data.gd
 res://maps/test_lab.tscn
 res://addons/func_godot/fgd/func_godot_fgd.tres
 res://meshs/test_lab_map.tscn
@@ -7,15 +8,11 @@ res://scene.tscn
 res://main_menu.tscn
 res://pause_menu.tscn
 res://maps/test_stairs.tscn
+res://scripts/player.gd
+res://scripts/ulti/step_result.gd
+res://scripts/player_physic.gd
 res://scripts/main_menu.gd
 res://scripts/debug_panel.gd
-res://scripts/player.gd
-res://scripts/player_physic.gd
-res://scripts/data/player_data.gd
-res://scripts/global.gd
-res://scripts/grab.gd
-res://scripts/ulti/step_result.gd
-res://scripts/control_ui.gd
 res://scripts/hud.gd
-res://scripts/movementData.gd
-res://scripts/camera.gd
+res://addons/func_godot/func_godot_default_map_settings.tres
+res://scripts/global.gd

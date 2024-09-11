@@ -115,6 +115,17 @@ text = "autobunny"
 flat = true
 metadata/_edit_use_anchors_ = true
 
+[node name="stepswitch" type="CheckButton" parent="bg/bg2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021875
+anchor_top = 0.248611
+anchor_right = 0.4375
+anchor_bottom = 0.291667
+text = "stepping"
+flat = true
+metadata/_edit_use_anchors_ = true
+
 [node name="info" type="Label" parent="bg"]
 layout_mode = 1
 anchors_preset = -1
@@ -141,3 +152,4 @@ text = "\"W\",\"A\",\"S\",\"D\" to move
 [connection signal="pressed" from="bg/bg2/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="bg/bg2/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="toggled" from="bg/bg2/bunnyswitch" to="." method="_on_bunnyswitch_toggled"]
+[connection signal="toggled" from="bg/bg2/stepswitch" to="." method="_on_stepswitch_toggled"]

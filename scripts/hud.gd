@@ -3,6 +3,8 @@ extends Control
 func _ready():
 	hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	$bg/bg2/stepswitch.button_pressed = Global.player_data.step_switch
+	$bg/bg2/bunnyswitch.button_pressed = Global.player_data.auto_bunny
 
 func _input(event):
 	#"ESC" can let the mouse free
@@ -30,4 +32,6 @@ func _on_settings_button_pressed() -> void:
 
 func _on_bunnyswitch_toggled(toggled_on:bool) -> void:
 	Global.player_data.auto_bunny = toggled_on
-	pass # Replace with function body.
+
+func _on_stepswitch_toggled(toggled_on:bool) -> void:
+	Global.player_data.step_switch = toggled_on
