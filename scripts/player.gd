@@ -258,8 +258,15 @@ func move_and_slide_own() -> bool:
 	# print(testcol)
 	if testcol:
 		var testNormal = testcol.get_normal()
-		if (testNormal.angle_to(up_direction) < deg_to_rad(Global.player_data.SLOPE_LIMIT)):
-			Global.player_data.on_floor = true
+		print(testNormal.angle_to(up_direction))
+		if (testNormal.angle_to(up_direction) < 1.2):
+			print(testNormal.angle_to(up_direction) > .7)
+			if testNormal.angle_to(up_direction) > .8:
+				print("yes")
+				Global.player_data.on_floor = false
+			elif testNormal.angle_to(up_direction) < deg_to_rad(Global.player_data.SLOPE_LIMIT):
+				# print("no")
+				Global.player_data.on_floor = true
 
 	# Loop performing the move
 	var motion = velocity * get_delta_time()

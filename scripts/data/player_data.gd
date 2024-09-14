@@ -32,7 +32,7 @@ func _ready():
 @export var stand_height                : float = 1.6 #player's collision height
 
 @export_subgroup("slope")
-@export var SLOPE_LIMIT                 : float = 65
+@export var SLOPE_LIMIT                 : float = 45
 
 @export_subgroup("sensitrivity")
 @export_range(0.1,10.00,0.01)  var MOUSE_SENSITRIVITY :float = 1
