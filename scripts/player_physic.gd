@@ -106,7 +106,7 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 			var test_motion_params : PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new()
 
 			test_motion_params.from = transfrom3d
-			test_motion_params.motion = motion
+			test_motion_params.motion = motion	
 
 			var is_collided :bool = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
 			
@@ -122,7 +122,7 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 			test_motion_params.motion = motion
 
 			is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-
+			print("collied:" , is_collided , i)
 			if !is_collided:
 				transfrom3d.origin += motion
 				motion = -step_height
@@ -130,15 +130,16 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 				test_motion_params.motion = motion
 
 				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-
+				# print("collied:" , is_collided)
 				if is_collided:
-					if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
+					# print("normal:" , test_motion_result.get_collision_normal().angle_to(Vector3.UP))
+					# print("add_positon", -test_motion_result.get_remainder())
+					if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
 						is_step = true
 
 						result.is_step_up = true
 						result.position = -test_motion_result.get_remainder()
 						result.normal = test_motion_result.get_collision_normal()
-
 						break
 			else :
 				var wall_collision_normal : Vector3 = test_motion_result.get_collision_normal()
@@ -159,13 +160,11 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 					is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
 
 					if is_collided:
-						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
+						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
 							is_step = true
-
 							result.is_step_up = true
 							result.position = -test_motion_result.get_remainder()
 							result.normal = test_motion_result.get_collision_normal()
-
 							break
 
 	if !Global.player_data.wish_jump and !is_step and Global.player_data.on_floor:
@@ -174,8 +173,6 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 		var test_motion_result : PhysicsTestMotionResult3D  = PhysicsTestMotionResult3D.new()
 		var transfrom3d : Transform3D = get_node("..").global_transform
 		var motion :Vector3 = vel * delta
-		# if motion == Vector3.ZERO:
-		# 	return is_step
 		var test_motion_params : PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new()
 		# print(motion)
 		# print(transfrom3d)
@@ -186,6 +183,7 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 		test_motion_params.recovery_as_collision = true
 
 		var is_collided :bool = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
+		# print("collied:" , is_collided)
 		# print(test_motion_result.get_collider())
 		if !is_collided:
 			transfrom3d.origin += motion
@@ -198,10 +196,10 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 			# print("collied:" , is_collided)
 			# print("collided collider:" , test_motion_result.get_collider())
 			# print("normal:" , test_motion_result.get_collision_normal().angle_to(Vector3.UP))
-			# print("get_travel().y" , test_motion_result.get_travel().y)
+			print("get_travel().y" , test_motion_result.get_travel().y)
 
 			if is_collided and test_motion_result.get_travel().y < -Global.player_data.STEP_DOWN_MARGIN:
-				if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
+				if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
 					is_step = true
 					result.position = -test_motion_result.get_travel()
 					result.normal = test_motion_result.get_collision_normal()
@@ -223,7 +221,7 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
 				
 				if is_collided and test_motion_result.get_travel().y < -Global.player_data.STEP_DOWN_MARGIN:
-						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) <= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
+						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
 							is_step = true
 							result.position = -test_motion_result.get_travel()
 							result.normal = test_motion_result.get_collision_normal()

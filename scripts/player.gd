@@ -38,6 +38,8 @@ var is_it_collide :bool
 var raw_input
 var dir
 
+var floor_normal : float 
+
 #crouch timer
 var t1 : float
 var t2 : float
@@ -84,14 +86,15 @@ func _physics_process(delta):
 			head_offset = step_result.position
 	else :
 		head_offset = head_offset.lerp(Vector3.ZERO , delta * currentspeed * Global.player_data.STAIRS_FEELING_COEFFICIENT)
-		# if abs(head_offset.y) <= 0.01:
-		# 	pass
 
-	#Let the magic come true
+	# Let the magic come true
 	velocity = vel
 	is_it_collide =move_and_slide_own()
-	# move_and_slide()
 	vel = velocity
+
+	if is_step:
+		if !floor_normal <= deg_to_rad(65):
+			Global.player_data.on_floor = true
 
 	crouching = handel_crouch(delta)
 	handel_jump()
@@ -258,15 +261,9 @@ func move_and_slide_own() -> bool:
 	# print(testcol)
 	if testcol:
 		var testNormal = testcol.get_normal()
-		print(testNormal.angle_to(up_direction))
-		if (testNormal.angle_to(up_direction) < 1.2):
-			print(testNormal.angle_to(up_direction) > .7)
-			if testNormal.angle_to(up_direction) > .8:
-				print("yes")
-				Global.player_data.on_floor = false
-			elif testNormal.angle_to(up_direction) < deg_to_rad(Global.player_data.SLOPE_LIMIT):
-				# print("no")
-				Global.player_data.on_floor = true
+		floor_normal = testNormal.angle_to(up_direction)
+		if (testNormal.angle_to(up_direction) < deg_to_rad(Global.player_data.SLOPE_LIMIT)):
+			Global.player_data.on_floor = true
 
 	# Loop performing the move
 	var motion = velocity * get_delta_time()
@@ -325,6 +322,7 @@ func debug_var():
 	Global.debug_panel.add_property("topspeed", topspeed ,5)
 	Global.debug_panel.add_property("speed", get_current_speed() ,6)
 	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,8)
+	Global.debug_panel.add_property("floor normal", floor_normal ,9)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():
