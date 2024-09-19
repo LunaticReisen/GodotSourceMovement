@@ -74,7 +74,7 @@ text = "Stairs Map"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
-text = "quit"
+text = "Quit"
 
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/map1" to="." method="_on_map_1_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/map2" to="." method="_on_map_2_pressed"]

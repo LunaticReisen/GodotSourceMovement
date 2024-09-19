@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cpofycvn67fgn"]
+[gd_scene load_steps=16 format=3 uid="uid://cpofycvn67fgn"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_4swyj"]
 [ext_resource type="Texture2D" uid="uid://bqfvr0wk7qylt" path="res://textures/input-prompts/keyboard_w.png" id="2_ego1y"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://cr3whfn3aynd3" path="res://textures/input-prompts/mouse_left.png" id="10_ncyby"]
 [ext_resource type="Texture2D" uid="uid://blg38a1e3hqvb" path="res://textures/input-prompts/mouse_right.png" id="11_n1nls"]
 [ext_resource type="Texture2D" uid="uid://btetc0uex3v7j" path="res://textures/input-prompts/mouse_scroll.png" id="12_oc5sq"]
+[ext_resource type="Texture2D" uid="uid://bv8dnra4bjo04" path="res://textures/input-prompts/keyboard_r.png" id="13_6u2hr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vf47r"]
+font_color = Color(0.835718, 3.22476e-06, 7.70092e-07, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0fu0m"]
 font_size = 40
@@ -93,7 +97,8 @@ offset_top = 7.5
 offset_bottom = -7.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Quit to Map Select Menu"
+text = "Map Select
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -115,6 +120,7 @@ offset_bottom = -7.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Quit the DEMO"
+label_settings = SubResource("LabelSettings_vf47r")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -140,15 +146,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="accelswitch" type="CheckButton" parent="bg/bg2/switches"]
 layout_mode = 2
-text = "old accel"
+text = "forward accel"
 flat = true
 metadata/_edit_use_anchors_ = true
 
 [node name="line_edits" type="HBoxContainer" parent="bg/bg2"]
 layout_mode = 2
-offset_left = 147.0
+offset_left = 160.0
 offset_top = 448.0
-offset_right = 298.0
+offset_right = 311.0
 offset_bottom = 514.0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="bg/bg2/line_edits"]
@@ -211,10 +217,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -831.0
-offset_top = -153.0
-offset_right = -229.0
-offset_bottom = 899.0
+offset_left = -819.0
+offset_top = -148.0
+offset_right = -217.0
+offset_bottom = 1036.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.3, 0.3)
@@ -306,6 +312,18 @@ alignment = 2
 [node name="pick2" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick4"]
 layout_mode = 2
 texture = ExtResource("12_oc5sq")
+
+[node name="pick5" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="pick2" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick5"]
+layout_mode = 2
+texture = ExtResource("7_ypq4w")
+
+[node name="pick3" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick5"]
+layout_mode = 2
+texture = ExtResource("13_6u2hr")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="button/HBoxContainer3"]
 layout_mode = 2
@@ -423,6 +441,20 @@ offset_top = 44.0
 offset_right = 192.0
 offset_bottom = 83.0
 text = "make object farther or closer(when picking object)"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect9" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="scene" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect9"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 192.0
+offset_bottom = 83.0
+text = "reload scene"
 label_settings = SubResource("LabelSettings_0fu0m")
 
 [connection signal="pressed" from="bg/bg2/VBoxContainer/CountineButton" to="." method="_on_countine_button_pressed"]
