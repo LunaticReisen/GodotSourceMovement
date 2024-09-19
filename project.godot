@@ -25,6 +25,8 @@ PlayerData="*res://scripts/player_data.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="ignore"
 
 [editor_plugins]
 
@@ -143,3 +145,7 @@ mouse_wheel_down={
 3d_physics/layer_1="wall"
 3d_physics/layer_2="player"
 3d_physics/layer_3="interation"
+
+[physics]
+
+3d/physics_engine="JoltPhysics3D"

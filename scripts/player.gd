@@ -154,14 +154,22 @@ func air_move(delta) -> void:
 		add_speed = Global.player_data.AIR_ADD_SPEED
 	wish_speed *= add_speed
 
-	#left or right move to accelerate	
-	if (raw_input.y == 0 and raw_input.x != 0):
+	if Global.player_data.accel_switch:
 		if (wish_speed > Global.player_data.AIR_MAX_SPEED):
 			wish_speed =Global.player_data.AIR_MAX_SPEED
 		if (crouching):
 			accel = Global.player_data.CROUCH_AIR_ACCEL
 		else :
 			accel = Global.player_data.AIR_ACCEL
+	else :
+		#left or right move to accelerate	
+		if (raw_input.y == 0 and raw_input.x != 0):
+			if (wish_speed > Global.player_data.AIR_MAX_SPEED):
+				wish_speed =Global.player_data.AIR_MAX_SPEED
+			if (crouching):
+				accel = Global.player_data.CROUCH_AIR_ACCEL
+			else :
+				accel = Global.player_data.AIR_ACCEL
 	
 	#clamp the max speed
 	if wish_speed != 0.0 and wish_speed > Global.player_data.AIR_MAX_SPEED:

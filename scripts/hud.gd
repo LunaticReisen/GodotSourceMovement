@@ -3,11 +3,15 @@ extends Control
 func _ready():
 	hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	$bg/bg2/stepswitch.button_pressed = Global.player_data.step_switch
-	$bg/bg2/bunnyswitch.button_pressed = Global.player_data.auto_bunny
+	$bg/bg2/switches/stepswitch.button_pressed = Global.player_data.step_switch
+	$bg/bg2/switches/accelswitch.button_pressed = Global.player_data.accel_switch
+	$bg/bg2/switches/bunnyswitch.button_pressed = Global.player_data.auto_bunny
+	$bg/bg2/line_edits/edtior/surf_ang.set_placeholder(var_to_str(Global.player_data.SLOPE_LIMIT))
+	$bg/bg2/line_edits/edtior/step_ang.set_placeholder(var_to_str(Global.player_data.STEP_MAX_SLOPE_DEGREED))
+
 
 func _input(event):
-	#"ESC" can let the mouse free
+	#"ESC" can let the mouse free	
 	if(event.is_action_pressed("pause_menu")):
 		if (Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -35,3 +39,14 @@ func _on_bunnyswitch_toggled(toggled_on:bool) -> void:
 
 func _on_stepswitch_toggled(toggled_on:bool) -> void:
 	Global.player_data.step_switch = toggled_on
+
+func _on_accelswitch_toggled(toggled_on:bool) -> void:
+	Global.player_data.accel_switch = toggled_on
+
+func _on_step_ang_text_submitted(new_text:String) -> void:
+	Global.player_data.STEP_MAX_SLOPE_DEGREED = float(new_text)
+	pass # Replace with function body.
+
+func _on_surf_ang_text_submitted(new_text:String) -> void:
+	Global.player_data.SLOPE_LIMIT = float(new_text)
+	pass # Replace with function body.
