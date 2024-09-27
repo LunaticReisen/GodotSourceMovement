@@ -7,6 +7,7 @@ class_name Player_Physic
 var step_height: Vector3
 var step_incremental_check_height: Vector3
 var stair_stepping_in_air
+var result : PhysicsTestMotionResult3D
 
 func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta):     #air accel
 	# clamp speed
@@ -226,6 +227,20 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 							result.position = -test_motion_result.get_travel()
 							result.normal = test_motion_result.get_collision_normal()
 	return is_step
+
+
+
+func is_too_steep(normal : Vector3) -> bool :
+	return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT
+
+func body_test_motion_own(from : Transform3D , motion : Vector3 , result : PhysicsTestMotionResult3D) -> bool:
+	var params = PhysicsTestMotionParameters3D.new()
+
+	params.from = from
+	params.motion = motion
+
+	return PhysicsServer3D.body_test_motion(Global.player.get_rid() , params , result)
+	pass
 
 func get_movement_axis():
 	#Initialize

@@ -6,6 +6,8 @@ extends CharacterBody3D
 @onready var ceilingcast :ShapeCast3D = $Root/CeilingCast		#raycast
 @onready var player_physic : Player_Physic = $Player_Physic		#player_physic
 @onready var head = $Root
+@onready var stairs_ahead_ray : RayCast3D = $StairsAHeadRay
+@onready var stairs_below_ray : RayCast3D = $StairsBelowRay
 
 var pos : Vector3
 var topspeed :float = 0
@@ -61,6 +63,9 @@ func _input(event):
 
 
 func _physics_process(delta):
+
+	if Global.player_data.on_floor : Global.player_data.last_frame_on_floor = Engine.get_physics_frames()
+
 	debug_var()
 	speed_changer()
 	process_movement(delta)
@@ -68,24 +73,24 @@ func _physics_process(delta):
 	# print(vel)
 	Global.player_data.wish_jump = _wishJump
 
-	var step_result : Step_Result = Step_Result.new()
-	if Global.player_data.step_switch:
-		is_step = player_physic.step_check(delta , _wishJump , vel , step_result)
-		# is_step = false
-		Global.debug_panel.add_property("step_check", is_step , 7)
+	# var step_result : Step_Result = Step_Result.new()
+	# if Global.player_data.step_switch:
+	# 	is_step = player_physic.step_check(delta , _wishJump , vel , step_result)
+	# 	# is_step = false
+	# 	Global.debug_panel.add_property("step_check", is_step , 7)
 
-	if is_step:
-		var can_stepping :bool = true
-		if step_result.is_step_up and !Global.player_data.on_floor and !can_stepping:
-			can_stepping = false
+	# if is_step:
+	# 	var can_stepping :bool = true
+	# 	if step_result.is_step_up and !Global.player_data.on_floor and !can_stepping:
+	# 		can_stepping = false
 		
-		if can_stepping:
-			# We can let the magic come true , right?
-			# global_transform.origin += step_result.position
-			position += step_result.position
-			head_offset = step_result.position
-	else :
-		head_offset = head_offset.lerp(Vector3.ZERO , delta * currentspeed * Global.player_data.STAIRS_FEELING_COEFFICIENT)
+	# 	if can_stepping:
+	# 		# We can let the magic come true , right?
+	# 		# global_transform.origin += step_result.position
+	# 		position += step_result.position
+	# 		head_offset = step_result.position
+	# else :
+	# 	head_offset = head_offset.lerp(Vector3.ZERO , delta * currentspeed * Global.player_data.STAIRS_FEELING_COEFFICIENT)
 
 	# Let the magic come true
 	velocity = vel

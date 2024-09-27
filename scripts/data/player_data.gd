@@ -46,7 +46,7 @@ func _ready():
 @export var distance_power              : float = 0.05 
 @export var push_power	                : float = 1
 
-@export_subgroup("Step")
+@export_subgroup("(old)Step")
 # @export var STEP_SPEED : float = 4
 @export var STEP_DOWN_MARGIN : float = .09
 @export var STEP_HEIGHT_DEFAULT : Vector3 = Vector3(0 , 0.6 , 0)
@@ -55,6 +55,13 @@ func _ready():
 @export var STEP_CHECK_COUNT : int = 2
 @export var WALL_MARGIN : float = 1
 @export var STAIRS_FEELING_COEFFICIENT : float = 2.5
+
+@export_subgroup("Step")
+@export var MAX_STEP_HEIGHT : float = 0.5
+@export var snapped_stair_last_frame := false
+@export var last_frame_on_floor = -INF
+
+
 
 @export_subgroup("Debug")
 @export var gravity                             = 32
