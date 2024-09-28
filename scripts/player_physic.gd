@@ -231,7 +231,18 @@ func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Re
 
 
 func is_too_steep(normal : Vector3) -> bool :
-	return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT
+	return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
+
+func check_snap_to_stairs() :
+	var is_snap := false
+	var was_on_floor_last_frame = Engine.get_physics_frames() - Global.player_data.last_frame_on_floor == 1
+	if !Global.player_data.on_floor and Global.player.vel.y <= 0 and (was_on_floor_last_frame or is_snap):
+		var result = PhysicsTestMotionResult3D.new()
+		if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT , 0) , result):
+			Global.player.position.y += result.get_travel().y
+			Global.player.apply_floor_snap()
+			pass
+		pass
 
 func body_test_motion_own(from : Transform3D , motion : Vector3 , result : PhysicsTestMotionResult3D) -> bool:
 	var params = PhysicsTestMotionParameters3D.new()
@@ -241,6 +252,29 @@ func body_test_motion_own(from : Transform3D , motion : Vector3 , result : Physi
 
 	return PhysicsServer3D.body_test_motion(Global.player.get_rid() , params , result)
 	pass
+
+func apply_floor_snap_own():
+	var add_vel :Vector3
+	if Global.player_data.on_floor :
+		return
+	
+	var params = PhysicsTestMotionParameters3D .new()
+	params.max_collisions = 4
+	params.recovery_as_collision = true
+	params.collide_separation_ray = true
+
+	var result = Global.player.move_and_collide(Global.player.vel,true)
+
+	if result:
+		if result.get_collider() != null:
+			if result.get_travel().length > Global.player_data._floor_margin:
+				add_vel = Vector3.UP * Vector3.UP.dot(result.get_travel())
+			else :
+				add_vel = Vector3.ZERO
+			
+			Global.player.origin += add_vel
+			print("what")
+
 
 func get_movement_axis():
 	#Initialize

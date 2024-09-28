@@ -1,4 +1,7 @@
 {
     "godotTools.editorPath.godot4": "f:\\SteamLibrary\\steamapps\\common\\Godot Engine\\godot.windows.opt.tools.64.exe",
-    "DockerRun.DisableDockerrc": true
+    "DockerRun.DisableDockerrc": true,
+    "editor.fontFamily": "Fira Code,Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14
 }

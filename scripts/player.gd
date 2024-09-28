@@ -59,7 +59,9 @@ func _ready():
 	
 func _input(event):	
 	if(Input.is_action_just_pressed("test_reset")):
-		get_tree().reload_current_scene()
+		player_physic.apply_floor_snap_own()
+		# get_tree().reload_current_scene()
+		# apply_floor_snap()
 
 
 func _physics_process(delta):

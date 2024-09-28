@@ -75,3 +75,4 @@ func _ready():
 @export var accel_switch                :  bool = true
 var on_floor                            :  bool = false
 var wish_jump                           :  bool = false
+var _floor_margin                       : float = 0.001
