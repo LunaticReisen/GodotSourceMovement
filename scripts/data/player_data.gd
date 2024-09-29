@@ -57,8 +57,8 @@ func _ready():
 @export var STAIRS_FEELING_COEFFICIENT : float = 2.5
 
 @export_subgroup("Step")
-@export var MAX_STEP_HEIGHT : float = 0.5
-@export var snapped_stair_last_frame := false
+@export var MAX_STEP_HEIGHT : float = 0.6
+@export var snap_stair_last_frame := false
 @export var last_frame_on_floor = -INF
 
 

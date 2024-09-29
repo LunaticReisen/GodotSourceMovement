@@ -6,8 +6,10 @@ class_name Player_Physic
 
 var step_height: Vector3
 var step_incremental_check_height: Vector3
-var stair_stepping_in_air
-var result : PhysicsTestMotionResult3D
+@onready var stairs_ahead_ray : RayCast3D = $"../StairsAHeadRay"
+@onready var stairs_below_ray : RayCast3D = $"../StairsBelowRay"
+# var stair_stepping_in_air
+# var result : PhysicsTestMotionResult3D
 
 func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta):     #air accel
 	# clamp speed
@@ -87,162 +89,49 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 
 	return vel
 
-
-# step function
-func step_check(delta: float , is_jumping: bool , vel: Vector3 , result: Step_Result) -> bool:
-	var is_step : bool = false
-	# print(Global.player_data.STEP_HEIGHT_DEFAULT)
-	step_height = Global.player_data.STEP_HEIGHT_DEFAULT
-	step_incremental_check_height = Global.player_data.STEP_HEIGHT_DEFAULT / Global.player_data.STEP_CHECK_COUNT
-
-	# if !Global.player_data.on_floor and is_stepping_in_air:
-		# pass
-
-	if vel.y >= 0 :
-		for i in range(Global.player_data.STEP_CHECK_COUNT):
-			var test_motion_result : PhysicsTestMotionResult3D  = PhysicsTestMotionResult3D.new()
-			var step_height :Vector3 = step_height - i * step_incremental_check_height
-			var transfrom3d : Transform3D = get_node("..").global_transform
-			var motion :Vector3 = step_height
-			var test_motion_params : PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new()
-
-			test_motion_params.from = transfrom3d
-			test_motion_params.motion = motion	
-
-			var is_collided :bool = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-			
-			if is_collided and test_motion_result.get_collision_normal().y < 0 :
-				continue
-
-			#--------
-
-			transfrom3d.origin += step_height
-			motion = vel * delta
-
-			test_motion_params.from = transfrom3d
-			test_motion_params.motion = motion
-
-			is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-			print("collied:" , is_collided , i)
-			if !is_collided:
-				transfrom3d.origin += motion
-				motion = -step_height
-				test_motion_params.from = transfrom3d
-				test_motion_params.motion = motion
-
-				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-				# print("collied:" , is_collided)
-				if is_collided:
-					# print("normal:" , test_motion_result.get_collision_normal().angle_to(Vector3.UP))
-					# print("add_positon", -test_motion_result.get_remainder())
-					if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
-						is_step = true
-
-						result.is_step_up = true
-						result.position = -test_motion_result.get_remainder()
-						result.normal = test_motion_result.get_collision_normal()
-						break
-			else :
-				var wall_collision_normal : Vector3 = test_motion_result.get_collision_normal()
-				transfrom3d.origin += wall_collision_normal * Global.player_data.WALL_MARGIN
-				motion = (vel * delta ).slide(wall_collision_normal)
-				test_motion_params.from = transfrom3d
-				test_motion_params.motion = motion
-									
-				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-
-				if !is_collided:
-					transfrom3d.origin += motion
-					motion = -step_height
-
-					test_motion_params.from = transfrom3d
-					test_motion_params.motion = motion
-
-					is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-
-					if is_collided:
-						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
-							is_step = true
-							result.is_step_up = true
-							result.position = -test_motion_result.get_remainder()
-							result.normal = test_motion_result.get_collision_normal()
-							break
-
-	if !Global.player_data.wish_jump and !is_step and Global.player_data.on_floor:
-		result.is_step_up = false
-
-		var test_motion_result : PhysicsTestMotionResult3D  = PhysicsTestMotionResult3D.new()
-		var transfrom3d : Transform3D = get_node("..").global_transform
-		var motion :Vector3 = vel * delta
-		var test_motion_params : PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new()
-		# print(motion)
-		# print(transfrom3d)
-		
-		test_motion_params.from = transfrom3d
-		test_motion_params.motion = motion
-
-		test_motion_params.recovery_as_collision = true
-
-		var is_collided :bool = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-		# print("collied:" , is_collided)
-		# print(test_motion_result.get_collider())
-		if !is_collided:
-			transfrom3d.origin += motion
-			motion = -step_height
-			test_motion_params.from = transfrom3d
-			test_motion_params.motion = motion
-
-			is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-			
-			# print("collied:" , is_collided)
-			# print("collided collider:" , test_motion_result.get_collider())
-			# print("normal:" , test_motion_result.get_collision_normal().angle_to(Vector3.UP))
-			print("get_travel().y" , test_motion_result.get_travel().y)
-
-			if is_collided and test_motion_result.get_travel().y < -Global.player_data.STEP_DOWN_MARGIN:
-				if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
-					is_step = true
-					result.position = -test_motion_result.get_travel()
-					result.normal = test_motion_result.get_collision_normal()
-	
-		elif is_zero_approx(test_motion_result.get_collision_normal().y):
-			var wall_collision_normal :Vector3 = test_motion_result.get_collision_normal()
-			transfrom3d.origin += wall_collision_normal * Global.player_data.WALL_MARGIN
-			motion = (vel * delta).slide(wall_collision_normal)
-			test_motion_params.from = transfrom3d
-			test_motion_params.motion = motion
-
-			is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-			if !is_collided:
-				transfrom3d.origin += motion
-				motion = -step_height
-				test_motion_params.from = transfrom3d
-				test_motion_params.motion = motion
-
-				is_collided = PhysicsServer3D.body_test_motion(get_node("..").get_rid(), test_motion_params , test_motion_result)
-				
-				if is_collided and test_motion_result.get_travel().y < -Global.player_data.STEP_DOWN_MARGIN:
-						if test_motion_result.get_collision_normal().angle_to(Vector3.UP) >= deg_to_rad(Global.player_data.STEP_MAX_SLOPE_DEGREED):
-							is_step = true
-							result.position = -test_motion_result.get_travel()
-							result.normal = test_motion_result.get_collision_normal()
-	return is_step
-
-
-
 func is_too_steep(normal : Vector3) -> bool :
 	return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
 
 func check_snap_to_stairs() :
 	var is_snap := false
+	# if lower ray cast colliding , and collider normal >= slope limit deg , will return true
+	var floor_below : bool = stairs_below_ray.is_colliding() and !is_too_steep(stairs_below_ray.get_collision_normal())
 	var was_on_floor_last_frame = Engine.get_physics_frames() - Global.player_data.last_frame_on_floor == 1
-	if !Global.player_data.on_floor and Global.player.vel.y <= 0 and (was_on_floor_last_frame or is_snap):
-		var result = PhysicsTestMotionResult3D.new()
-		if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT , 0) , result):
-			Global.player.position.y += result.get_travel().y
-			Global.player.apply_floor_snap()
-			pass
-		pass
+	
+	if !Global.player_data.on_floor and Global.player.vel.y <= 0 and (was_on_floor_last_frame or is_snap) and floor_below:
+		var _result = PhysicsTestMotionResult3D.new()
+		if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT , 0) , _result):
+			# print(_result.get_collider())
+			Global.player.position.y += _result.get_travel().y
+			apply_floor_snap_own()
+			is_snap = true
+	Global.player_data.snap_stair_last_frame = is_snap
+
+func check_snap_up_stair() -> bool :
+	if !Global.player_data.on_floor and !Global.player_data.snap_stair_last_frame :
+		return false
+	var expected_motion = Global.player.vel * Vector3(1,0,1)
+	var step_pos_with_clearance = Global.player.global_transform.translated(expected_motion + Vector3(0 , Global.player_data.MAX_STEP_HEIGHT * 2 , 0))
+	# print(expected_motion , step_pos_with_clearance)
+	# print(expected_motion)
+	var _result = PhysicsTestMotionResult3D.new()
+	print(body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result))
+	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
+		print(_result.get_collider())
+		var collide_step_height = (step_pos_with_clearance.origin * _result.get_travel()).y - Global.player.global_position.y
+		
+		if collide_step_height > Global.player_data.MAX_STEP_HEIGHT or collide_step_height <= 0.01 or (_result.get_collision_point() - Global.player.global_position).y > Global.player_data.MAX_STEP_HEIGHT:
+			return false
+		
+		stairs_ahead_ray.global_position = _result.get_collision_point() * Vector3(0, Global.player_data.MAX_STEP_HEIGHT ,0) * expected_motion.normalized() * 0.1
+		stairs_ahead_ray.force_raycast_update()
+
+		if stairs_ahead_ray.is_colliding() and !is_too_steep(stairs_ahead_ray.get_collision_normal()):
+			Global.player.global_position = step_pos_with_clearance * _result.get_travel()
+			apply_floor_snap_own()
+			Global.player_data.snap_stair_last_frame = true
+			return true
+	return false
 
 func body_test_motion_own(from : Transform3D , motion : Vector3 , result : PhysicsTestMotionResult3D) -> bool:
 	var params = PhysicsTestMotionParameters3D.new()
@@ -251,8 +140,8 @@ func body_test_motion_own(from : Transform3D , motion : Vector3 , result : Physi
 	params.motion = motion
 
 	return PhysicsServer3D.body_test_motion(Global.player.get_rid() , params , result)
-	pass
 
+# apply_floor_snap from cb3d , I just reworte it
 func apply_floor_snap_own():
 	var add_vel :Vector3
 	if Global.player_data.on_floor :
@@ -263,18 +152,16 @@ func apply_floor_snap_own():
 	params.recovery_as_collision = true
 	params.collide_separation_ray = true
 
-	var result = Global.player.move_and_collide(Global.player.vel,true)
+	var _result = Global.player.move_and_collide(Global.player.vel,true)
 
-	if result:
-		if result.get_collider() != null:
-			if result.get_travel().length > Global.player_data._floor_margin:
-				add_vel = Vector3.UP * Vector3.UP.dot(result.get_travel())
+	if _result:
+		if _result.get_collider() != null:
+			if _result.get_travel().length() > Global.player_data._floor_margin:
+				add_vel = Vector3.UP * Vector3.UP.dot(_result.get_travel())
 			else :
 				add_vel = Vector3.ZERO
 			
-			Global.player.origin += add_vel
-			print("what")
-
+			Global.player.global_position += add_vel
 
 func get_movement_axis():
 	#Initialize

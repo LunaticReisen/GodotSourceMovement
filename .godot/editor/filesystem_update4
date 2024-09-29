@@ -1,9 +1,11 @@
 res://scripts/player_physic.gd
 res://scripts/player.gd
-res://scripts/data/player_data.gd
-res://scripts/global.gd
 res://player.tscn
 res://addons/func_godot/fgd/func_godot_fgd.tres
+res://scripts/global.gd
+res://scripts/data/player_data.gd
+res://scripts/ulti/step_result.gd
 res://main_menu.tscn
 res://pause_menu.tscn
 res://maps/test_stairs.tscn
+res://scripts/grab.gd

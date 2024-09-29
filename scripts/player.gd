@@ -6,8 +6,6 @@ extends CharacterBody3D
 @onready var ceilingcast :ShapeCast3D = $Root/CeilingCast		#raycast
 @onready var player_physic : Player_Physic = $Player_Physic		#player_physic
 @onready var head = $Root
-@onready var stairs_ahead_ray : RayCast3D = $StairsAHeadRay
-@onready var stairs_below_ray : RayCast3D = $StairsBelowRay
 
 var pos : Vector3
 var topspeed :float = 0
@@ -41,6 +39,7 @@ var raw_input
 var dir
 
 var floor_normal : float 
+var is_stepping : bool 
 
 #crouch timer
 var t1 : float
@@ -59,9 +58,10 @@ func _ready():
 	
 func _input(event):	
 	if(Input.is_action_just_pressed("test_reset")):
-		player_physic.apply_floor_snap_own()
-		# get_tree().reload_current_scene()
+		get_tree().reload_current_scene()
 		# apply_floor_snap()
+	if(Input.is_action_pressed("test_button_1")):
+		player_physic.apply_floor_snap_own()
 
 
 func _physics_process(delta):
@@ -75,29 +75,21 @@ func _physics_process(delta):
 	# print(vel)
 	Global.player_data.wish_jump = _wishJump
 
-	# var step_result : Step_Result = Step_Result.new()
-	# if Global.player_data.step_switch:
-	# 	is_step = player_physic.step_check(delta , _wishJump , vel , step_result)
-	# 	# is_step = false
-	# 	Global.debug_panel.add_property("step_check", is_step , 7)
-
-	# if is_step:
-	# 	var can_stepping :bool = true
-	# 	if step_result.is_step_up and !Global.player_data.on_floor and !can_stepping:
-	# 		can_stepping = false
-		
-	# 	if can_stepping:
-	# 		# We can let the magic come true , right?
-	# 		# global_transform.origin += step_result.position
-	# 		position += step_result.position
-	# 		head_offset = step_result.position
-	# else :
-	# 	head_offset = head_offset.lerp(Vector3.ZERO , delta * currentspeed * Global.player_data.STAIRS_FEELING_COEFFICIENT)
-
-	# Let the magic come true
 	velocity = vel
-	is_it_collide =move_and_slide_own()
-	vel = velocity
+
+	# We can let the magic come true , right?
+	if Global.player_data.step_switch:
+		is_stepping = player_physic.check_snap_up_stair()
+		print(is_stepping)
+		if !is_stepping:
+			is_it_collide =move_and_slide_own()
+			player_physic.check_snap_to_stairs()
+			vel = velocity
+	else :
+		# Let the magic come true
+		is_it_collide =move_and_slide_own()
+		vel = velocity
+
 
 	if is_step:
 		if !floor_normal <= deg_to_rad(65):
@@ -337,7 +329,7 @@ func debug_var():
 	Global.debug_panel.add_property("topspeed", topspeed ,5)
 	Global.debug_panel.add_property("speed", get_current_speed() ,6)
 	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,8)
-	Global.debug_panel.add_property("floor normal", floor_normal ,9)
+	Global.debug_panel.add_property("step", is_stepping , 10)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():
