@@ -1,6 +1,6 @@
 # GodotSourceMovment
 
-Use Godot 4.2.1
+Use Godot __4.3__  ~~4.2.1~~ 
 
 [简体中文](README/README.zh_CN.md)
 
@@ -12,10 +12,10 @@ Use Godot 4.2.1
 - [x] Crouching
 - [x] Mouse Scroll Jumpping
 - [x] Crouch Jumping
+- [x] Stairs
 
 #### TO-DO
 
-- [ ] Stairs
 - [ ] Ladder
 - [ ] Swimming
 
@@ -23,66 +23,16 @@ Use Godot 4.2.1
 
 - [x] Interact with objects
 
-
 ## HOW TO USE
 
-Clone it and unzip it on any where you like ,then use godot to import the project, that it! Have fun!
+Clone it and unzip it on any where you like ,then use godot to import the 
+project, that it! Have fun!
 
-## Update Log
+## Know Issues
 
-### v1.4.0
+Climb stairs might ramdom stutter stuck
 
-Remake the debug ui
-
-Now can pause the demo
-
-Now can interact with objects
-
-### v1.3.0
-
-More smooth hopping and... ADD SURFING!
-
-Now, you can surfing in this project
-
-### v1.2.2
-
-Can jump first then move left/right in air to acclerate right now
-
-While jumping, you can not acclerate by move left/right right now
-
-### v1.2.1
-
-Change the project name
-
-Optimize variable to a separate class
-
-Change the ceiling cast object from RayCast3D to ShapeCast3D
-
-Change the current speed calculation
-
-Remake auto bunny hop
-
-known issue: 
-
-- player can collision multiple wall to able to add speed
-
-- no surf(still work on it)
-
-### v1.2 
-
-Almost done!
-
-Add 2 line to fix werid gravity problem
-
-Change some speed number to make it more smooth
-
-### v1.1
-
-Add crouch, can do a little starfe jumping in crouch, the gravity in ground movment looks weird
-
-### v1.0 
-
-Can strafe jumping but no crouch
+I didn't smoothing the camera , will fix later
 
 ## Ref:
 
@@ -93,7 +43,6 @@ https://www.kenney.nl/assets/input-prompts
 https://www.kenney.nl/assets/prototype-textures
 
 Ported from https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
-
 
 https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
 
@@ -107,4 +56,10 @@ https://github.com/dwlcj/Godot-Strafe-Jumping/blob/main/Scenes/Player.gd#L161
 
 https://github.com/AkimBowX2/Godot-4_FPS_controller/blob/main/scenes/player/player.gd
 
+<<<<<<< Updated upstream
 https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
+=======
+https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
+
+https://github.com/majikayogames/SimpleFPSController
+>>>>>>> Stashed changes
