@@ -107,39 +107,32 @@ func check_snap_to_stairs() :
 			is_snap = true
 	Global.player_data.snap_stair_last_frame = is_snap
 
-func check_snap_up_stair() -> bool :
+func check_snap_up_stair(delta) -> bool :
 	if !Global.player_data.on_floor and !Global.player_data.snap_stair_last_frame :
 		return false
-	var expected_motion = Global.player.vel * Vector3(1,0,1)
+	var expected_motion = Global.player.vel * Vector3(1,0,1) * delta
 	var step_pos_with_clearance = Global.player.global_transform.translated(expected_motion + Vector3(0 , Global.player_data.MAX_STEP_HEIGHT * 2 , 0))
-	# print(expected_motion , step_pos_with_clearance)
-	# print(expected_motion)
 	var _result = PhysicsTestMotionResult3D.new()
-	print(body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result))
 	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
-		print(_result.get_collider())
-		var collide_step_height = (step_pos_with_clearance.origin * _result.get_travel()).y - Global.player.global_position.y
-		
+		var collide_step_height = ((step_pos_with_clearance.origin + _result.get_travel()) - Global.player.global_position).y
+
 		if collide_step_height > Global.player_data.MAX_STEP_HEIGHT or collide_step_height <= 0.01 or (_result.get_collision_point() - Global.player.global_position).y > Global.player_data.MAX_STEP_HEIGHT:
 			return false
-		
-		stairs_ahead_ray.global_position = _result.get_collision_point() * Vector3(0, Global.player_data.MAX_STEP_HEIGHT ,0) * expected_motion.normalized() * 0.1
+
+		print("_result.get_collision_point():",_result.get_collision_point())
+		print("before:",stairs_ahead_ray.global_position)
+		stairs_ahead_ray.global_position = _result.get_collision_point() + Vector3(0, Global.player_data.MAX_STEP_HEIGHT ,0) + expected_motion.normalized() * 0.1
+		print("after:",stairs_ahead_ray.global_position)
 		stairs_ahead_ray.force_raycast_update()
 
 		if stairs_ahead_ray.is_colliding() and !is_too_steep(stairs_ahead_ray.get_collision_normal()):
-			Global.player.global_position = step_pos_with_clearance * _result.get_travel()
+			# print(_result.get_travel())
+			Global.player.global_position = step_pos_with_clearance.origin+ _result.get_travel()
+			# Global.player.global_position += _result.get_travel()
 			apply_floor_snap_own()
 			Global.player_data.snap_stair_last_frame = true
 			return true
 	return false
-
-func body_test_motion_own(from : Transform3D , motion : Vector3 , result : PhysicsTestMotionResult3D) -> bool:
-	var params = PhysicsTestMotionParameters3D.new()
-
-	params.from = from
-	params.motion = motion
-
-	return PhysicsServer3D.body_test_motion(Global.player.get_rid() , params , result)
 
 # apply_floor_snap from cb3d , I just reworte it
 func apply_floor_snap_own():
@@ -162,6 +155,15 @@ func apply_floor_snap_own():
 				add_vel = Vector3.ZERO
 			
 			Global.player.global_position += add_vel
+
+func body_test_motion_own(from : Transform3D , motion : Vector3 , result : PhysicsTestMotionResult3D) -> bool:
+	var params = PhysicsTestMotionParameters3D.new()
+
+	params.from = from
+	params.motion = motion
+
+	return PhysicsServer3D.body_test_motion(Global.player.get_rid() , params , result)
+
 
 func get_movement_axis():
 	#Initialize

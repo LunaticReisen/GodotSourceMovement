@@ -61,8 +61,6 @@ func _ready():
 @export var snap_stair_last_frame := false
 @export var last_frame_on_floor = -INF
 
-
-
 @export_subgroup("Debug")
 @export var gravity                             = 32
 @export var gravity_precent             : float = .7

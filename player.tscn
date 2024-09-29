@@ -166,9 +166,9 @@ script = ExtResource("14_3a036")
 [node name="Player_Data" type="Node" parent="."]
 script = ExtResource("13_uys3g")
 
-[node name="StairsAHeadRay" type="RayCast3D" parent="."]
+[node name="StairsBelowRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, -0.75, 0)
 
-[node name="StairsBelowRay" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.73309)
-target_position = Vector3(0, -0.8, 0)
+[node name="StairsAHeadRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.368548, -0.970544)
+target_position = Vector3(0, -0.6, 0)

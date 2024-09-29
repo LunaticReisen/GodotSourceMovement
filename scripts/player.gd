@@ -79,12 +79,16 @@ func _physics_process(delta):
 
 	# We can let the magic come true , right?
 	if Global.player_data.step_switch:
-		is_stepping = player_physic.check_snap_up_stair()
-		print(is_stepping)
+		is_stepping = player_physic.check_snap_up_stair(delta)
+		# print("is_stepping:",is_stepping)
 		if !is_stepping:
 			is_it_collide =move_and_slide_own()
 			player_physic.check_snap_to_stairs()
 			vel = velocity
+
+		# is_it_collide =move_and_slide_own()
+		# player_physic.check_snap_to_stairs()
+		# vel = velocity
 	else :
 		# Let the magic come true
 		is_it_collide =move_and_slide_own()
@@ -271,6 +275,8 @@ func move_and_slide_own() -> bool:
 		floor_normal = testNormal.angle_to(up_direction)
 		if (testNormal.angle_to(up_direction) < deg_to_rad(Global.player_data.SLOPE_LIMIT)):
 			Global.player_data.on_floor = true
+			player_physic.apply_floor_snap_own()
+
 
 	# Loop performing the move
 	var motion = velocity * get_delta_time()
@@ -330,6 +336,7 @@ func debug_var():
 	Global.debug_panel.add_property("speed", get_current_speed() ,6)
 	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,8)
 	Global.debug_panel.add_property("step", is_stepping , 10)
+	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 11)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():
