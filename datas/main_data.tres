@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="Player_Datas" load_steps=2 format=3 uid="uid://byjgq5lj4omak"]
+
+[ext_resource type="Script" path="res://scripts/data/player_data.gd" id="1_7dld2"]
+
+[resource]
+script = ExtResource("1_7dld2")
+WALK_SPEED = 6.0
+CROUCH_SPEED = 2.0
+DASH_SPEED = 8.0
+MAX_SPEED = 40.0
+JUMP_FORCE = 8.0
+RUN_ACCEL = 7.0
+RUN_DECEEL = 4.0
+AIR_MAX_SPEED = 15.0
+AIR_ADD_SPEED = 2.0
+AIR_ACCEL = 70.0
+AIR_DECCEL = 1.0
+AIR_CAP = 1.0
+STAND_FRICTION = 5.5
+CROUCH_FRICTION = 2.0
+CROUCH_ACCEL = 7.0
+CROUCH_AIR_ADD_SPEED = 5.0
+CROUCH_AIR_ACCEL = 8.0
+CROUCH_AIR_DECCEL = 1.0
+CROUCH_HEIGHT = 0.8
+CAMERA_HEIGHT = 1.2
+stand_height = 1.6
+SLOPE_LIMIT = 0.785
+MOUSE_SENSITRIVITY = 1.0
+grab_up = false
+view_lock = false
+grab_power = 8.0
+rotation_power = 0.05
+throw_power = 3.0
+distance_power = 0.05
+push_power = 1.0
+STEP_DOWN_MARGIN = 0.001
+STEP_HEIGH_DEFAULT = 0.01
+STEP_HEIGHT_IN_AIR_DEFAULT = Vector3(0, 0.6, 0)
+STEP_MAX_SLOPE_DEGREED = 40.0
+STEP_CHECK_COUNT = 2
+WALL_MARGIN = 0.001
+STAIRS_FEELING_COEFFICIENT = 2.5

@@ -1,23 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://rn24b4x6mmga"]
+[gd_scene load_steps=18 format=3 uid="uid://rn24b4x6mmga"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_cclu0"]
+[ext_resource type="Shape3D" uid="uid://cs7m3drkfeskt" path="res://player-cylin.tres" id="2_0ouht"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_385kn"]
 [ext_resource type="Script" path="res://scripts/player_physic.gd" id="4_ek334"]
-[ext_resource type="Script" path="res://scripts/movementData.gd" id="5_t5om0"]
+[ext_resource type="Texture2D" uid="uid://p1kbcjfo4uc0" path="res://textures/input-prompts/keyboard_f.png" id="4_qmik6"]
 [ext_resource type="Script" path="res://scripts/control_ui.gd" id="6_bl3c1"]
 [ext_resource type="Texture2D" uid="uid://bntspsjru3brd" path="res://textures/input-prompts/keyboard_arrow_up.png" id="7_5w6ga"]
 [ext_resource type="Texture2D" uid="uid://dv7sf7f75e7an" path="res://textures/input-prompts/keyboard_arrow_down.png" id="8_oy7qu"]
 [ext_resource type="Texture2D" uid="uid://dlpuwjafs7ceh" path="res://textures/input-prompts/keyboard_arrow_right.png" id="9_oksfo"]
 [ext_resource type="Texture2D" uid="uid://njy40gwqd2hj" path="res://textures/input-prompts/keyboard_arrow_left.png" id="10_pvhqh"]
+[ext_resource type="Texture2D" uid="uid://b270vs5ugdyay" path="res://textures/input-prompts/keyboard_down.png" id="11_7xk5e"]
 [ext_resource type="Texture2D" uid="uid://c6nxjqrtw1ggb" path="res://textures/input-prompts/keyboard_caret.png" id="11_rx8s6"]
 [ext_resource type="Texture2D" uid="uid://6ln6fks67btd" path="res://textures/input-prompts/keyboard_minus.png" id="12_drlw7"]
 [ext_resource type="Script" path="res://scripts/debug_panel.gd" id="13_odvkc"]
-[ext_resource type="Script" path="res://scripts/player_data.gd" id="13_qtn6t"]
+[ext_resource type="Script" path="res://scripts/data/player_data.gd" id="13_uys3g"]
 [ext_resource type="Script" path="res://scripts/grab.gd" id="14_3a036"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1j0je"]
-radius = 0.4
-height = 1.6
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_75emf"]
 height = 0.7
@@ -30,7 +28,7 @@ script = ExtResource("1_cclu0")
 
 [node name="PlayerCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-shape = SubResource("CapsuleShape3D_1j0je")
+shape = ExtResource("2_0ouht")
 
 [node name="Root" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -73,62 +71,79 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Keys" type="Control" parent="HUD"]
+[node name="Key" type="ColorRect" parent="HUD"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_bl3c1")
-
-[node name="ColorRect" type="ColorRect" parent="HUD/Keys"]
-layout_mode = 2
-anchor_left = 0.80625
-anchor_top = 0.741667
-anchor_right = 0.934375
-anchor_bottom = 0.9125
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -200.0
+offset_top = -200.0
+grow_horizontal = 0
+grow_vertical = 0
 color = Color(0, 0, 0, 0.388235)
+script = ExtResource("6_bl3c1")
 metadata/_edit_use_anchors_ = true
 
-[node name="up" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1114, 744)
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Key"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 400.0
 scale = Vector2(0.5, 0.5)
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Key/VBoxContainer"]
+layout_mode = 2
+
+[node name="debug_view_use" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("4_qmik6")
+
+[node name="debug_view_up" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 texture = ExtResource("7_5w6ga")
 
-[node name="down" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1114, 844)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_oy7qu")
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/Key/VBoxContainer"]
+layout_mode = 2
 
-[node name="right" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1164, 794)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_oksfo")
-
-[node name="left" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1064, 794)
-scale = Vector2(0.5, 0.5)
+[node name="debug_view_left" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 texture = ExtResource("10_pvhqh")
 
-[node name="dash" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1164, 744)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_rx8s6")
-
-[node name="crouch" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1164, 844)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_rx8s6")
-flip_v = true
-
-[node name="space" type="Sprite2D" parent="HUD/Keys"]
-position = Vector2(1114, 794)
-scale = Vector2(0.5, 0.5)
+[node name="debug_view_jump" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 texture = ExtResource("12_drlw7")
+
+[node name="debug_view_right" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("9_oksfo")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HUD/Key/VBoxContainer"]
+layout_mode = 2
+
+[node name="debug_view_dash" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("11_rx8s6")
+
+[node name="debug_view_down" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("8_oy7qu")
+
+[node name="debug_view_crouch" type="TextureRect" parent="HUD/Key/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("11_7xk5e")
 
 [node name="PanelContainer" type="PanelContainer" parent="HUD"]
 layout_mode = 2
@@ -145,11 +160,15 @@ layout_mode = 2
 [node name="Player_Physic" type="Node" parent="."]
 script = ExtResource("4_ek334")
 
-[node name="Movement_Data" type="Node" parent="."]
-script = ExtResource("5_t5om0")
-
-[node name="Player_Data" type="Node" parent="."]
-script = ExtResource("13_qtn6t")
-
 [node name="Grab_Fuction" type="Node" parent="."]
 script = ExtResource("14_3a036")
+
+[node name="Player_Data" type="Node" parent="."]
+script = ExtResource("13_uys3g")
+
+[node name="StairsBelowRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.75, 0)
+
+[node name="StairsAHeadRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.368548, -0.970544)
+target_position = Vector3(0, -0.6, 0)

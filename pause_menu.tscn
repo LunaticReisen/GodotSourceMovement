@@ -1,6 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpofycvn67fgn"]
+[gd_scene load_steps=16 format=3 uid="uid://cpofycvn67fgn"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_4swyj"]
+[ext_resource type="Texture2D" uid="uid://bqfvr0wk7qylt" path="res://textures/input-prompts/keyboard_w.png" id="2_ego1y"]
+[ext_resource type="Texture2D" uid="uid://34s8n8xewjoc" path="res://textures/input-prompts/keyboard_a.png" id="3_nliw7"]
+[ext_resource type="Texture2D" uid="uid://h5cvg3hytplr" path="res://textures/input-prompts/keyboard_s.png" id="4_pdi3m"]
+[ext_resource type="Texture2D" uid="uid://b0hxafni37v5n" path="res://textures/input-prompts/keyboard_d.png" id="5_g7oog"]
+[ext_resource type="Texture2D" uid="uid://dmjnsbcorg4j8" path="res://textures/input-prompts/keyboard_space.png" id="6_hj7rx"]
+[ext_resource type="Texture2D" uid="uid://dqpea3p76j8a6" path="res://textures/input-prompts/keyboard_ctrl.png" id="7_ypq4w"]
+[ext_resource type="Texture2D" uid="uid://d1ayr54hmvvo7" path="res://textures/input-prompts/keyboard_shift.png" id="8_tb06k"]
+[ext_resource type="Texture2D" uid="uid://p1kbcjfo4uc0" path="res://textures/input-prompts/keyboard_f.png" id="9_t57rv"]
+[ext_resource type="Texture2D" uid="uid://cr3whfn3aynd3" path="res://textures/input-prompts/mouse_left.png" id="10_ncyby"]
+[ext_resource type="Texture2D" uid="uid://blg38a1e3hqvb" path="res://textures/input-prompts/mouse_right.png" id="11_n1nls"]
+[ext_resource type="Texture2D" uid="uid://btetc0uex3v7j" path="res://textures/input-prompts/mouse_scroll.png" id="12_oc5sq"]
+[ext_resource type="Texture2D" uid="uid://bv8dnra4bjo04" path="res://textures/input-prompts/keyboard_r.png" id="13_6u2hr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vf47r"]
+font_color = Color(0.835718, 3.22476e-06, 7.70092e-07, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0fu0m"]
+font_size = 40
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -10,6 +28,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_4swyj")
 
 [node name="bg" type="ColorRect" parent="."]
@@ -77,7 +97,8 @@ offset_top = 7.5
 offset_bottom = -7.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Quit to Map Select Menu"
+text = "Map Select
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -99,23 +120,75 @@ offset_bottom = -7.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Quit the DEMO"
+label_settings = SubResource("LabelSettings_vf47r")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="bunnyswitch" type="CheckButton" parent="bg/bg2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.021875
-anchor_top = 0.289583
-anchor_right = 0.4375
-anchor_bottom = 0.321875
+[node name="switches" type="VBoxContainer" parent="bg/bg2"]
+layout_mode = 0
+offset_top = 449.0
+offset_right = 133.0
+offset_bottom = 515.0
+
+[node name="bunnyswitch" type="CheckButton" parent="bg/bg2/switches"]
+layout_mode = 2
 text = "autobunny"
 flat = true
 metadata/_edit_use_anchors_ = true
 
+[node name="stepswitch" type="CheckButton" parent="bg/bg2/switches"]
+layout_mode = 2
+text = "stepping"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="accelswitch" type="CheckButton" parent="bg/bg2/switches"]
+layout_mode = 2
+text = "forward accel"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="line_edits" type="HBoxContainer" parent="bg/bg2"]
+layout_mode = 2
+offset_left = 160.0
+offset_top = 448.0
+offset_right = 311.0
+offset_bottom = 514.0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="bg/bg2/line_edits"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="bg/bg2/line_edits/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="bg/bg2/line_edits/VBoxContainer3/AspectRatioContainer"]
+layout_mode = 2
+text = "surf angle"
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="bg/bg2/line_edits/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="bg/bg2/line_edits/VBoxContainer3/AspectRatioContainer2"]
+layout_mode = 2
+text = "step angle"
+
+[node name="edtior" type="VBoxContainer" parent="bg/bg2/line_edits"]
+layout_mode = 2
+
+[node name="surf_ang" type="LineEdit" parent="bg/bg2/line_edits/edtior"]
+layout_mode = 2
+
+[node name="step_ang" type="LineEdit" parent="bg/bg2/line_edits/edtior"]
+layout_mode = 2
+
 [node name="info" type="Label" parent="bg"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.119531
@@ -137,7 +210,258 @@ text = "\"W\",\"A\",\"S\",\"D\" to move
 \"Mouse Wheel\" can make the object farther or closer 
 \"Escape\" to open the pause menu"
 
+[node name="button" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -819.0
+offset_top = -148.0
+offset_right = -217.0
+offset_bottom = 1036.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="button"]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="button/HBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="wasd" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+
+[node name="w" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/wasd"]
+layout_mode = 2
+texture = ExtResource("2_ego1y")
+
+[node name="a" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/wasd"]
+layout_mode = 2
+texture = ExtResource("3_nliw7")
+
+[node name="s" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/wasd"]
+layout_mode = 2
+texture = ExtResource("4_pdi3m")
+
+[node name="d" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/wasd"]
+layout_mode = 2
+texture = ExtResource("5_g7oog")
+
+[node name="jump" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="space" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/jump"]
+layout_mode = 2
+texture = ExtResource("6_hj7rx")
+
+[node name="ctrl" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="ctrl" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/ctrl"]
+layout_mode = 2
+texture = ExtResource("7_ypq4w")
+
+[node name="dash" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="dash" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/dash"]
+layout_mode = 2
+texture = ExtResource("8_tb06k")
+
+[node name="pick" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="pick" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick"]
+layout_mode = 2
+texture = ExtResource("9_t57rv")
+
+[node name="pick2" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="pick" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick2"]
+layout_mode = 2
+texture = ExtResource("10_ncyby")
+
+[node name="pick3" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="pick" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick3"]
+layout_mode = 2
+texture = ExtResource("11_n1nls")
+
+[node name="pick2" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick3"]
+layout_mode = 2
+texture = ExtResource("9_t57rv")
+
+[node name="pick4" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="pick2" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick4"]
+layout_mode = 2
+texture = ExtResource("12_oc5sq")
+
+[node name="pick5" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="pick2" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick5"]
+layout_mode = 2
+texture = ExtResource("7_ypq4w")
+
+[node name="pick3" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/pick5"]
+layout_mode = 2
+texture = ExtResource("13_6u2hr")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="button/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="ColorRect" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 78.0
+offset_bottom = 83.0
+text = "Move
+"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect2" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect2"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 74.0
+offset_bottom = 83.0
+text = "jump
+"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect3" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect3"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 114.0
+offset_bottom = 83.0
+text = "crouoch"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect4" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect4"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 69.0
+offset_bottom = 83.0
+text = "dash"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect5" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="Label3" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect5"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 192.0
+offset_bottom = 83.0
+text = "pick up object"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect6" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="throw" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect6"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 192.0
+offset_bottom = 83.0
+text = "throwing object (when picking object)"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect7" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="throw" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect7"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 192.0
+offset_bottom = 83.0
+text = "drop object (when picking object)"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect8" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="throw" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect8"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 192.0
+offset_bottom = 83.0
+text = "make object farther or closer(when picking object)"
+label_settings = SubResource("LabelSettings_0fu0m")
+
+[node name="ColorRect9" type="ColorRect" parent="button/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 15
+color = Color(0, 0, 0, 1)
+
+[node name="scene" type="Label" parent="button/HBoxContainer3/VBoxContainer2/ColorRect9"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 44.0
+offset_right = 192.0
+offset_bottom = 83.0
+text = "reload scene"
+label_settings = SubResource("LabelSettings_0fu0m")
+
 [connection signal="pressed" from="bg/bg2/VBoxContainer/CountineButton" to="." method="_on_countine_button_pressed"]
 [connection signal="pressed" from="bg/bg2/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="bg/bg2/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="toggled" from="bg/bg2/bunnyswitch" to="." method="_on_bunnyswitch_toggled"]
+[connection signal="toggled" from="bg/bg2/switches/bunnyswitch" to="." method="_on_bunnyswitch_toggled"]
+[connection signal="toggled" from="bg/bg2/switches/stepswitch" to="." method="_on_stepswitch_toggled"]
+[connection signal="toggled" from="bg/bg2/switches/accelswitch" to="." method="_on_accelswitch_toggled"]
+[connection signal="text_submitted" from="bg/bg2/line_edits/edtior/surf_ang" to="." method="_on_surf_ang_text_submitted"]
+[connection signal="text_submitted" from="bg/bg2/line_edits/edtior/step_ang" to="." method="_on_step_ang_text_submitted"]

@@ -6,6 +6,7 @@ class_name Grab_Fuction
 @onready var interaction :RayCast3D = $"../Root/Head/Hand/Interaction"
 @onready var joint :Generic6DOFJoint3D = $"../Root/Head/Hand/Joint"
 @onready var staticbody :StaticBody3D = $"../Root/Head/Hand/GrabStaticBody"
+# @onready var Global.player_data :Resource = Global.player.Global.player_data
 
 var picked_object
 var hand_original_position
