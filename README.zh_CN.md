@@ -2,6 +2,8 @@
 
 使用 Godot 4.2.1
 
+使用 __Godot Jolt__ 和 __Func_Godot__  插件
+
 ## 已实现的功能
 
 - [x] 兔子跳
@@ -40,7 +42,6 @@ https://www.kenney.nl/assets/input-prompts
 https://www.kenney.nl/assets/prototype-textures
 
 Ported from https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
-
 
 https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
 

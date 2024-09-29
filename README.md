@@ -2,7 +2,9 @@
 
 Use Godot __4.3__  ~~4.2.1~~ 
 
-[简体中文](README/README.zh_CN.md)
+Use __Godot Jolt__ and __Func_Godot__  Addons
+
+[简体中文](README.zh_CN.md)
 
 ## Features
 
@@ -18,6 +20,7 @@ Use Godot __4.3__  ~~4.2.1~~
 
 - [ ] Ladder
 - [ ] Swimming
+- [ ] Camera Smoothing
 
 ### Additional Content
 
@@ -25,14 +28,15 @@ Use Godot __4.3__  ~~4.2.1~~
 
 ## HOW TO USE
 
-Clone it and unzip it on any where you like ,then use godot to import the 
-project, that it! Have fun!
+Clone it and unzip it on any where you like ,then use godot to import the sproject, that it! Have fun!
 
 ## Know Issues
 
 Climb stairs might ramdom stutter stuck
 
 I didn't smoothing the camera , will fix later
+
+No code comments , will add it later
 
 ## Ref:
 
