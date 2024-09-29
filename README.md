@@ -56,10 +56,6 @@ https://github.com/dwlcj/Godot-Strafe-Jumping/blob/main/Scenes/Player.gd#L161
 
 https://github.com/AkimBowX2/Godot-4_FPS_controller/blob/main/scenes/player/player.gd
 
-<<<<<<< Updated upstream
-https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
-=======
 https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
 
 https://github.com/majikayogames/SimpleFPSController
->>>>>>> Stashed changes
