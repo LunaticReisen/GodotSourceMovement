@@ -57,7 +57,7 @@ func _ready():
 @export var STAIRS_FEELING_COEFFICIENT : float = 2.5
 
 @export_subgroup("Step")
-@export var MAX_STEP_HEIGHT : float = 0.6
+@export var MAX_STEP_HEIGHT : float = 0.3
 @export var snap_stair_last_frame := false
 @export var last_frame_on_floor = -INF
 
@@ -68,9 +68,11 @@ func _ready():
 @export var air_accel_precent           : float = 1
 @export var air_move_precent            : float = .75
 @export var friction_precent            : float = 1
+@export var camera_smooth_amount        : float = .3
 @export var auto_bunny                  :  bool = false
 @export var step_switch                 :  bool = true
 @export var accel_switch                :  bool = true
 var on_floor                            :  bool = false
 var wish_jump                           :  bool = false
 var _floor_margin                       : float = 0.001
+var camera_smooth_pos                           = null

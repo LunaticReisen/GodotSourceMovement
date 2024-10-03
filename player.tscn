@@ -39,10 +39,11 @@ shape = SubResource("CylinderShape3D_75emf")
 target_position = Vector3(0, 0, 0)
 
 [node name="Head" type="Node3D" parent="Root"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
 script = ExtResource("3_385kn")
 
-[node name="Camera" type="Camera3D" parent="Root/Head"]
+[node name="StairsSmooth" type="Node3D" parent="Root/Head"]
+
+[node name="Camera" type="Camera3D" parent="Root/Head/StairsSmooth"]
 fov = 90.0
 
 [node name="Hand" type="Node3D" parent="Root/Head"]

@@ -6,6 +6,8 @@ extends CharacterBody3D
 @onready var ceilingcast :ShapeCast3D = $Root/CeilingCast		#raycast
 @onready var player_physic : Player_Physic = $Player_Physic		#player_physic
 @onready var head = $Root
+@onready var stairs_smooth = $Root/Head/StairsSmooth
+
 
 var pos : Vector3
 var topspeed :float = 0
@@ -85,6 +87,7 @@ func _physics_process(delta):
 			is_it_collide =move_and_slide_own()
 			player_physic.check_snap_to_stairs()
 			vel = velocity
+			player_physic.camera_smooth(delta)
 
 		# is_it_collide =move_and_slide_own()
 		# player_physic.check_snap_to_stairs()
@@ -331,12 +334,14 @@ func get_current_speed():
 func debug_var():
 	Global.debug_panel.add_property("velocity", velocity ,1)
 	Global.debug_panel.add_property("raw_input", raw_input ,2)
-	Global.debug_panel.add_property("position", global_position ,4)
-	Global.debug_panel.add_property("topspeed", topspeed ,5)
-	Global.debug_panel.add_property("speed", get_current_speed() ,6)
-	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,8)
-	Global.debug_panel.add_property("step", is_stepping , 10)
-	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 11)
+	Global.debug_panel.add_property("position", global_position ,3)
+	Global.debug_panel.add_property("topspeed", topspeed ,4)
+	Global.debug_panel.add_property("speed", get_current_speed() ,5)
+	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,6)
+	Global.debug_panel.add_property("step", is_stepping , 7)
+	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 8)
+	Global.debug_panel.add_property("head", $Root/Head.position , 9)
+	Global.debug_panel.add_property("smooth", $Root/Head/StairsSmooth.position , 10)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():
