@@ -6,6 +6,7 @@ func _ready():
 	$bg/bg2/switches/stepswitch.button_pressed = Global.player_data.step_switch
 	$bg/bg2/switches/accelswitch.button_pressed = Global.player_data.accel_switch
 	$bg/bg2/switches/bunnyswitch.button_pressed = Global.player_data.auto_bunny
+	$bg/bg2/switches/smoothswitch.button_pressed = Global.player_data.camera_smooth_switch
 	$bg/bg2/line_edits/edtior/surf_ang.set_placeholder(var_to_str(Global.player_data.SLOPE_LIMIT))
 	$bg/bg2/line_edits/edtior/step_ang.set_placeholder(var_to_str(Global.player_data.camera_smooth_amount))
 
@@ -45,8 +46,10 @@ func _on_accelswitch_toggled(toggled_on:bool) -> void:
 
 func _on_step_ang_text_submitted(new_text:String) -> void:
 	Global.player_data.camera_smooth_amount = float(new_text)
-	pass # Replace with function body.
 
 func _on_surf_ang_text_submitted(new_text:String) -> void:
 	Global.player_data.SLOPE_LIMIT = float(new_text)
-	pass # Replace with function body.
+
+func _on_smoothswitch_toggled(toggled_on:bool) -> void:
+		Global.player_data.camera_smooth_switch = toggled_on
+

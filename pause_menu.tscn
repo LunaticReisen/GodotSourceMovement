@@ -150,6 +150,12 @@ text = "forward accel"
 flat = true
 metadata/_edit_use_anchors_ = true
 
+[node name="smoothswitch" type="CheckButton" parent="bg/bg2/switches"]
+layout_mode = 2
+text = "camera smoth"
+flat = true
+metadata/_edit_use_anchors_ = true
+
 [node name="line_edits" type="HBoxContainer" parent="bg/bg2"]
 layout_mode = 2
 offset_left = 160.0
@@ -463,5 +469,6 @@ label_settings = SubResource("LabelSettings_0fu0m")
 [connection signal="toggled" from="bg/bg2/switches/bunnyswitch" to="." method="_on_bunnyswitch_toggled"]
 [connection signal="toggled" from="bg/bg2/switches/stepswitch" to="." method="_on_stepswitch_toggled"]
 [connection signal="toggled" from="bg/bg2/switches/accelswitch" to="." method="_on_accelswitch_toggled"]
+[connection signal="toggled" from="bg/bg2/switches/smoothswitch" to="." method="_on_smoothswitch_toggled"]
 [connection signal="text_submitted" from="bg/bg2/line_edits/edtior/surf_ang" to="." method="_on_surf_ang_text_submitted"]
 [connection signal="text_submitted" from="bg/bg2/line_edits/edtior/step_ang" to="." method="_on_step_ang_text_submitted"]

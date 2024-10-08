@@ -121,6 +121,11 @@ func check_snap_up_stair(delta) -> bool :
 
 	# if test success and collided sb3d or cgs object will continue 
 	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
+		
+		print(_result.get_collision_normal().angle_to(Vector3.UP))
+		if !is_too_steep(_result.get_collision_normal()) or (is_too_steep(stairs_ahead_ray.get_collision_normal()) and is_too_steep(stairs_below_ray.get_collision_normal())):
+			return false
+
 		var collide_step_height = ((step_pos_with_clearance.origin + _result.get_travel()) - Global.player.global_position).y
 
 		#if collide too high or too low or greater than max step height will return
@@ -180,15 +185,16 @@ func camera_smooth(delta) :
 
 	stairs_smooth.global_position.y = Global.player_data.camera_smooth_pos.y
 	stairs_smooth.position.y = clamp(stairs_smooth.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
-
+	print(stairs_smooth.position)
+	print(Global.player_data.camera_smooth_pos)
 	var move_amount = max(Global.player.vel.length() * delta , Global.player.currentspeed / 2 * delta)
-	print("move_amount:", move_amount)
-	print("before:",stairs_smooth.position.y)
-	print("before:",stairs_smooth.position)
+	# print("move_amount:", move_amount)
+	# print("before:",stairs_smooth.position.y)
+	# print("before:",stairs_smooth.position)
 	# move_toward(from, to , delta) , ect: move_toward(5,10,4) = 9 
 	stairs_smooth.position.y = move_toward(stairs_smooth.position.y , 0.0 , move_amount)
-	print("after:",stairs_smooth.position.y)
-	print("after:",stairs_smooth.position)
+	# print("after:",stairs_smooth.position.y)
+	# print("after:",stairs_smooth.position)
 
 	Global.player_data.camera_smooth_pos = stairs_smooth.global_position
 	if stairs_smooth.position.y == 0:

@@ -82,25 +82,22 @@ func _physics_process(delta):
 	# We can let the magic come true , right?
 	if Global.player_data.step_switch:
 		is_stepping = player_physic.check_snap_up_stair(delta)
-		# print("is_stepping:",is_stepping)
 		if !is_stepping:
 			is_it_collide =move_and_slide_own()
 			player_physic.check_snap_to_stairs()
 			vel = velocity
-			player_physic.camera_smooth(delta)
+			if Global.player_data.camera_smooth_switch:
+				player_physic.camera_smooth(delta)
 
-		# is_it_collide =move_and_slide_own()
-		# player_physic.check_snap_to_stairs()
-		# vel = velocity
 	else :
 		# Let the magic come true
 		is_it_collide =move_and_slide_own()
 		vel = velocity
 
 
-	if is_step:
-		if !floor_normal <= deg_to_rad(65):
-			Global.player_data.on_floor = true
+	# if is_step:
+	# 	if !floor_normal <= deg_to_rad(65):
+	# 		Global.player_data.on_floor = true
 
 	crouching = handel_crouch(delta)
 	handel_jump()
