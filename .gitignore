@@ -2,3 +2,7 @@
 .godot/
 addons/godot-jolt/windows/~godot-jolt_windows-x64_editor.dll
 addons/godot-jolt/windows/~godot-jolt_windows-x64_editor.dll
+.vscode/settings.json
+/.godot/editor
+/.godot
+/.godot
