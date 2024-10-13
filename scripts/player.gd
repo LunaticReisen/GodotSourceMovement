@@ -337,8 +337,8 @@ func debug_var():
 	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,6)
 	Global.debug_panel.add_property("step", is_stepping , 7)
 	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 8)
-	Global.debug_panel.add_property("head", $Root/Head.position , 9)
-	Global.debug_panel.add_property("smooth", $Root/Head/StairsSmooth.position , 10)
+	Global.debug_panel.add_property("head", $Root/Head.global_position , 9)
+	Global.debug_panel.add_property("smooth", $Root/Head.position , 10)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():

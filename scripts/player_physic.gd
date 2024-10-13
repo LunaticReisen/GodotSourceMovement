@@ -8,7 +8,7 @@ var step_height: Vector3
 var step_incremental_check_height: Vector3
 @onready var stairs_ahead_ray : RayCast3D = $"../StairsAHeadRay"
 @onready var stairs_below_ray : RayCast3D = $"../StairsBelowRay"
-@onready var stairs_smooth = $"../Root/Head/StairsSmooth"
+@onready var stairs_smooth = $"../Root/Head/"
 # var stair_stepping_in_air
 # var result : PhysicsTestMotionResult3D
 
@@ -122,9 +122,9 @@ func check_snap_up_stair(delta) -> bool :
 	# if test success and collided sb3d or cgs object will continue 
 	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
 		
-		print(_result.get_collision_normal().angle_to(Vector3.UP))
-		if !is_too_steep(_result.get_collision_normal()) or (is_too_steep(stairs_ahead_ray.get_collision_normal()) and is_too_steep(stairs_below_ray.get_collision_normal())):
-			return false
+		# print(_result.get_collision_normal().angle_to(Vector3.UP))
+		# if !is_too_steep(_result.get_collision_normal()) or (is_too_steep(stairs_ahead_ray.get_collision_normal()) and is_too_steep(stairs_below_ray.get_collision_normal())):
+		# 	return false
 
 		var collide_step_height = ((step_pos_with_clearance.origin + _result.get_travel()) - Global.player.global_position).y
 
@@ -180,26 +180,20 @@ func save_camera_pos() :
 		Global.player_data.camera_smooth_pos = stairs_smooth.global_position
 
 func camera_smooth(delta) :
+	##TODO:镜头平滑但是不平滑
+		##原因：我的镜头是会旋转cb3d本体，但是以下代码是基于旋转镜头本身的
+		##需要转换坐标
+		##目前解决方法：直接修改head节点
 	if Global.player_data.camera_smooth_pos == null : 
 		return
-
 	stairs_smooth.global_position.y = Global.player_data.camera_smooth_pos.y
-	stairs_smooth.position.y = clamp(stairs_smooth.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
-	print(stairs_smooth.position)
-	print(Global.player_data.camera_smooth_pos)
+	stairs_smooth.position.y = clampf(stairs_smooth.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
 	var move_amount = max(Global.player.vel.length() * delta , Global.player.currentspeed / 2 * delta)
-	# print("move_amount:", move_amount)
-	# print("before:",stairs_smooth.position.y)
-	# print("before:",stairs_smooth.position)
-	# move_toward(from, to , delta) , ect: move_toward(5,10,4) = 9 
 	stairs_smooth.position.y = move_toward(stairs_smooth.position.y , 0.0 , move_amount)
-	# print("after:",stairs_smooth.position.y)
-	# print("after:",stairs_smooth.position)
-
 	Global.player_data.camera_smooth_pos = stairs_smooth.global_position
 	if stairs_smooth.position.y == 0:
+		print("zero?")
 		Global.player_data.camera_smooth_pos = null
-
 
 #Initialize
 func get_movement_axis():

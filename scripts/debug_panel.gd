@@ -14,7 +14,7 @@ func _process(delta):
         add_property("fps",frames_pre_second,0)
 
 func _input(event):
-    if (Input.is_action_just_pressed("DEBUG_TEXT")):
+    if (Input.is_action_just_pressed("debug_info")):
         if %debug_VBoxContainer.visible == true :
             %debug_VBoxContainer.hide()
         else :

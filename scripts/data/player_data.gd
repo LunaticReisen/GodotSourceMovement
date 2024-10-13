@@ -68,7 +68,7 @@ func _ready():
 @export var air_accel_precent           : float = 1
 @export var air_move_precent            : float = .75
 @export var friction_precent            : float = 1
-@export var camera_smooth_amount        : float = .3
+@export var camera_smooth_amount        : float = .7
 var auto_bunny                          :  bool = false
 var step_switch                         :  bool = true
 var accel_switch                        :  bool = true
