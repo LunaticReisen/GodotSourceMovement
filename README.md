@@ -15,12 +15,13 @@ Use __Godot Jolt__ and __Func_Godot__  Addons
 - [x] Mouse Scroll Jumpping
 - [x] Crouch Jumping
 - [x] Stairs
+  - [x] Stairs Camera Smoothing
+  - [x] Crouching climb stairs
 
 #### TO-DO
 
 - [ ] Ladder
 - [ ] Swimming
-- [ ] Camera Smoothing
 
 ### Additional Content
 
@@ -32,11 +33,7 @@ Clone it and unzip it on any where you like ,then use godot to import the sproje
 
 ## Know Issues
 
-Climb stairs might ramdom stutter stuck
-
-I didn't smoothing the camera , will fix later
-
-No code comments , will add it later
+Lunar say maybe random stuck in stairs (it might be a small problem...?)
 
 ## Ref:
 

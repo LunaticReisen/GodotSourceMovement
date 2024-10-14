@@ -58,6 +58,7 @@ func _ready():
 
 @export_subgroup("Step")
 @export var MAX_STEP_HEIGHT : float = 0.3
+@export var MAX_CROUCH_STEP_HEIGHT : float = 0.6
 @export var snap_stair_last_frame := false
 @export var last_frame_on_floor = -INF
 

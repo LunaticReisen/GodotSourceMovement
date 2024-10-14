@@ -91,7 +91,10 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 	return vel
 
 func is_too_steep(normal : Vector3) -> bool :
-	return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
+	if Global.player.is_crouching or Global.player.is_on_crouching:
+		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
+	else :
+		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
 
 func check_snap_to_stairs() :
 	var is_snap := false
@@ -103,7 +106,7 @@ func check_snap_to_stairs() :
 		var _result = PhysicsTestMotionResult3D.new()
 		if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT , 0) , _result):
 			save_camera_pos()
-			Global.player.position.y += _result.get_travel().y
+			Global.player.position.y += _result.get_travel().y*1.05
 			apply_floor_snap_own()
 			is_snap = true
 	Global.player_data.snap_stair_last_frame = is_snap
@@ -122,15 +125,20 @@ func check_snap_up_stair(delta) -> bool :
 	# if test success and collided sb3d or cgs object will continue 
 	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
 		
-		# print(_result.get_collision_normal().angle_to(Vector3.UP))
+		print(_result.get_collision_normal().angle_to(Vector3.UP))
 		# if !is_too_steep(_result.get_collision_normal()) or (is_too_steep(stairs_ahead_ray.get_collision_normal()) and is_too_steep(stairs_below_ray.get_collision_normal())):
 		# 	return false
 
 		var collide_step_height = ((step_pos_with_clearance.origin + _result.get_travel()) - Global.player.global_position).y
 
 		#if collide too high or too low or greater than max step height will return
-		if collide_step_height > Global.player_data.MAX_STEP_HEIGHT or collide_step_height <= 0.01 or (_result.get_collision_point() - Global.player.global_position).y > Global.player_data.MAX_STEP_HEIGHT:
-			return false
+		print("(_result.get_collision_point() - Global.player.global_position).y ",(_result.get_collision_point() - Global.player.global_position).y)
+		if collide_step_height > Global.player_data.MAX_STEP_HEIGHT or collide_step_height <= 0.01:
+			if (_result.get_collision_point() - Global.player.global_position).y > Global.player_data.MAX_STEP_HEIGHT:
+				return false
+			elif Global.player.is_crouching or Global.player.is_on_crouching:
+				if !(_result.get_collision_point() - Global.player.global_position).y > Global.player_data.MAX_CROUCH_STEP_HEIGHT:
+					return false
 
 		stairs_ahead_ray.global_position = _result.get_collision_point() + Vector3(0, Global.player_data.MAX_STEP_HEIGHT ,0) + expected_motion.normalized() * 0.1
 		stairs_ahead_ray.force_raycast_update()
@@ -140,6 +148,9 @@ func check_snap_up_stair(delta) -> bool :
 		if stairs_ahead_ray.is_colliding() and !is_too_steep(stairs_ahead_ray.get_collision_normal()):
 			save_camera_pos()
 			Global.player.global_position = step_pos_with_clearance.origin+ _result.get_travel()
+			# one more smooth , because this if else switch, otherwise will looks fucking bounce
+			if Global.player_data.camera_smooth_switch:
+				camera_smooth(delta)
 			apply_floor_snap_own()
 			Global.player_data.snap_stair_last_frame = true
 			return true
@@ -180,18 +191,15 @@ func save_camera_pos() :
 		Global.player_data.camera_smooth_pos = stairs_smooth.global_position
 
 func camera_smooth(delta) :
-	##TODO:镜头平滑但是不平滑
-		##原因：我的镜头是旋转父节点的，但是以下代码是基于旋转镜头本身的
-		##需要转换坐标
-		##目前解决方法：直接修改为修改head节点
 	if Global.player_data.camera_smooth_pos == null : 
 		return
 	stairs_smooth.global_position.y = Global.player_data.camera_smooth_pos.y
 	stairs_smooth.position.y = clampf(stairs_smooth.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
 	var move_amount = max(Global.player.vel.length() * delta , Global.player.currentspeed / 2 * delta)
-	# var move_amount = max(Global.player.vel.length() * delta , Global.player.vel.length() / 2 * delta)
-	stairs_smooth.position.y = move_toward(stairs_smooth.position.y , 0.0 , move_amount*.8)
+	stairs_smooth.position.y = move_toward(stairs_smooth.position.y , 0.0 , move_amount)
 	Global.player_data.camera_smooth_pos = stairs_smooth.global_position
+	if stairs_smooth.position != Vector3.ZERO:
+		print(stairs_smooth.position)
 	if stairs_smooth.position.y == 0:
 		Global.player_data.camera_smooth_pos = null
 

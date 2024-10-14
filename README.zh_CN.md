@@ -13,11 +13,12 @@
 - [x] 滚轮跳
 - [x] 蹲跳
 - [x] 爬楼梯
+  - [x] 平滑镜头
+  - [x] 蹲伏状态下爬楼梯
   
 #### TO-DO
 - [ ] 梯子
 - [ ] 游泳
-
 
 ### 附加内容
 
@@ -29,9 +30,7 @@ clone然后解压到你想要的位置，然后在godot导入项目即可
 
 ## 已知问题
 
-爬楼梯会莫名其妙卡住，后续优化
-
-没镜头平滑，过段时间整
+Lunar say maybe random stuck in stairs (it might be a small problem...?)
 
 ## Ref:
 

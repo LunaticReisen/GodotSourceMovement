@@ -7,6 +7,8 @@ extends CharacterBody3D
 @onready var player_physic : Player_Physic = $Player_Physic		#player_physic
 @onready var head = $Root
 @onready var stairs_smooth = $Root/Head/StairsSmooth
+@onready var stairs_ahead_ray : RayCast3D = $"StairsAHeadRay"
+@onready var stairs_below_ray : RayCast3D = $"StairsBelowRay"
 
 
 var pos : Vector3
@@ -46,6 +48,7 @@ var is_stepping : bool
 #crouch timer
 var t1 : float
 var t2 : float
+var t3 : float = 0
 
 #endregion 
 
@@ -81,6 +84,18 @@ func _physics_process(delta):
 
 	# We can let the magic come true , right?
 	if Global.player_data.step_switch:
+
+		# if crouch, add some magic in y axis for those raycast
+		if (is_crouching or is_on_crouching)and t3 == 0:
+			t3 += 1
+			stairs_ahead_ray.position.y += .3
+			stairs_below_ray.position.y += .5
+
+		if (is_on_stand or !is_crouching) and t3 == 1:
+			t3 -= 1
+			stairs_ahead_ray.position.y -= .5
+			stairs_below_ray.position.y -= .3
+
 		is_stepping = player_physic.check_snap_up_stair(delta)
 		if !is_stepping:
 			is_it_collide =move_and_slide_own()
@@ -95,14 +110,9 @@ func _physics_process(delta):
 		is_it_collide =move_and_slide_own()
 		vel = velocity
 
-
-	# if is_step:
-	# 	if !floor_normal <= deg_to_rad(65):
-	# 		Global.player_data.on_floor = true
-
 	crouching = handel_crouch(delta)
 	handel_jump()
-	# print(ceilingcast.is_colliding())
+
 	#top speed calculation
 	if (get_current_speed() > topspeed):
 		topspeed = get_current_speed()
@@ -338,9 +348,7 @@ func debug_var():
 	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,6)
 	Global.debug_panel.add_property("step", is_stepping , 7)
 	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 8)
-	Global.debug_panel.add_property("root", $Root.position , 9)
-	Global.debug_panel.add_property("head", $Root/Head.position , 10)
-	Global.debug_panel.add_property("position", position ,11)
+	Global.debug_panel.add_property("head", $Root/Head.position , 9)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():
