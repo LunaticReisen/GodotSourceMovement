@@ -6,3 +6,5 @@ addons/godot-jolt/windows/~godot-jolt_windows-x64_editor.dll
 /.godot/editor
 /.godot
 /.godot
+.vscode/launch.json
+addons/godot-jolt/windows/~godot-jolt_windows-x64_editor.dll

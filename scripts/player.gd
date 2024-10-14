@@ -89,6 +89,7 @@ func _physics_process(delta):
 			if Global.player_data.camera_smooth_switch:
 				player_physic.camera_smooth(delta)
 
+
 	else :
 		# Let the magic come true
 		is_it_collide =move_and_slide_own()
@@ -105,7 +106,7 @@ func _physics_process(delta):
 	#top speed calculation
 	if (get_current_speed() > topspeed):
 		topspeed = get_current_speed()
-	
+
 func process_movement(delta) -> void:
 	raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")	#Initialize
 	dir = player_physic.get_movement_axis()
@@ -275,7 +276,7 @@ func move_and_slide_own() -> bool:
 		floor_normal = testNormal.angle_to(up_direction)
 		if (testNormal.angle_to(up_direction) < deg_to_rad(Global.player_data.SLOPE_LIMIT)):
 			Global.player_data.on_floor = true
-			player_physic.apply_floor_snap_own()
+			# player_physic.apply_floor_snap_own()
 
 
 	# Loop performing the move
@@ -337,8 +338,9 @@ func debug_var():
 	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,6)
 	Global.debug_panel.add_property("step", is_stepping , 7)
 	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 8)
-	Global.debug_panel.add_property("head", $Root/Head.global_position , 9)
-	Global.debug_panel.add_property("smooth", $Root/Head.position , 10)
+	Global.debug_panel.add_property("root", $Root.position , 9)
+	Global.debug_panel.add_property("head", $Root/Head.position , 10)
+	Global.debug_panel.add_property("position", position ,11)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():

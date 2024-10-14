@@ -181,18 +181,18 @@ func save_camera_pos() :
 
 func camera_smooth(delta) :
 	##TODO:镜头平滑但是不平滑
-		##原因：我的镜头是会旋转cb3d本体，但是以下代码是基于旋转镜头本身的
+		##原因：我的镜头是旋转父节点的，但是以下代码是基于旋转镜头本身的
 		##需要转换坐标
-		##目前解决方法：直接修改head节点
+		##目前解决方法：直接修改为修改head节点
 	if Global.player_data.camera_smooth_pos == null : 
 		return
 	stairs_smooth.global_position.y = Global.player_data.camera_smooth_pos.y
 	stairs_smooth.position.y = clampf(stairs_smooth.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
 	var move_amount = max(Global.player.vel.length() * delta , Global.player.currentspeed / 2 * delta)
-	stairs_smooth.position.y = move_toward(stairs_smooth.position.y , 0.0 , move_amount)
+	# var move_amount = max(Global.player.vel.length() * delta , Global.player.vel.length() / 2 * delta)
+	stairs_smooth.position.y = move_toward(stairs_smooth.position.y , 0.0 , move_amount*.8)
 	Global.player_data.camera_smooth_pos = stairs_smooth.global_position
 	if stairs_smooth.position.y == 0:
-		print("zero?")
 		Global.player_data.camera_smooth_pos = null
 
 #Initialize
