@@ -32,6 +32,10 @@ window/stretch/aspect="ignore"
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 
+[global_group]
+
+ladder=""
+
 [input]
 
 move_left={

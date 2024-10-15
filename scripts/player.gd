@@ -84,7 +84,6 @@ func _physics_process(delta):
 
 	# We can let the magic come true , right?
 	if Global.player_data.step_switch:
-
 		# if crouch, add some magic in y axis for those raycast
 		if (is_crouching or is_on_crouching)and t3 == 0:
 			t3 += 1

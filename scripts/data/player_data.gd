@@ -10,6 +10,7 @@ func _ready():
 @export var DASH_SPEED                  : float = 8
 @export var MAX_SPEED                   : float = 40
 @export var JUMP_FORCE                  : float = 7
+@export var LADDER_SPEED                : float = 6.5
 
 @export_subgroup("accelration")
 @export var RUN_ACCEL                   : float = 7
@@ -61,6 +62,8 @@ func _ready():
 @export var MAX_CROUCH_STEP_HEIGHT : float = 0.6
 @export var snap_stair_last_frame := false
 @export var last_frame_on_floor = -INF
+
+@export_subgroup("Ladder")
 
 @export_subgroup("Debug")
 @export var gravity                             = 32

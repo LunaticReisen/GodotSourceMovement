@@ -90,6 +90,9 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 
 	return vel
 
+func handel_ladder() -> bool :
+	pass
+
 func is_too_steep(normal : Vector3) -> bool :
 	if Global.player.is_crouching or Global.player.is_on_crouching:
 		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
@@ -106,7 +109,7 @@ func check_snap_to_stairs() :
 		var _result = PhysicsTestMotionResult3D.new()
 		if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT , 0) , _result):
 			save_camera_pos()
-			Global.player.position.y += _result.get_travel().y*1.05
+			Global.player.position.y += _result.get_travel().y*1
 			apply_floor_snap_own()
 			is_snap = true
 	Global.player_data.snap_stair_last_frame = is_snap
