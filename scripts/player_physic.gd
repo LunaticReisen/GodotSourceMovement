@@ -9,6 +9,7 @@ var step_incremental_check_height: Vector3
 @onready var stairs_ahead_ray : RayCast3D = $"../StairsAHeadRay"
 @onready var stairs_below_ray : RayCast3D = $"../StairsBelowRay"
 @onready var stairs_smooth = $"../Root/Head/"
+var _ladder_climbing :Area3D = null
 # var stair_stepping_in_air
 # var result : PhysicsTestMotionResult3D
 
@@ -91,6 +92,14 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 	return vel
 
 func handel_ladder() -> bool :
+	var was_climbing_ladder := _ladder_climbing and _ladder_climbing.overlaps_body(Global.player)
+	if !was_climbing_ladder:
+		for ladder in get_tree().get_nodes_in_group("ladder") :
+			if ladder.overlaps_body(Global.player):
+				_ladder_climbing = ladder
+				break
+	if _ladder_climbing == null:
+		return false
 	pass
 
 func is_too_steep(normal : Vector3) -> bool :
