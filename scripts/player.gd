@@ -68,7 +68,10 @@ func _input(event):
 		# apply_floor_snap()
 	if(Input.is_action_pressed("test_button_1")):
 		player_physic.apply_floor_snap_own()
-
+	
+	# if event is InputEventMouseButton:
+	# 	if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed == true:
+	# 		print("fuck")
 
 func _physics_process(delta):
 
@@ -206,7 +209,7 @@ func air_move(delta) -> void:
 func handel_jump() -> void:
 	if (Input.is_action_just_pressed("jump") && Global.player_data.on_floor):
 		_wishJump = true
-
+	
 	# if auto bunny is on ,hold jump button will always jumpping ,unless released button
 	if (Global.player_data.auto_bunny and Input.is_action_pressed("jump")):
 		if (_wishJump == true):

@@ -97,7 +97,6 @@ func handel_ladder() -> bool :
 		_ladder_climbing = null
 		for ladder in get_tree().get_nodes_in_group("ladder") :
 			if ladder.overlaps_body(Global.player):
-				print(ladder)
 				_ladder_climbing = ladder
 				break
 	if _ladder_climbing == null:

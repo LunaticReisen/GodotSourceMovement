@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("5_hb15e")
 export_file = false
-game_name = "FuncGodot"
+game_name = "GSM"
 icon = ExtResource("4_rpwjo")
 map_formats = Array[Dictionary]([{
 "format": "Valve",
