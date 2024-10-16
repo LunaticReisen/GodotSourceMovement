@@ -8,7 +8,7 @@ var step_height: Vector3
 var step_incremental_check_height: Vector3
 @onready var stairs_ahead_ray : RayCast3D = $"../StairsAHeadRay"
 @onready var stairs_below_ray : RayCast3D = $"../StairsBelowRay"
-@onready var stairs_smooth = $"../Root/Head/"
+@onready var head = $"../Root/Head/"
 var _ladder_climbing :Area3D = null
 # var stair_stepping_in_air
 # var result : PhysicsTestMotionResult3D
@@ -94,13 +94,72 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 func handel_ladder() -> bool :
 	var was_climbing_ladder := _ladder_climbing and _ladder_climbing.overlaps_body(Global.player)
 	if !was_climbing_ladder:
+		_ladder_climbing = null
 		for ladder in get_tree().get_nodes_in_group("ladder") :
 			if ladder.overlaps_body(Global.player):
+				print(ladder)
 				_ladder_climbing = ladder
 				break
 	if _ladder_climbing == null:
 		return false
-	pass
+	
+	var ladder_global_transform : Transform3D = _ladder_climbing.global_transform
+	var pos_relative_to_ladder = ladder_global_transform.affine_inverse() * Global.player.global_position
+	
+	var forward := Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
+	var side := Input.get_action_strength("move_right") - Input.get_action_strength("move_left") 
+
+	var ladder_forward_move = ladder_global_transform.affine_inverse().basis * head.global_transform.basis * Vector3(0 , 0 , -forward)
+	var ladder_side_move = ladder_global_transform.affine_inverse().basis * head.global_transform.basis * Vector3(side , 0 , 0)
+	
+	var ladder_strafe_vel : float = Global.player_data.LADDER_SPEED * (ladder_forward_move.x + ladder_side_move.x)
+	var ladder_climb_vel : float = Global.player_data.LADDER_SPEED * -ladder_side_move.z
+
+	var cam_forward_amount : float = head.basis.z.dot(_ladder_climbing.basis.z)
+	var up_wish := Vector3.UP.rotated(Vector3(0,1,0) ,deg_to_rad(-45 * cam_forward_amount)).dot(ladder_forward_move)
+	ladder_climb_vel += Global.player_data.LADDER_SPEED * up_wish
+
+	var should_dismount = false
+
+	if ! was_climbing_ladder:
+		var mounting_from_top = pos_relative_to_ladder.y > _ladder_climbing.get_node("TopLadder").position.y
+		if mounting_from_top :
+			if ladder_climb_vel > 0:
+				should_dismount = true
+		else :
+			if (ladder_global_transform.affine_inverse().basis * Vector3(Global.player.dir.x ,0 ,Global.player.dir.y)).z >= 0 :
+				should_dismount = true
+
+		if abs(pos_relative_to_ladder.z) > 0.1 :
+			should_dismount = true
+
+	if Global.player_data.on_floor and ladder_climb_vel <= 0 :
+		should_dismount = true
+ 
+	if should_dismount :
+		_ladder_climbing = null 
+		return false
+
+	if was_climbing_ladder and Input.is_action_just_pressed("jump"):
+		Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 50
+		Global.player.velocity = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE *0.5
+		_ladder_climbing = null
+		return false
+
+	Global.player.vel = ladder_global_transform.basis * Vector3(ladder_strafe_vel , ladder_climb_vel , 0)
+
+	#ladder boosting
+	if !Global.player_data.ladder_boosting :
+		Global.player.vel = Global.player.vel.limit_length(Global.player_data.LADDER_SPEED)
+
+	pos_relative_to_ladder.z = 0
+	Global.player.global_position = _ladder_climbing.global_transform * pos_relative_to_ladder
+
+	Global.player.velocity = Global.player.vel
+
+	Global.player.move_and_slide_own()
+	
+	return true
 
 func is_too_steep(normal : Vector3) -> bool :
 	if Global.player.is_crouching or Global.player.is_on_crouching:
@@ -137,14 +196,12 @@ func check_snap_up_stair(delta) -> bool :
 	# if test success and collided sb3d or cgs object will continue 
 	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
 		
-		print(_result.get_collision_normal().angle_to(Vector3.UP))
 		# if !is_too_steep(_result.get_collision_normal()) or (is_too_steep(stairs_ahead_ray.get_collision_normal()) and is_too_steep(stairs_below_ray.get_collision_normal())):
 		# 	return false
 
 		var collide_step_height = ((step_pos_with_clearance.origin + _result.get_travel()) - Global.player.global_position).y
 
 		#if collide too high or too low or greater than max step height will return
-		print("(_result.get_collision_point() - Global.player.global_position).y ",(_result.get_collision_point() - Global.player.global_position).y)
 		if collide_step_height > Global.player_data.MAX_STEP_HEIGHT or collide_step_height <= 0.01:
 			if (_result.get_collision_point() - Global.player.global_position).y > Global.player_data.MAX_STEP_HEIGHT:
 				return false
@@ -200,32 +257,30 @@ func body_test_motion_own(from : Transform3D , motion : Vector3 , result : Physi
 
 func save_camera_pos() :
 	if Global.player_data.camera_smooth_pos == null:
-		Global.player_data.camera_smooth_pos = stairs_smooth.global_position
+		Global.player_data.camera_smooth_pos = head.global_position
 
 func camera_smooth(delta) :
 	if Global.player_data.camera_smooth_pos == null : 
 		return
-	stairs_smooth.global_position.y = Global.player_data.camera_smooth_pos.y
-	stairs_smooth.position.y = clampf(stairs_smooth.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
+	head.global_position.y = Global.player_data.camera_smooth_pos.y
+	head.position.y = clampf(head.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
 	var move_amount = max(Global.player.vel.length() * delta , Global.player.currentspeed / 2 * delta)
-	stairs_smooth.position.y = move_toward(stairs_smooth.position.y , 0.0 , move_amount)
-	Global.player_data.camera_smooth_pos = stairs_smooth.global_position
-	if stairs_smooth.position != Vector3.ZERO:
-		print(stairs_smooth.position)
-	if stairs_smooth.position.y == 0:
+	head.position.y = move_toward(head.position.y , 0.0 , move_amount)
+	Global.player_data.camera_smooth_pos = head.global_position
+	if head.position.y == 0:
 		Global.player_data.camera_smooth_pos = null
 
 #Initialize
 func get_movement_axis():
 	var basis = camera.global_transform.basis
 	var dir = Vector3.ZERO
-	if Input.is_action_pressed("move_left"):
+	if Input.get_action_strength("move_left"):
 		dir -= basis.x
-	if Input.is_action_pressed("move_right"):
+	if Input.get_action_strength("move_right"):
 		dir += basis.x
-	if Input.is_action_pressed("move_forward"):
+	if Input.get_action_strength("move_forward"):
 		dir -= basis.z
-	if Input.is_action_pressed("move_back"):
+	if Input.get_action_strength("move_back"):
 		dir += basis.z
 	dir.y = 0
 	# dir -= basis.x

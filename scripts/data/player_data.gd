@@ -10,7 +10,7 @@ func _ready():
 @export var DASH_SPEED                  : float = 8
 @export var MAX_SPEED                   : float = 40
 @export var JUMP_FORCE                  : float = 7
-@export var LADDER_SPEED                : float = 6.5
+@export var LADDER_SPEED                : float = 5
 
 @export_subgroup("accelration")
 @export var RUN_ACCEL                   : float = 7
@@ -78,6 +78,7 @@ var step_switch                         :  bool = true
 var accel_switch                        :  bool = true
 var camera_smooth_switch                :  bool = true
 var on_floor                            :  bool = false
+var ladder_boosting                     :  bool = true
 var wish_jump                           :  bool = false
 var _floor_margin                       : float = 0.001
 var camera_smooth_pos                           = null
