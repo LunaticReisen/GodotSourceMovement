@@ -34,7 +34,7 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 	var accelspeed : float
 	var accel_precent :float = Global.player_data.accel_precent
 
-	if (vel.length() >= Global.player_data.MAX_SPEED):
+	if (vel.length() >= Global.player_data.GROUND_MAX_SPEED):
 		return vel
 
 	if (Global.player.is_crouching):
@@ -55,26 +55,28 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 	if (vel.length() > 15):
 		accel_precent = .45
 
-	if !is_in_water:
-		vel += accelspeed * wish_dir * accel_precent
-	else :
-		vel.x += accelspeed * wish_dir.x * accel_precent
-		vel.y += accelspeed * wish_dir.y * accel_precent
-		vel.z += accelspeed * wish_dir.z * accel_precent
+	vel += accelspeed * wish_dir * accel_precent
+	if is_in_water:
+		if vel.y > Global.player_data.FLOAT_MAX_SPEED:
+			vel.y = Global.player_data.FLOAT_MAX_SPEED
 	
 	return vel
 
-func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
+func handel_friction(vel : Vector3, t : float, is_in_water : bool, delta):
 	var vec : Vector3 = vel
 	vec.y = 0
 	var speed : float = vec.length()
 	var drop :float = 0
 	var _friction
 
-	if (is_crouching):
+	if (Global.player.is_crouching):
 		_friction = Global.player_data.CROUCH_FRICTION
 	else :
 		_friction = Global.player_data.STAND_FRICTION
+
+	if is_in_water:
+		_friction = Global.player_data.WATER_FRICTION
+
 
 	if(Global.player_data.on_floor):
 		var control :float 
@@ -92,34 +94,11 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 		newspeed /= speed
 		
 	Global.player.player_friction = newspeed #debug
-	vel *= newspeed
-
-	return vel
-
-func handel_water_friction(vel : Vector3, t : float, delta):
-	var vec : Vector3 = vel
-	vec.y = 0
-	var speed : float = vec.length()
-	var drop :float = 0
-	var _friction = Global.player_data.WATER_FRICTION
-
-	var control :float 
-	if (speed < Global.player_data.SWIM_DECEEL):
-		control = Global.player_data.SWIM_DECEEL
+	if !is_in_water:
+		vel *= newspeed
 	else :
-		control = speed
-	drop = control * _friction * delta * t * Global.player_data.friction_precent
-	
-	var newspeed : float = speed - drop
-	
-	if (newspeed < 0) :
-		newspeed = 0
-	if (speed > 0) : 
-		newspeed /= speed
-		
-	Global.player.player_friction = newspeed #debug
-	vel.x *= newspeed
-	vel.z *= newspeed
+		vel.x *= newspeed
+		vel.z *= newspeed
 
 	return vel
 

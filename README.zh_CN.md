@@ -16,13 +16,17 @@
   - [x] 平滑镜头
   - [x] 蹲伏状态下爬楼梯
 - [x] 梯子
-  
-#### TO-DO
-- [ ] 游泳
+- [x] 游
 
 ### 附加内容
 
 - [x] 物体交互 
+
+#### TO-DO
+
+写上少的那部分注释
+
+给梯子和水域写fgd方便在tb作图
 
 ## 如何使用
 
@@ -32,7 +36,9 @@ clone然后解压到你想要的位置，然后在godot导入项目即可
 
 Lunar say maybe random stuck in stairs (it might be a small problem...?)
 
-梯子速度需要打磨一下，晚点弄
+部分没有注释
+
+还没有写实体相关的fgd方便制作梯子和水域
 
 ## Ref:
 

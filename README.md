@@ -18,14 +18,18 @@ Use __Godot Jolt__ and __Func_Godot__  Addons
   - [x] Stairs Camera Smoothing
   - [x] Crouching climb stairs
 - [x] Ladder
+- [x] Swimming
 
-#### TO-DO
-
-- [ ] Swimming
 
 ### Additional Content
 
 - [x] Interact with objects
+
+#### TO-DO
+
+Some function NEED code comments
+
+FGD for ladder and water
 
 ## HOW TO USE
 
@@ -35,7 +39,9 @@ Clone it and unzip it on any where you like ,then use godot to import the sproje
 
 Lunar say maybe random stuck in stairs (it might be a small problem...?)
 
-Ladder speed need polishing
+Some function did not have code comments
+
+No fgd for ladder and water
 
 ## Ref:
 

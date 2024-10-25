@@ -1,11 +1,9 @@
-[gd_scene load_steps=223 format=4 uid="uid://qh0gfehkdctm"]
+[gd_scene load_steps=220 format=4 uid="uid://qh0gfehkdctm"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_3jks5"]
-[ext_resource type="PackedScene" uid="uid://cpofycvn67fgn" path="res://pause_menu.tscn" id="1_qpe3m"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="2_nq5tv"]
 [ext_resource type="Material" uid="uid://bxjuvtifntomi" path="res://textures/dev_textures/texture_01.tres" id="3_o6mlj"]
 [ext_resource type="Material" uid="uid://6ich18hf34bu" path="res://textures/dev_textures/texture_06.tres" id="4_7vllt"]
-[ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="4_vklwp"]
 [ext_resource type="Texture2D" uid="uid://dntikp3q5u24q" path="res://textures/dev_textures/texture_08.png" id="5_oqxln"]
 [ext_resource type="PackedScene" uid="uid://dmyla25h441el" path="res://meshs/WaterPrefab3D.tscn" id="7_5o047"]
 
@@ -687,12 +685,6 @@ points = PackedVector3Array(12.25, 1.6875, -20.375, 12.25, 1.5, -20.375, 12.75, 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6jspq"]
 points = PackedVector3Array(11.75, 1.5, -20.375, 11.75, 1.3125, -20.375, 12.25, 1.3125, -20.375, 12.25, 1.5, -20.375, 11.75, 1.5, -18.625, 11.75, 1.3125, -18.625, 12.25, 1.3125, -18.625, 12.25, 1.5, -18.625)
 
-[sub_resource type="Environment" id="Environment_b78d5"]
-background_mode = 1
-background_color = Color(0.956863, 0.94902, 0.960784, 1)
-ambient_light_color = Color(0.372549, 0.372549, 0.372549, 1)
-ssao_enabled = true
-
 [node name="Stairs" type="Node3D"]
 
 [node name="FuncGodotMap" type="Node3D" parent="."]
@@ -1337,14 +1329,6 @@ shape = SubResource("ConvexPolygonShape3D_01odo")
 
 [node name="entity_0_brush_209_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_6jspq")
-
-[node name="Player" parent="." instance=ExtResource("4_vklwp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38989, 0.364625, -5.05696)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_b78d5")
-
-[node name="PauseMenu" parent="." instance=ExtResource("1_qpe3m")]
 
 [node name="CSGBox3D" parent="." instance=ExtResource("7_5o047")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.94164, 3.40478, 9.33832)

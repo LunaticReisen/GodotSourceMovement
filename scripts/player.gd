@@ -149,9 +149,9 @@ func ground_move(delta) -> void:
 	Global.player_data.on_floor = true
 	var accle : float
 	if (!_wish_jump):
-		vel = player_physic.handel_friction(vel,1,crouching,delta)
+		vel = player_physic.handel_friction(vel,1,is_in_water(),delta)
 	else :
-		vel = player_physic.handel_friction(vel,0,crouching,delta)		
+		vel = player_physic.handel_friction(vel,0,is_in_water(),delta)		
 	var wish_dir : Vector3 = Vector3(dir.x, 0, dir.z)
 	DEBUG_wishdir = wish_dir
 	wish_dir = wish_dir.normalized()
@@ -170,11 +170,16 @@ func ground_move(delta) -> void:
 
 	_wishspeed = wish_speed
 
+# modify ground move function
 func water_move(delta) -> void:
+	#if last movement statie is air , when player hit the water ,it will lost some falling power
 	if last_movement_state == "air":
 		vel.y = vel.y*0.5
+
 	var accle : float
-	vel = player_physic.handel_water_friction(vel,1,delta)
+	vel = player_physic.handel_friction(vel,1,is_in_water(),delta)
+
+	# change the wish dir to multiply the camera transform basis
 	var wish_dir : Vector3 = %Camera.global_transform.basis * Vector3(raw_input.x , 0 , raw_input.y)
 	DEBUG_wishdir = wish_dir
 	wish_dir = wish_dir.normalized()
@@ -182,7 +187,7 @@ func water_move(delta) -> void:
 	wish_speed *= currentspeed
 	accle = Global.player_data.SWIM_ACCEL 
 	
-
+	# not on floor not on jumping and velocity's y axis is zero ,will add the gravity
 	if !Global.player_data.on_floor and !_wish_jump and wish_dir.y == 0:
 		vel.y -= Global.player_data.gravity * delta * Global.player_data.gravity_precent * Global.player_data.swim_gravity_precent
 
@@ -191,7 +196,6 @@ func water_move(delta) -> void:
 	if _wish_jump:
 		vel.y += Global.player_data.SWIM_UP_SPEED * delta * Global.player_data.swim_up_precent
 	
-
 	_wishspeed = wish_speed
 
 
@@ -381,11 +385,13 @@ func move_and_slide_own() -> bool:
 func speed_changer() -> void:
 	if (Input.is_action_pressed("dash") and !is_crouching):
 		currentspeed = Global.player_data.DASH_SPEED
+	elif is_in_water():
+		if (is_crouching or is_on_crouching):
+			currentspeed = Global.player_data.SWIM_SPEED
+			return
+		currentspeed = Global.player_data.SWIM_SPEED
 	elif (is_crouching or is_on_crouching):
 		currentspeed = Global.player_data.CROUCH_SPEED
-	elif is_in_water():
-		currentspeed = Global.player_data.SWIM_SPEED
-		# currentspeed = currentspeed * .75
 	else :
 		currentspeed = Global.player_data.WALK_SPEED
 

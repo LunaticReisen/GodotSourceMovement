@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://coxfhoysaumpo"]
+[gd_scene load_steps=8 format=3 uid="uid://coxfhoysaumpo"]
 
-[ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="1_2w6n5"]
-[ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://meshs/test_lab_map.tscn" id="2_8m0in"]
-[ext_resource type="PackedScene" uid="uid://cpofycvn67fgn" path="res://pause_menu.tscn" id="3_7t7df"]
+[ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="1_6ckch"]
+[ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://maps/test_lab_map.tscn" id="2_46ycu"]
+[ext_resource type="PackedScene" uid="uid://qg1ttebv16qf" path="res://maps/test_intreaction.tscn" id="3_wy6x1"]
+[ext_resource type="PackedScene" uid="uid://cpofycvn67fgn" path="res://pause_menu.tscn" id="4_23uaj"]
+[ext_resource type="PackedScene" uid="uid://qh0gfehkdctm" path="res://maps/test_stairs.tscn" id="4_cu6ar"]
 
 [sub_resource type="Environment" id="Environment_xea04"]
 background_mode = 1
@@ -18,13 +20,19 @@ size = Vector3(397.922, 19.1265, 259.838)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_xea04")
 
-[node name="Player" parent="." instance=ExtResource("1_2w6n5")]
+[node name="Player" parent="." instance=ExtResource("1_6ckch")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.551, 1.0369, 0)
 
 [node name="Level" type="Node" parent="."]
 
-[node name="map" parent="Level" instance=ExtResource("2_8m0in")]
+[node name="main" parent="Level" instance=ExtResource("2_46ycu")]
+
+[node name="intreaction" parent="Level" instance=ExtResource("3_wy6x1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 33, 0, 2)
+
+[node name="Stairs" parent="Level" instance=ExtResource("4_cu6ar")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, 35.5)
 
 [node name="Drop" type="Area3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.0604, -45.6647, -25.1389)
@@ -38,6 +46,6 @@ shape = SubResource("BoxShape3D_r2jyx")
 transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, -12.4591, 6.52153, 0)
 shadow_enabled = true
 
-[node name="PauseMenu" parent="." instance=ExtResource("3_7t7df")]
+[node name="PauseMenu" parent="." instance=ExtResource("4_23uaj")]
 
 [connection signal="body_entered" from="Level/Drop" to="Player" method="_on_area_3d_body_entered"]

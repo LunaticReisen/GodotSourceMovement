@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://rn24b4x6mmga"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_cclu0"]
-[ext_resource type="Shape3D" uid="uid://cs7m3drkfeskt" path="res://player-cylin.tres" id="2_0ouht"]
+[ext_resource type="Shape3D" uid="uid://cs7m3drkfeskt" path="res://meshs/player-cylin.tres" id="2_0ouht"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_385kn"]
 [ext_resource type="Script" path="res://scripts/player_physic.gd" id="4_ek334"]
 [ext_resource type="Texture2D" uid="uid://p1kbcjfo4uc0" path="res://textures/input-prompts/keyboard_f.png" id="4_qmik6"]

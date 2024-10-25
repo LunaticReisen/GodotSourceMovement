@@ -8,17 +8,18 @@ func _ready():
 @export var WALK_SPEED                  : float = 6
 @export var CROUCH_SPEED                : float = 2
 @export var DASH_SPEED                  : float = 8
-@export var MAX_SPEED                   : float = 40
+@export var GROUND_MAX_SPEED            : float = 40
+@export var FLOAT_MAX_SPEED             : float = 20
 @export var JUMP_FORCE                  : float = 7
 @export var LADDER_SPEED                : float = 5
 @export var SWIM_SPEED                  : float = 4
-@export var SWIM_UP_SPEED               : float = 6
+@export var SWIM_UP_SPEED               : float = 5
 
 @export_subgroup("accelration")
 @export var RUN_ACCEL                   : float = 7
-@export var SWIM_ACCEL                   : float = 5
+@export var SWIM_ACCEL                   : float = 4
 @export var RUN_DECEEL                  : float = 4
-@export var SWIM_DECEEL                  : float = 4
+@export var SWIM_DECEEL                  : float = 3.5
 @export var AIR_MAX_SPEED               : float = 15
 @export var AIR_ADD_SPEED               : float = 2
 @export var AIR_ACCEL                   : float = 70
