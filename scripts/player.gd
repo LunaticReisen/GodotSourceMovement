@@ -171,12 +171,8 @@ func ground_move(delta) -> void:
 	_wishspeed = wish_speed
 
 func water_move(delta) -> void:
-	var stop_gravity :bool = true
 	if last_movement_state == "air":
-		vel.y *= 0.75
-		stop_gravity = true
-	else :
-		stop_gravity = false
+		vel.y = vel.y*0.5
 	var accle : float
 	vel = player_physic.handel_water_friction(vel,1,delta)
 	var wish_dir : Vector3 = %Camera.global_transform.basis * Vector3(raw_input.x , 0 , raw_input.y)
@@ -187,11 +183,8 @@ func water_move(delta) -> void:
 	accle = Global.player_data.SWIM_ACCEL 
 	
 
-	if !Global.player_data.on_floor and !_wish_jump and wish_dir.y == 0 and !stop_gravity:
+	if !Global.player_data.on_floor and !_wish_jump and wish_dir.y == 0:
 		vel.y -= Global.player_data.gravity * delta * Global.player_data.gravity_precent * Global.player_data.swim_gravity_precent
-	
-	if stop_gravity:
-		vel.y += Global.player_data.gravity * delta * 10
 
 	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, true, delta)
 	
