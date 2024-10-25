@@ -35,6 +35,7 @@ enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 [global_group]
 
 ladder=""
+water_area="water area prop"
 
 [input]
 
@@ -160,6 +161,7 @@ debug_info={
 3d_physics/layer_1="wall"
 3d_physics/layer_2="player"
 3d_physics/layer_3="interation"
+3d_physics/layer_4="water"
 
 [physics]
 

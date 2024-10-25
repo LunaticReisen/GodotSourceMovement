@@ -47,11 +47,13 @@ shape = SubResource("CylinderShape3D_75emf")
 target_position = Vector3(0, 0, 0)
 
 [node name="Head" type="Node3D" parent="Root"]
+unique_name_in_owner = true
 script = ExtResource("3_385kn")
 
 [node name="StairsSmooth" type="Node3D" parent="Root/Head"]
 
 [node name="Camera" type="Camera3D" parent="Root/Head/StairsSmooth"]
+unique_name_in_owner = true
 cull_mask = 1048573
 fov = 90.0
 

@@ -11,16 +11,21 @@ func _ready():
 @export var MAX_SPEED                   : float = 40
 @export var JUMP_FORCE                  : float = 7
 @export var LADDER_SPEED                : float = 5
+@export var SWIM_SPEED                  : float = 4
+@export var SWIM_UP_SPEED               : float = 6
 
 @export_subgroup("accelration")
 @export var RUN_ACCEL                   : float = 7
+@export var SWIM_ACCEL                   : float = 5
 @export var RUN_DECEEL                  : float = 4
+@export var SWIM_DECEEL                  : float = 4
 @export var AIR_MAX_SPEED               : float = 15
 @export var AIR_ADD_SPEED               : float = 2
 @export var AIR_ACCEL                   : float = 70
 @export var AIR_DECCEL                  : float = 1
 @export var AIR_CAP                     : float = .5
 @export var STAND_FRICTION              : float = 5.5
+@export var WATER_FRICTION              : float = 3.5
 @export var CROUCH_FRICTION             : float = 2
 
 @export_subgroup("crouch")
@@ -63,22 +68,22 @@ func _ready():
 @export var snap_stair_last_frame := false
 @export var last_frame_on_floor = -INF
 
-@export_subgroup("Ladder")
-
 @export_subgroup("Debug")
-@export var gravity                             = 32
-@export var gravity_precent             : float = .7
+@export var gravity                             = 22.4
+@export var gravity_precent             : float = 1
+@export var gravity_water_precent       : float = 1
 @export var accel_precent               : float = 1
 @export var air_accel_precent           : float = 1
 @export var air_move_precent            : float = .75
 @export var friction_precent            : float = 1
+@export var swim_gravity_precent        : float = .5
+@export var swim_up_precent             : float = 2
 @export var camera_smooth_amount        : float = .7
 var auto_bunny                          :  bool = false
-var step_switch                         :  bool = true
+var step_switch                         :  bool = false
 var accel_switch                        :  bool = true
 var camera_smooth_switch                :  bool = true
 var on_floor                            :  bool = false
 var ladder_boosting                     :  bool = true
-var wish_jump                           :  bool = false
 var _floor_margin                       : float = 0.001
 var camera_smooth_pos                           = null

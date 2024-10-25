@@ -16,13 +16,14 @@ var topspeed :float = 0
 var _wishspeed :float = 0
 var currentspeed : float = 0
 var player_friction :float = 0
-var checker_movement = "what"
+var movement_state = "what"
+var last_movement_state = "what"
 
 var vel : Vector3 = Vector3.ZERO
 var DEBUG_origin_transform :Vector3
 var DEBUG_wishdir :Vector3
 
-var _wishJump : bool = false 
+var _wish_jump : bool = false 
 
 var is_step : bool = false
 
@@ -45,6 +46,8 @@ var floor_normal : float
 
 var is_stepping : bool 
 var is_on_ladder :bool
+
+var cam_aligned_wish_dir := Vector3.ZERO
 
 #crouch timer
 var t1 : float
@@ -79,37 +82,36 @@ func _physics_process(delta):
 
 	debug_var()
 	speed_changer()
-	process_movement(delta)
-
-	# print(vel)
-	Global.player_data.wish_jump = _wishJump
-
-	velocity = vel
-
 	# We can let the magic come true , right?
-	if Global.player_data.step_switch:
-		# if crouch, add some magic in y axis for those raycast
-		if (is_crouching or is_on_crouching)and t3 == 0:
-			t3 += 1
-			stairs_ahead_ray.position.y += .3
-			stairs_below_ray.position.y += .5
-
-		if (is_on_stand or !is_crouching) and t3 == 1:
-			t3 -= 1
-			stairs_ahead_ray.position.y -= .5
-			stairs_below_ray.position.y -= .3
-
-		is_stepping = player_physic.check_snap_up_stair(delta)
-		is_on_ladder = player_physic.handel_ladder()
-		if !is_stepping:
-			if !is_on_ladder:
-				is_it_collide =move_and_slide_own()
-				player_physic.check_snap_to_stairs()
-				vel = velocity
-				if Global.player_data.camera_smooth_switch:
-					player_physic.camera_smooth(delta)
+	process_movement(delta)
+	velocity = vel
+	if !is_in_water():
+		if !Global.player_data.step_switch:
+			# if crouch, add some magic in y axis for those raycast
+			if (is_crouching or is_on_crouching)and t3 == 0:
+				t3 += 1
+				stairs_ahead_ray.position.y += .3
+				stairs_below_ray.position.y += .5
+	
+			if (is_on_stand or !is_crouching) and t3 == 1:
+				t3 -= 1
+				stairs_ahead_ray.position.y -= .5
+				stairs_below_ray.position.y -= .3
+	
+			is_stepping = player_physic.check_snap_up_stair(delta)
+			is_on_ladder = player_physic.handel_ladder()
+			if !is_stepping:
+				if !is_on_ladder:
+					is_it_collide =move_and_slide_own()
+					player_physic.check_snap_to_stairs()
+					vel = velocity
+					if Global.player_data.camera_smooth_switch:
+						player_physic.camera_smooth(delta)
+		else :
+			# Let the magic come true
+			is_it_collide =move_and_slide_own()
+			vel = velocity
 	else :
-		# Let the magic come true
 		is_it_collide =move_and_slide_own()
 		vel = velocity
 
@@ -120,28 +122,33 @@ func _physics_process(delta):
 	if (get_current_speed() > topspeed):
 		topspeed = get_current_speed()
 	
-	if is_on_ladder:
-		if get_current_speed_on_ladder() > topspeed:
-			topspeed = get_current_speed_on_ladder()
+	if is_on_ladder or is_in_water():
+		if get_current_speed_full() > topspeed:
+			topspeed = get_current_speed_full()
 	else :
 		if get_current_speed() > topspeed:
 			topspeed = get_current_speed()
+	last_movement_state = movement_state
 
 func process_movement(delta) -> void:
 	raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")	#Initialize
 	dir = player_physic.get_movement_axis()
-	if (Global.player_data.on_floor):
-		ground_move(delta)
-		checker_movement = "ground"
-	else :
-		air_move(delta)
-		checker_movement = "air"
+	if !is_in_water():
+		if (Global.player_data.on_floor):
+			ground_move(delta)
+			movement_state = "ground"
+		else :
+			air_move(delta)
+			movement_state = "air"
+	else:
+		movement_state = "water"
+		water_move(delta)
 
 #See more in https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
 func ground_move(delta) -> void:
 	Global.player_data.on_floor = true
 	var accle : float
-	if (!_wishJump):
+	if (!_wish_jump):
 		vel = player_physic.handel_friction(vel,1,crouching,delta)
 	else :
 		vel = player_physic.handel_friction(vel,0,crouching,delta)		
@@ -155,11 +162,42 @@ func ground_move(delta) -> void:
 	else :
 		accle = Global.player_data.RUN_ACCEL 
 
-	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, crouching, delta)
+	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, false, delta)
 
-	if (_wishJump):
+	if (_wish_jump):
 		vel.y = Global.player_data.JUMP_FORCE
-		_wishJump = false
+		_wish_jump = false
+
+	_wishspeed = wish_speed
+
+func water_move(delta) -> void:
+	var stop_gravity :bool = true
+	if last_movement_state == "air":
+		vel.y *= 0.75
+		stop_gravity = true
+	else :
+		stop_gravity = false
+	var accle : float
+	vel = player_physic.handel_water_friction(vel,1,delta)
+	var wish_dir : Vector3 = %Camera.global_transform.basis * Vector3(raw_input.x , 0 , raw_input.y)
+	DEBUG_wishdir = wish_dir
+	wish_dir = wish_dir.normalized()
+	var wish_speed : float = wish_dir.length()
+	wish_speed *= currentspeed
+	accle = Global.player_data.SWIM_ACCEL 
+	
+
+	if !Global.player_data.on_floor and !_wish_jump and wish_dir.y == 0 and !stop_gravity:
+		vel.y -= Global.player_data.gravity * delta * Global.player_data.gravity_precent * Global.player_data.swim_gravity_precent
+	
+	if stop_gravity:
+		vel.y += Global.player_data.gravity * delta * 10
+
+	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, true, delta)
+	
+	if _wish_jump:
+		vel.y += Global.player_data.SWIM_UP_SPEED * delta * Global.player_data.swim_up_precent
+	
 
 	_wishspeed = wish_speed
 
@@ -205,19 +243,35 @@ func air_move(delta) -> void:
 
 	_wishspeed = wish_speed #debug
 
+func is_in_water() -> bool:
+	if get_tree().get_nodes_in_group("water_area").all(func(area): return !area.overlaps_body(Global.player)):
+		return false
+	return true
 
 func handel_jump() -> void:
-	if (Input.is_action_just_pressed("jump") && Global.player_data.on_floor):
-		_wishJump = true
+
+	if Global.player_data.step_switch:
+		return
+
+	if Input.is_action_pressed("jump") and is_in_water():
+		_wish_jump = true
+		return
+
+	if Input.is_action_just_pressed("jump") && Global.player_data.on_floor:
+		_wish_jump = true
+		return
 	
 	# if auto bunny is on ,hold jump button will always jumpping ,unless released button
-	if (Global.player_data.auto_bunny and Input.is_action_pressed("jump")):
-		if (_wishJump == true):
+	if Global.player_data.auto_bunny and Input.is_action_pressed("jump"):
+		if (_wish_jump == true):
 			return
 		else :
-			_wishJump = true
-	elif (Global.player_data.auto_bunny and Input.is_action_just_released("jump")):
-		_wishJump = false
+			_wish_jump = true
+			return
+	elif Global.player_data.auto_bunny and Input.is_action_just_released("jump"):
+		_wish_jump = false
+		return
+	_wish_jump =false
 
 func handel_crouch(delta) -> bool:
 	collider_shape = collider.shape		#Player collider shape
@@ -324,11 +378,9 @@ func move_and_slide_own() -> bool:
 
 		# Calculate velocity to slide along the surface
 		var normal = collision.get_normal()
-		# print(velocity)
 		
 		motion = collision.get_remainder().slide(normal)
 		velocity = velocity.slide(normal)
-		# print(velocity)
 		# Collision has occurred
 		collided = true
 	return collided
@@ -338,9 +390,9 @@ func speed_changer() -> void:
 		currentspeed = Global.player_data.DASH_SPEED
 	elif (is_crouching or is_on_crouching):
 		currentspeed = Global.player_data.CROUCH_SPEED
-	# elif is_step:
-	# 	# currentspeed = Global.player_data.STEP_SPEED
-	# 	currentspeed = currentspeed * .75
+	elif is_in_water():
+		currentspeed = Global.player_data.SWIM_SPEED
+		# currentspeed = currentspeed * .75
 	else :
 		currentspeed = Global.player_data.WALK_SPEED
 
@@ -349,9 +401,8 @@ func get_current_speed():
 	pos.y = 0
 	return pos.length()
 
-func get_current_speed_on_ladder():
-	pos = velocity
-	return pos.length()
+func get_current_speed_full():
+	return velocity.length()
 
 func debug_var():
 	Global.debug_panel.add_property("velocity", velocity ,1)
@@ -360,9 +411,13 @@ func debug_var():
 	Global.debug_panel.add_property("topspeed", topspeed ,4)
 	Global.debug_panel.add_property("speed", get_current_speed() ,5)
 	Global.debug_panel.add_property("on_floor", Global.player_data.on_floor ,6)
-	Global.debug_panel.add_property("step", is_stepping , 7)
-	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 8)
-	Global.debug_panel.add_property("ladder", is_on_ladder , 9)
+	Global.debug_panel.add_property("movement_state", movement_state ,7)
+	Global.debug_panel.add_property("step", is_stepping , 8)
+	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 9)
+	Global.debug_panel.add_property("ladder", is_on_ladder , 10)
+	Global.debug_panel.add_property("water", is_in_water() , 11)
+	Global.debug_panel.add_property("jump", _wish_jump , 12)
+	Global.debug_panel.add_property("wish_dir", DEBUG_wishdir , 13)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():

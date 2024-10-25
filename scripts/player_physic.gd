@@ -30,14 +30,14 @@ func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel 
 
 	return vel
 
-func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, is_crouching :bool, delta): #ground accel
+func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, is_in_water : bool, delta): #ground accel
 	var accelspeed : float
 	var accel_precent :float = Global.player_data.accel_precent
 
 	if (vel.length() >= Global.player_data.MAX_SPEED):
 		return vel
 
-	if (is_crouching):
+	if (Global.player.is_crouching):
 		if (Global.player_data.on_floor):
 			accelspeed = Global.player_data.CROUCH_ACCEL
 		else :
@@ -52,10 +52,15 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 		accelspeed = addspeed
 	
 	#little "boost"
-	if (Global.player.velocity.length() > 15):
+	if (vel.length() > 15):
 		accel_precent = .45
 
-	vel += accelspeed * wish_dir * Global.player_data.accel_precent
+	if !is_in_water:
+		vel += accelspeed * wish_dir * accel_precent
+	else :
+		vel.x += accelspeed * wish_dir.x * accel_precent
+		vel.y += accelspeed * wish_dir.y * accel_precent
+		vel.z += accelspeed * wish_dir.z * accel_precent
 	
 	return vel
 
@@ -88,6 +93,33 @@ func handel_friction(vel : Vector3, t : float, is_crouching : bool, delta):
 		
 	Global.player.player_friction = newspeed #debug
 	vel *= newspeed
+
+	return vel
+
+func handel_water_friction(vel : Vector3, t : float, delta):
+	var vec : Vector3 = vel
+	vec.y = 0
+	var speed : float = vec.length()
+	var drop :float = 0
+	var _friction = Global.player_data.WATER_FRICTION
+
+	var control :float 
+	if (speed < Global.player_data.SWIM_DECEEL):
+		control = Global.player_data.SWIM_DECEEL
+	else :
+		control = speed
+	drop = control * _friction * delta * t * Global.player_data.friction_precent
+	
+	var newspeed : float = speed - drop
+	
+	if (newspeed < 0) :
+		newspeed = 0
+	if (speed > 0) : 
+		newspeed /= speed
+		
+	Global.player.player_friction = newspeed #debug
+	vel.x *= newspeed
+	vel.z *= newspeed
 
 	return vel
 
@@ -160,12 +192,7 @@ func handel_ladder() -> bool :
 	
 	return true
 
-func is_too_steep(normal : Vector3) -> bool :
-	if Global.player.is_crouching or Global.player.is_on_crouching:
-		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
-	else :
-		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
-
+# stairs function
 func check_snap_to_stairs() :
 	var is_snap := false
 	# if lower ray cast colliding , and collider normal >= slope limit deg , will return true
@@ -224,6 +251,22 @@ func check_snap_up_stair(delta) -> bool :
 			return true
 	return false
 
+# stairs camer smooth function
+func save_camera_pos() :
+	if Global.player_data.camera_smooth_pos == null:
+		Global.player_data.camera_smooth_pos = head.global_position
+
+func camera_smooth(delta) :
+	if Global.player_data.camera_smooth_pos == null : 
+		return
+	head.global_position.y = Global.player_data.camera_smooth_pos.y
+	head.position.y = clampf(head.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
+	var move_amount = max(Global.player.vel.length() * delta , Global.player.currentspeed / 2 * delta)
+	head.position.y = move_toward(head.position.y , 0.0 , move_amount)
+	Global.player_data.camera_smooth_pos = head.global_position
+	if head.position.y == 0:
+		Global.player_data.camera_smooth_pos = null
+
 # apply_floor_snap from cb3d , I just reworte it
 func apply_floor_snap_own():
 	var add_vel :Vector3
@@ -254,20 +297,12 @@ func body_test_motion_own(from : Transform3D , motion : Vector3 , result : Physi
 
 	return PhysicsServer3D.body_test_motion(Global.player.get_rid() , params , result)
 
-func save_camera_pos() :
-	if Global.player_data.camera_smooth_pos == null:
-		Global.player_data.camera_smooth_pos = head.global_position
+func is_too_steep(normal : Vector3) -> bool :
+	if Global.player.is_crouching or Global.player.is_on_crouching:
+		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
+	else :
+		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
 
-func camera_smooth(delta) :
-	if Global.player_data.camera_smooth_pos == null : 
-		return
-	head.global_position.y = Global.player_data.camera_smooth_pos.y
-	head.position.y = clampf(head.position.y , -Global.player_data.camera_smooth_amount , Global.player_data.camera_smooth_amount)
-	var move_amount = max(Global.player.vel.length() * delta , Global.player.currentspeed / 2 * delta)
-	head.position.y = move_toward(head.position.y , 0.0 , move_amount)
-	Global.player_data.camera_smooth_pos = head.global_position
-	if head.position.y == 0:
-		Global.player_data.camera_smooth_pos = null
 
 #Initialize
 func get_movement_axis():
