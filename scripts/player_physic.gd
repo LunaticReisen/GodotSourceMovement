@@ -30,7 +30,7 @@ func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel 
 
 	return vel
 
-func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, is_in_water : bool, delta): #ground accel
+func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta): #ground accel
 	var accelspeed : float
 	var accel_precent :float = Global.player_data.accel_precent
 
@@ -51,16 +51,43 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 	if(accelspeed > addspeed):
 		accelspeed = addspeed
 	
-	#little "boost"
+	# little "boost"
 	if (vel.length() > 15):
 		accel_precent = .45
 
 	vel += accelspeed * wish_dir * accel_precent
-	if is_in_water:
-		if vel.y > Global.player_data.FLOAT_MAX_SPEED:
-			vel.y = Global.player_data.FLOAT_MAX_SPEED
 	
 	return vel
+
+func water_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta): #water accel
+	var accelspeed : float
+	var accel_precent :float = Global.player_data.accel_precent
+
+	if (vel.length() >= Global.player_data.GROUND_MAX_SPEED):
+		return vel
+
+	accelspeed = Global.player_data.SWIM_ACCEL
+
+	var _currentspeed : float = vel.dot(wish_dir)
+	var addspeed : float = wish_speed - _currentspeed
+	if(addspeed <= 0):
+		return vel
+	accelspeed = accel * delta * wish_speed
+	if(accelspeed > addspeed):
+		accelspeed = addspeed
+	
+	# little "boost"
+	if (vel.length() > 5):
+		accel_precent = .2
+
+	vel.x += accelspeed * wish_dir.x * accel_precent
+	vel.y += accelspeed * wish_dir.y * accel_precent * .5
+	vel.z += accelspeed * wish_dir.z * accel_precent
+	if vel.y > Global.player_data.FLOAT_MAX_SPEED:
+		vel.y = Global.player_data.FLOAT_MAX_SPEED
+	
+	return vel
+
 
 func handel_friction(vel : Vector3, t : float, is_in_water : bool, delta):
 	var vec : Vector3 = vel

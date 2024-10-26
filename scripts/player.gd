@@ -129,6 +129,8 @@ func _physics_process(delta):
 		if get_current_speed() > topspeed:
 			topspeed = get_current_speed()
 	last_movement_state = movement_state
+		
+	print(Global.player_data.AIR_CAP)
 
 func process_movement(delta) -> void:
 	raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")	#Initialize
@@ -162,7 +164,7 @@ func ground_move(delta) -> void:
 	else :
 		accle = Global.player_data.RUN_ACCEL 
 
-	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, false, delta)
+	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, delta)
 
 	if (_wish_jump):
 		vel.y = Global.player_data.JUMP_FORCE
@@ -181,17 +183,23 @@ func water_move(delta) -> void:
 
 	# change the wish dir to multiply the camera transform basis
 	var wish_dir : Vector3 = %Camera.global_transform.basis * Vector3(raw_input.x , 0 , raw_input.y)
+
+	#if player on the ground and look to low , it can not move , so make the wish dir to non camera transform basis
+	if Global.player_data.on_floor and wish_dir.y <= 0.01: 
+		wish_dir = Vector3(dir.x, 0, dir.z)
+
 	DEBUG_wishdir = wish_dir
 	wish_dir = wish_dir.normalized()
 	var wish_speed : float = wish_dir.length()
 	wish_speed *= currentspeed
 	accle = Global.player_data.SWIM_ACCEL 
+
 	
 	# not on floor not on jumping and velocity's y axis is zero ,will add the gravity
 	if !Global.player_data.on_floor and !_wish_jump and wish_dir.y == 0:
 		vel.y -= Global.player_data.gravity * delta * Global.player_data.gravity_precent * Global.player_data.swim_gravity_precent
 
-	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, true, delta)
+	vel = player_physic.water_accelerate(vel, wish_dir, wish_speed, accle, delta)
 	
 	if _wish_jump:
 		vel.y += Global.player_data.SWIM_UP_SPEED * delta * Global.player_data.swim_up_precent

@@ -138,6 +138,12 @@ text = "autobunny"
 flat = true
 metadata/_edit_use_anchors_ = true
 
+[node name="surfswitch" type="CheckButton" parent="bg/bg2/switches"]
+layout_mode = 2
+text = "surf "
+flat = true
+metadata/_edit_use_anchors_ = true
+
 [node name="stepswitch" type="CheckButton" parent="bg/bg2/switches"]
 layout_mode = 2
 text = "stepping"
@@ -147,12 +153,6 @@ metadata/_edit_use_anchors_ = true
 [node name="accelswitch" type="CheckButton" parent="bg/bg2/switches"]
 layout_mode = 2
 text = "forward accel"
-flat = true
-metadata/_edit_use_anchors_ = true
-
-[node name="smoothswitch" type="CheckButton" parent="bg/bg2/switches"]
-layout_mode = 2
-text = "camera smoth"
 flat = true
 metadata/_edit_use_anchors_ = true
 
@@ -167,36 +167,13 @@ layout_mode = 2
 offset_left = 160.0
 offset_top = 448.0
 offset_right = 311.0
-offset_bottom = 514.0
+offset_bottom = 479.0
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="bg/bg2/line_edits"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="bg/bg2/line_edits/VBoxContainer3"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="bg/bg2/line_edits/VBoxContainer3/AspectRatioContainer"]
+[node name="Label" type="Label" parent="bg/bg2/line_edits"]
 layout_mode = 2
 text = "surf angle"
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="bg/bg2/line_edits/VBoxContainer3"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Label2" type="Label" parent="bg/bg2/line_edits/VBoxContainer3/AspectRatioContainer2"]
-layout_mode = 2
-text = "cam smoth"
-
-[node name="edtior" type="VBoxContainer" parent="bg/bg2/line_edits"]
-layout_mode = 2
-
-[node name="surf_ang" type="LineEdit" parent="bg/bg2/line_edits/edtior"]
-layout_mode = 2
-
-[node name="step_ang" type="LineEdit" parent="bg/bg2/line_edits/edtior"]
+[node name="surf_ang" type="LineEdit" parent="bg/bg2/line_edits"]
 layout_mode = 2
 
 [node name="info" type="Label" parent="bg"]
@@ -272,6 +249,10 @@ alignment = 2
 [node name="space" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/jump"]
 layout_mode = 2
 texture = ExtResource("6_hj7rx")
+
+[node name="whell" type="TextureRect" parent="button/HBoxContainer3/VBoxContainer3/jump"]
+layout_mode = 2
+texture = ExtResource("12_oc5sq")
 
 [node name="ctrl" type="HBoxContainer" parent="button/HBoxContainer3/VBoxContainer3"]
 layout_mode = 2
@@ -473,9 +454,8 @@ label_settings = SubResource("LabelSettings_0fu0m")
 [connection signal="pressed" from="bg/bg2/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="bg/bg2/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="toggled" from="bg/bg2/switches/bunnyswitch" to="." method="_on_bunnyswitch_toggled"]
+[connection signal="toggled" from="bg/bg2/switches/surfswitch" to="." method="_on_surfswitch_toggled"]
 [connection signal="toggled" from="bg/bg2/switches/stepswitch" to="." method="_on_stepswitch_toggled"]
 [connection signal="toggled" from="bg/bg2/switches/accelswitch" to="." method="_on_accelswitch_toggled"]
-[connection signal="toggled" from="bg/bg2/switches/smoothswitch" to="." method="_on_smoothswitch_toggled"]
 [connection signal="toggled" from="bg/bg2/switches/ladderswitch" to="." method="_on_ladderswitch_toggled"]
-[connection signal="text_submitted" from="bg/bg2/line_edits/edtior/surf_ang" to="." method="_on_surf_ang_text_submitted"]
-[connection signal="text_submitted" from="bg/bg2/line_edits/edtior/step_ang" to="." method="_on_step_ang_text_submitted"]
+[connection signal="text_submitted" from="bg/bg2/line_edits/surf_ang" to="." method="_on_surf_ang_text_submitted"]

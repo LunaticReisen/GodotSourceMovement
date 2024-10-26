@@ -24,7 +24,8 @@ func _ready():
 @export var AIR_ADD_SPEED               : float = 2
 @export var AIR_ACCEL                   : float = 70
 @export var AIR_DECCEL                  : float = 1
-@export var AIR_CAP                     : float = .5
+@export var GROUND_AIR_CAP              : float = .5
+@export var SURF_AIR_CAP                : float = 2
 @export var STAND_FRICTION              : float = 5.5
 @export var WATER_FRICTION              : float = 3.5
 @export var CROUCH_FRICTION             : float = 2
@@ -77,9 +78,10 @@ func _ready():
 @export var air_accel_precent           : float = 1
 @export var air_move_precent            : float = .75
 @export var friction_precent            : float = 1
-@export var swim_gravity_precent        : float = .3
+@export var swim_gravity_precent        : float = .2
 @export var swim_up_precent             : float = 2
 @export var camera_smooth_amount        : float = .7
+@export var AIR_CAP                     : float = .5
 var auto_bunny                          :  bool = false
 var step_switch                         :  bool = false
 var accel_switch                        :  bool = true
