@@ -4,12 +4,18 @@
 
 [resource]
 script = ExtResource("1_sksh5")
-classname = ""
+classname = "Target"
 description = ""
 func_godot_internal = false
 base_classes = Array[Resource]([])
-class_properties = {}
-class_property_descriptions = {}
+class_properties = {
+"target": "",
+"targetfunc": ""
+}
+class_property_descriptions = {
+"target": "Entity group to call the use function on when this entity is triggered.",
+"targetfunc": "Function to call on target entities. As is, the target function cannot accept arguments, so make sure it doesn't require specifying arguments."
+}
 meta_properties = {
 "color": Color(0.8, 0.8, 0.8, 1),
 "size": AABB(-8, -8, -8, 8, 8, 8)

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=8 format=3 uid="uid://n5ccclg387jb"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_0yjx6"]
+[ext_resource type="Resource" uid="uid://fh2igyqfbugg" path="res://datas/base/func_base.tres" id="2_xb421"]
+[ext_resource type="Resource" uid="uid://by1ugr04cqj6r" path="res://datas/base/light_base.tres" id="3_82agt"]
+[ext_resource type="Resource" uid="uid://dxr37eo3xrjl8" path="res://datas/base/globalname_base.tres" id="3_tcmft"]
+[ext_resource type="Resource" uid="uid://c4r57f4nqs6k5" path="res://datas/base/targetname_base.tres" id="4_nsv7d"]
+[ext_resource type="Resource" uid="uid://oxg3setsirc7" path="res://datas/base/target_base.tres" id="5_ftesr"]
+[ext_resource type="Resource" uid="uid://ckealf1avqvrs" path="res://datas/base/trigger_base.tres" id="6_b0koy"]
+
+[resource]
+script = ExtResource("1_0yjx6")
+export_file = false
+model_key_word_supported = true
+fgd_name = "BaseFGD"
+base_fgd_files = Array[Resource]([])
+entity_definitions = Array[Resource]([ExtResource("5_ftesr"), ExtResource("4_nsv7d"), ExtResource("3_tcmft"), ExtResource("2_xb421"), ExtResource("3_82agt"), ExtResource("6_b0koy")])

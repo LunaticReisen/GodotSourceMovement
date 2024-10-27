@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://ckealf1avqvrs"]
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=5 format=3 uid="uid://ckealf1avqvrs"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_2m1md"]
+[ext_resource type="Resource" uid="uid://oxg3setsirc7" path="res://datas/base/target_base.tres" id="1_vg5b6"]
+[ext_resource type="Resource" uid="uid://c4r57f4nqs6k5" path="res://datas/base/targetname_base.tres" id="2_e0pj8"]
+[ext_resource type="Resource" uid="uid://dxr37eo3xrjl8" path="res://datas/base/globalname_base.tres" id="3_0fixi"]
 
 [resource]
 script = ExtResource("1_2m1md")
-classname = ""
+classname = "Trigger"
 description = ""
 func_godot_internal = false
-base_classes = Array[Resource]([])
+base_classes = Array[Resource]([ExtResource("1_vg5b6"), ExtResource("2_e0pj8"), ExtResource("3_0fixi")])
 class_properties = {}
 class_property_descriptions = {}
 meta_properties = {

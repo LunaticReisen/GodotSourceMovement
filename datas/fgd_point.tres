@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=4 format=3 uid="uid://dcahi87src2x1"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_3atn5"]
+[ext_resource type="Resource" uid="uid://can3o7yy3fhci" path="res://datas/point/light/light_omni.tres" id="2_vstcb"]
+[ext_resource type="Resource" uid="uid://bdomkh2dj7vmh" path="res://datas/point/light/light_spot.tres" id="3_nmgj0"]
+
+[resource]
+script = ExtResource("1_3atn5")
+export_file = false
+model_key_word_supported = true
+fgd_name = "PointFGD"
+base_fgd_files = Array[Resource]([])
+entity_definitions = Array[Resource]([ExtResource("2_vstcb"), ExtResource("3_nmgj0")])

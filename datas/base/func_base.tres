@@ -1,15 +1,20 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://fh2igyqfbugg"]
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=3 format=3 uid="uid://fh2igyqfbugg"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_2dblo"]
+[ext_resource type="Resource" uid="uid://dxr37eo3xrjl8" path="res://datas/base/globalname_base.tres" id="1_dsxgn"]
 
 [resource]
 script = ExtResource("1_2dblo")
 classname = "Func"
 description = ""
 func_godot_internal = false
-base_classes = Array[Resource]([])
-class_properties = {}
-class_property_descriptions = {}
+base_classes = Array[Resource]([ExtResource("1_dsxgn")])
+class_properties = {
+"_phong": false
+}
+class_property_descriptions = {
+"_phong": "Set to 1 to give the brush entity smooth shading."
+}
 meta_properties = {
 "color": Color(0.8, 0.8, 0.8, 1),
 "size": AABB(-8, -8, -8, 8, 8, 8)

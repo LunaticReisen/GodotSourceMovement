@@ -4,12 +4,16 @@
 
 [resource]
 script = ExtResource("1_plyvt")
-classname = ""
+classname = "Targetname"
 description = ""
 func_godot_internal = false
 base_classes = Array[Resource]([])
-class_properties = {}
-class_property_descriptions = {}
+class_properties = {
+"targetname": ""
+}
+class_property_descriptions = {
+"targetname": "Adds this entity to a group with this targetname."
+}
 meta_properties = {
 "color": Color(0.8, 0.8, 0.8, 1),
 "size": AABB(-8, -8, -8, 8, 8, 8)

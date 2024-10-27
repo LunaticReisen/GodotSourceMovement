@@ -15,12 +15,11 @@ normal_texture = ExtResource("1_pa4ps")
 refraction_enabled = true
 refraction_texture = ExtResource("1_pa4ps")
 uv1_scale = Vector3(0.027, 0.027, 0.027)
-uv1_offset = Vector3(14.1578, 14.1578, 14.1578)
+uv1_offset = Vector3(17.4671, 17.4671, 17.4671)
 uv1_triplanar = true
 uv1_world_triplanar = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b3i6q"]
-size = Vector3(6.11865, 24.373, 7.47876)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_72uqj"]
 shader = ExtResource("2_372ig")
