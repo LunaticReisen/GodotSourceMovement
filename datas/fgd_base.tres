@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=8 format=3 uid="uid://n5ccclg387jb"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_0yjx6"]
-[ext_resource type="Resource" uid="uid://fh2igyqfbugg" path="res://datas/base/func_base.tres" id="2_xb421"]
-[ext_resource type="Resource" uid="uid://by1ugr04cqj6r" path="res://datas/base/light_base.tres" id="3_82agt"]
-[ext_resource type="Resource" uid="uid://dxr37eo3xrjl8" path="res://datas/base/globalname_base.tres" id="3_tcmft"]
-[ext_resource type="Resource" uid="uid://c4r57f4nqs6k5" path="res://datas/base/targetname_base.tres" id="4_nsv7d"]
-[ext_resource type="Resource" uid="uid://oxg3setsirc7" path="res://datas/base/target_base.tres" id="5_ftesr"]
-[ext_resource type="Resource" uid="uid://ckealf1avqvrs" path="res://datas/base/trigger_base.tres" id="6_b0koy"]
+[ext_resource type="Resource" uid="uid://d4buv26pirxbl" path="res://datas/base/func_base.tres" id="2_xb421"]
+[ext_resource type="Resource" uid="uid://dukx4b4xgo1o2" path="res://datas/base/light_base.tres" id="3_82agt"]
+[ext_resource type="Resource" uid="uid://syvs5beg2j3q" path="res://datas/base/globalname_base.tres" id="3_tcmft"]
+[ext_resource type="Resource" uid="uid://cwbnifad3sdgw" path="res://datas/base/targetname_base.tres" id="4_nsv7d"]
+[ext_resource type="Resource" uid="uid://kerywjgft7vh" path="res://datas/base/target_base.tres" id="5_ftesr"]
+[ext_resource type="Resource" uid="uid://hnx0olvm0jt2" path="res://datas/base/trigger_base.tres" id="6_b0koy"]
 
 [resource]
 script = ExtResource("1_0yjx6")

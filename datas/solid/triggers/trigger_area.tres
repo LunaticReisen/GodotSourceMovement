@@ -1,10 +1,8 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=4 format=3 uid="uid://ptvum0fd8lvk"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_fxf43"]
-[ext_resource type="Script" path="res://scripts/entities/triggers/trigger_area.gd" id="2_g6orr"]
-
-[sub_resource type="Resource" id="Resource_jcqxh"]
-metadata/__load_path__ = "res://tb/fgd/base/trigger_base.tres"
+[ext_resource type="Resource" uid="uid://hnx0olvm0jt2" path="res://datas/base/trigger_base.tres" id="1_l46wr"]
+[ext_resource type="Script" path="res://scripts/entities/triggers/trigger_area.gd" id="3_aq6gq"]
 
 [resource]
 script = ExtResource("1_fxf43")
@@ -16,15 +14,15 @@ shadow_casting_setting = 0
 build_occlusion = false
 render_layers = 0
 collision_shape_type = 1
-collision_layer = 16
-collision_mask = 22
+collision_layer = 4
+collision_mask = 4
 collision_priority = 1.0
 collision_shape_margin = 0.04
-script_class = ExtResource("2_g6orr")
+script_class = ExtResource("3_aq6gq")
 classname = "trigger_area"
 description = "Area node that activates its target group when entered."
 func_godot_internal = false
-base_classes = Array[Resource]([SubResource("Resource_jcqxh")])
+base_classes = Array[Resource]([ExtResource("1_l46wr")])
 class_properties = {}
 class_property_descriptions = {}
 meta_properties = {

@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=8 format=3 uid="uid://bnn6k80mqlqe6"]
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=8 format=3 uid="uid://cnrh5xw6qygo7"]
 
 [ext_resource type="Resource" uid="uid://bv37jafqtfyuw" path="res://datas/solid/funcs/func_detail.tres" id="1_clqpq"]
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_n87v7"]
 [ext_resource type="Resource" uid="uid://4h23glniadlk" path="res://datas/solid/funcs/func_detail_illusionary.tres" id="2_g488m"]
 [ext_resource type="Resource" uid="uid://dbc8wa7c1nbgx" path="res://datas/solid/funcs/func_geo.tres" id="3_mqtmv"]
 [ext_resource type="Resource" uid="uid://ckh3askbgkynt" path="res://datas/solid/funcs/func_illusionary.tres" id="4_2y1us"]
+[ext_resource type="Resource" uid="uid://b3t000ocefkge" path="res://datas/solid/funcs/func_move.tres" id="5_tk340"]
 [ext_resource type="Resource" uid="uid://ptvum0fd8lvk" path="res://datas/solid/triggers/trigger_area.tres" id="6_2qosd"]
-[ext_resource type="Resource" uid="uid://b3t000ocefkge" path="res://datas/solid/funcs/func_move.tres" id="6_un4bp"]
 
 [resource]
 script = ExtResource("1_n87v7")
@@ -14,4 +14,4 @@ export_file = false
 model_key_word_supported = true
 fgd_name = "SolidFGD"
 base_fgd_files = Array[Resource]([])
-entity_definitions = Array[Resource]([ExtResource("1_clqpq"), ExtResource("2_g488m"), ExtResource("3_mqtmv"), ExtResource("4_2y1us"), ExtResource("6_2qosd"), ExtResource("6_un4bp")])
+entity_definitions = Array[Resource]([ExtResource("1_clqpq"), ExtResource("2_g488m"), ExtResource("3_mqtmv"), ExtResource("4_2y1us"), ExtResource("5_tk340"), ExtResource("6_2qosd")])

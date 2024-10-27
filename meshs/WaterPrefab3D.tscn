@@ -15,7 +15,7 @@ normal_texture = ExtResource("1_pa4ps")
 refraction_enabled = true
 refraction_texture = ExtResource("1_pa4ps")
 uv1_scale = Vector3(0.027, 0.027, 0.027)
-uv1_offset = Vector3(17.4671, 17.4671, 17.4671)
+uv1_offset = Vector3(28.0093, 28.0093, 28.0093)
 uv1_triplanar = true
 uv1_world_triplanar = true
 

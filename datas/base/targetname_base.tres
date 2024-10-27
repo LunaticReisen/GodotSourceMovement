@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://c4r57f4nqs6k5"]
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://cwbnifad3sdgw"]
 
-[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_plyvt"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_7j8c1"]
 
 [resource]
-script = ExtResource("1_plyvt")
+script = ExtResource("1_7j8c1")
 classname = "Targetname"
 description = ""
 func_godot_internal = false
