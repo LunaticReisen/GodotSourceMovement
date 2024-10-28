@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhmu0toe1itnr"
-path.s3tc="res://.godot/imported/clip.png-b88af128d9765ee842c60c6e4c027bc0.s3tc.ctex"
+uid="uid://2nbrjiejslmv"
+path="res://.godot/imported/water_texture.png-d066e49cf89cfe97ca03f97508ffce9e.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/special/clip.png"
-dest_files=["res://.godot/imported/clip.png-b88af128d9765ee842c60c6e4c027bc0.s3tc.ctex"]
+source_file="res://textures/water_texture.png"
+dest_files=["res://.godot/imported/water_texture.png-d066e49cf89cfe97ca03f97508ffce9e.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

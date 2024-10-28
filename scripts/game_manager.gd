@@ -24,3 +24,14 @@ func use_targets(activator: Node, target: String) -> void:
 func set_targetname(node: Node, targetname: String) -> void:
 	if node != null and not targetname.is_empty():
 		node.add_to_group(targetname)
+
+# Converts Quake 1 axis to Godot axis
+static func id_vec_to_godot_vec(vec: Variant)->Vector3:
+	var org: Vector3 = Vector3.ZERO
+	if vec is Vector3:
+		org = vec
+	elif vec is String:
+		var arr: PackedFloat64Array = (vec as String).split_floats(" ")
+		for i in max(arr.size(), 3):
+			org[i] = arr[i]
+	return Vector3(org.y, org.z, org.x)

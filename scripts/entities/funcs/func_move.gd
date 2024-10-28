@@ -48,7 +48,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	GAME.set_targetname(self, targetname)
+	GM.set_targetname(self, targetname)
 	move_pos[0] = position
 	move_pos[1] += move_pos[0]
 	if speed > 0.0:
