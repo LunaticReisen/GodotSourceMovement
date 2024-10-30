@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=6 format=3 uid="uid://tt4mj8flifi0"]
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=5 format=3 uid="uid://tt4mj8flifi0"]
 
-[ext_resource type="Resource" uid="uid://71xx0kf4po1l" path="res://datas/func_godot_fdg.tres" id="1_5u7dq"]
 [ext_resource type="Resource" uid="uid://n5ccclg387jb" path="res://datas/fgd_base.tres" id="1_s1atc"]
 [ext_resource type="Resource" uid="uid://cnrh5xw6qygo7" path="res://datas/fgd_solid.tres" id="2_p85ga"]
 [ext_resource type="Resource" uid="uid://dcahi87src2x1" path="res://datas/fgd_point.tres" id="3_2t8y0"]
@@ -11,5 +10,5 @@ script = ExtResource("4_u1crk")
 export_file = false
 model_key_word_supported = true
 fgd_name = "GSMEX"
-base_fgd_files = Array[Resource]([ExtResource("1_5u7dq"), ExtResource("1_s1atc"), ExtResource("2_p85ga"), ExtResource("3_2t8y0")])
+base_fgd_files = Array[Resource]([ExtResource("1_s1atc"), ExtResource("2_p85ga"), ExtResource("3_2t8y0")])
 entity_definitions = Array[Resource]([])
