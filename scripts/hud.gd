@@ -51,7 +51,6 @@ func _on_surf_ang_text_submitted(new_text:String) -> void:
 
 func _on_ladderswitch_toggled(toggled_on:bool) -> void:
 	Global.player_data.ladder_boosting = toggled_on
-	print(toggled_on)
 
 func _on_surfswitch_toggled(toggled_on:bool) -> void:
 	if toggled_on:

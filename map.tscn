@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://coxfhoysaumpo"]
+[gd_scene load_steps=9 format=3 uid="uid://coxfhoysaumpo"]
 
 [ext_resource type="PackedScene" uid="uid://rn24b4x6mmga" path="res://player.tscn" id="1_6ckch"]
 [ext_resource type="PackedScene" uid="uid://olnhtseloali" path="res://maps/test_lab_map.tscn" id="2_46ycu"]
@@ -15,6 +15,9 @@ ssao_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_r2jyx"]
 size = Vector3(397.922, 19.1265, 259.838)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_supnh"]
+size = Vector3(2.22852, 5.29242, 0.351379)
+
 [node name="test_lab" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -22,7 +25,7 @@ environment = SubResource("Environment_xea04")
 
 [node name="Player" parent="." instance=ExtResource("1_6ckch")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.551, 1.0369, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.54661, 1.0369, -0.0213814)
 
 [node name="Level" type="Node" parent="."]
 
@@ -41,6 +44,54 @@ collision_mask = 7
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Drop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.9868, -13.3714, -23.7643)
 shape = SubResource("BoxShape3D_r2jyx")
+
+[node name="Area3D" type="Area3D" parent="Level" groups=["AREA_LADDER"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, -6.05091)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614258, 2.66617, -0.32431)
+shape = SubResource("BoxShape3D_supnh")
+
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="Area3D2" type="Area3D" parent="Level" groups=["AREA_LADDER"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.05882, 0, -6.05091)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614054, 2.66776, -0.32129)
+shape = SubResource("BoxShape3D_supnh")
+
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D2" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="Area3D3" type="Area3D" parent="Level" groups=["AREA_LADDER"]]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 8.45434, 0, -6.05091)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614258, 2.66617, -0.32431)
+shape = SubResource("BoxShape3D_supnh")
+
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D3" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="Area3D4" type="Area3D" parent="Level" groups=["AREA_LADDER"]]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 12.1402, 0, -5.05091)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614258, 2.66617, -0.32431)
+shape = SubResource("BoxShape3D_supnh")
+
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D4" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, -12.4591, 6.52153, 0)

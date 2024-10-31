@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=9 format=3 uid="uid://cnrh5xw6qygo7"]
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=10 format=3 uid="uid://cnrh5xw6qygo7"]
 
 [ext_resource type="Resource" uid="uid://bv37jafqtfyuw" path="res://datas/solid/funcs/func_detail.tres" id="1_clqpq"]
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_n87v7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://b3t000ocefkge" path="res://datas/solid/funcs/func_move.tres" id="5_tk340"]
 [ext_resource type="Resource" uid="uid://ptvum0fd8lvk" path="res://datas/solid/triggers/trigger_area.tres" id="6_2qosd"]
 [ext_resource type="Resource" uid="uid://bpa0vy8202cge" path="res://datas/solid/funcs/func_water.tres" id="7_7gu2a"]
+[ext_resource type="Resource" uid="uid://bwexdjar4f8vn" path="res://datas/solid/funcs/func_ladder.tres" id="8_d6niv"]
 
 [resource]
 script = ExtResource("1_n87v7")
@@ -15,4 +16,4 @@ export_file = false
 model_key_word_supported = true
 fgd_name = "SolidFGD"
 base_fgd_files = Array[Resource]([])
-entity_definitions = Array[Resource]([ExtResource("1_clqpq"), ExtResource("2_g488m"), ExtResource("3_mqtmv"), ExtResource("4_2y1us"), ExtResource("5_tk340"), ExtResource("6_2qosd"), ExtResource("7_7gu2a")])
+entity_definitions = Array[Resource]([ExtResource("1_clqpq"), ExtResource("2_g488m"), ExtResource("3_mqtmv"), ExtResource("4_2y1us"), ExtResource("5_tk340"), ExtResource("6_2qosd"), ExtResource("7_7gu2a"), ExtResource("8_d6niv")])

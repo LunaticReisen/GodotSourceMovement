@@ -34,8 +34,10 @@ enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 
 [global_group]
 
-ladder=""
-water_area="water area prop"
+PLAYER=""
+MARKER_LADDERTOP=""
+AREA_LADDER=""
+AREA_WATER="water area prop"
 
 [input]
 

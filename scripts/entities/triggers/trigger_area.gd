@@ -10,6 +10,7 @@ enum TriggerStates {
 	READY,
 	USED
 }
+
 var trigger_state: TriggerStates = TriggerStates.READY
 var timeout: float = 0.0
 var last_activator: Node = null
@@ -32,6 +33,7 @@ func use() -> void:
 
 func _on_ent_entered(ent: Node) -> void:
 	if trigger_state == TriggerStates.READY:
+		print(ent)
 		if ent.is_in_group("PLAYER"):
 			call("use")
 

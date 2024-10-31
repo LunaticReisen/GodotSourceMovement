@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://bwexdjar4f8vn"]
+
+[ext_resource type="Script" path="res://scripts/entities/funcs/func_ladder.gd" id="2_1i0m4"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="2_l48o2"]
+
+[resource]
+script = ExtResource("2_l48o2")
+spawn_type = 2
+origin_type = 0
+build_visuals = false
+use_in_baked_light = false
+shadow_casting_setting = 0
+build_occlusion = false
+render_layers = 0
+collision_shape_type = 1
+collision_layer = 16
+collision_mask = 2
+collision_priority = 999.0
+collision_shape_margin = 0.04
+script_class = ExtResource("2_1i0m4")
+classname = "func_ladder"
+description = "ladder area for climb"
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.974734, 0, 0.387382, 1)
+}
+node_class = "Area3D"
+name_property = ""

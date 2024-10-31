@@ -47,7 +47,7 @@ _data = {
 point_count = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_icuog"]
-size = Vector3(1, 6.3, 0.5)
+size = Vector3(1, 6.29473, 0.5)
 
 [node name="Node3D" type="Node3D"]
 
@@ -448,87 +448,90 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.83938, 0, 0)
 [node name="Ladder" type="CSGCombiner3D" parent="Node3D"]
 use_collision = true
 
-[node name="LadderArea3D" type="Area3D" parent="Node3D/Ladder" groups=["ladder"]]
-transform = Transform3D(1.19249e-08, 0, 1, 0, 1, 0, -1, 0, 1.19249e-08, 1.05413, 1.59289, 0)
-collision_mask = 3
+[node name="LadderArea3D" type="Area3D" parent="Node3D/Ladder" groups=["AREA_LADDER"]]
+transform = Transform3D(1.19249e-08, 0, 1, 0, 1, 0, -1, 0, 1.19249e-08, 1.054, 0, 0)
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Ladder/LadderArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68434e-14, 1.65, -0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002, 3.17686, -0.259)
 shape = SubResource("BoxShape3D_icuog")
 
-[node name="TopLadder" type="Marker3D" parent="Node3D/Ladder/LadderArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0)
+[node name="TopLadder" type="Marker3D" parent="Node3D/Ladder/LadderArea3D" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.295, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D/Ladder"]
+[node name="Node3D" type="Node3D" parent="Node3D/Ladder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0.344139, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0.750326, 0)
+[node name="CSGBox3D4" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.406187, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 1.13472, 0)
+[node name="CSGBox3D5" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.790581, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 1.5409, 0)
+[node name="CSGBox3D6" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19676, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 1.96488, 0)
+[node name="CSGBox3D7" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62074, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 2.37107, 0)
+[node name="CSGBox3D8" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02693, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 2.75546, 0)
+[node name="CSGBox3D9" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.41132, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D10" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 3.16165, 0)
+[node name="CSGBox3D10" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.81751, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D12" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 3.5597, 0)
+[node name="CSGBox3D12" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00283718, 3.22584, -0.0049839)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D13" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 3.94409, 0)
+[node name="CSGBox3D13" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.59995, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D14" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 4.35028, 0)
+[node name="CSGBox3D14" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.00614, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D15" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 4.77425, 0)
+[node name="CSGBox3D15" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.43011, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D16" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 5.18044, 0)
+[node name="CSGBox3D16" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8363, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D17" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 5.56483, 0)
+[node name="CSGBox3D17" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.22069, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D18" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 5.97102, 0)
+[node name="CSGBox3D18" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.62688, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D19" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 6.214, 0)
+[node name="CSGBox3D19" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.86986, 0)
 size = Vector3(0.1, 0.1, 1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 2.88237, 0.530273)
+[node name="CSGBox3D2" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53823, 0.530273)
 size = Vector3(0.1, 7, 0.1)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="Node3D/Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 2.88237, -0.469727)
+[node name="CSGBox3D3" type="CSGBox3D" parent="Node3D/Ladder/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53823, -0.469727)
 size = Vector3(0.1, 7, 0.1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]

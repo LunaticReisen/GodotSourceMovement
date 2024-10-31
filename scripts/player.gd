@@ -130,7 +130,7 @@ func _physics_process(delta):
 			topspeed = get_current_speed()
 	last_movement_state = movement_state
 		
-	print(Global.player_data.AIR_CAP)
+	# print(Global.player_data.AIR_CAP)
 
 func process_movement(delta) -> void:
 	raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")	#Initialize
@@ -249,7 +249,7 @@ func air_move(delta) -> void:
 	_wishspeed = wish_speed #debug
 
 func is_in_water() -> bool:
-	if get_tree().get_nodes_in_group("water_area").all(func(area): return !area.overlaps_body(Global.player)):
+	if get_tree().get_nodes_in_group("AREA_WATER").all(func(area): return !area.overlaps_body(Global.player)):
 		return false
 	return true
 

@@ -10,7 +10,7 @@ spawn_type = 2
 origin_type = 0
 build_visuals = true
 use_in_baked_light = false
-shadow_casting_setting = 1
+shadow_casting_setting = 0
 build_occlusion = false
 render_layers = 1
 collision_shape_type = 1
@@ -23,8 +23,12 @@ classname = "func_water"
 description = "water area that can swim"
 func_godot_internal = false
 base_classes = Array[Resource]([ExtResource("1_p7pjo")])
-class_properties = {}
-class_property_descriptions = {}
+class_properties = {
+"color": Color(0, 0, 0, 1)
+}
+class_property_descriptions = {
+"color": "testing"
+}
 meta_properties = {
 "color": Color(0.1428, 0.56112, 0.84, 1)
 }
