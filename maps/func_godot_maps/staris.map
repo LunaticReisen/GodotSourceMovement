@@ -2085,6 +2085,7 @@
 // entity 20
 {
 "classname" "func_ladder"
+"direction" ""
 // brush 0
 {
 ( 160 -288 0 ) ( 160 -287 0 ) ( 160 -288 1 ) special/ladder [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1

@@ -1483,6 +1483,7 @@ collision_priority = 999.0
 script = ExtResource("12_yp3t6")
 
 [node name="entity_19_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_19_func_ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382751, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_ndpuv")
 
 [node name="entity_20_func_ladder" type="Area3D" parent="FuncGodotMap" groups=["AREA_LADDER"]]

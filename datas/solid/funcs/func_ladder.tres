@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://bwexdjar4f8vn"]
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=4 format=3 uid="uid://bwexdjar4f8vn"]
 
+[ext_resource type="Resource" uid="uid://cu4cq2edch2uo" path="res://datas/base/direction_base.tres" id="1_53yrg"]
 [ext_resource type="Script" path="res://scripts/entities/funcs/func_ladder.gd" id="2_1i0m4"]
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="2_l48o2"]
 
@@ -21,7 +22,7 @@ script_class = ExtResource("2_1i0m4")
 classname = "func_ladder"
 description = "ladder area for climb"
 func_godot_internal = false
-base_classes = Array[Resource]([])
+base_classes = Array[Resource]([ExtResource("1_53yrg")])
 class_properties = {}
 class_property_descriptions = {}
 meta_properties = {
