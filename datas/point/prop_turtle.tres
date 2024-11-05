@@ -20,7 +20,7 @@ class_properties = {}
 class_property_descriptions = {}
 meta_properties = {
 "color": Color(0.8, 0.8, 0, 1),
-"model": "\"data\\models/prop_turtle.glb\"",
+"model": "\"datas\\models/prop_turtle.glb\"",
 "size": AABB(-16, -16, -16, 16, 16, 16)
 }
 node_class = ""

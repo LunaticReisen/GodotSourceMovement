@@ -5,7 +5,10 @@
 [resource]
 script = ExtResource("1_yuhby")
 classname = "direction"
-description = ""
+description = "+x is North(forward)
+-x is South(back)
++z is East(right)
+-z is West(left)"
 func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {

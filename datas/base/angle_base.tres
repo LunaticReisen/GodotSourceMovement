@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://b4h1as6nkn1qp"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_5plri"]
+
+[resource]
+script = ExtResource("1_5plri")
+classname = "angles"
+description = "angle for rotation"
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"angles": 0.0
+}
+class_property_descriptions = {
+"angles": "fuck it"
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

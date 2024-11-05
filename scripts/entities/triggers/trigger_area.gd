@@ -5,6 +5,7 @@ extends Area3D
 @export var target: String = ""
 @export var targetfunc: String = ""
 @export var targetname: String = ""
+var test
 
 enum TriggerStates {
 	READY,
@@ -19,6 +20,7 @@ func _func_godot_apply_properties(props: Dictionary) -> void:
 	target = props["target"] as String
 	targetfunc = props["targetfunc"] as String
 	targetname = props["targetname"] as String
+	test = props
 
 func toggle_collision(toggle: bool) -> void:
 	for child in get_children():

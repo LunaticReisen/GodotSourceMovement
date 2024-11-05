@@ -23,7 +23,9 @@ classname = "func_ladder"
 description = "ladder area for climb"
 func_godot_internal = false
 base_classes = Array[Resource]([ExtResource("1_53yrg")])
-class_properties = {}
+class_properties = {
+"angle": 0.0
+}
 class_property_descriptions = {}
 meta_properties = {
 "color": Color(0.974734, 0, 0.387382, 1)
