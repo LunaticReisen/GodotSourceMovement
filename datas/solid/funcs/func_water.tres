@@ -23,12 +23,8 @@ classname = "func_water"
 description = "water area that can swim"
 func_godot_internal = false
 base_classes = Array[Resource]([ExtResource("1_p7pjo")])
-class_properties = {
-"color": Color(0, 0, 0, 1)
-}
-class_property_descriptions = {
-"color": "testing"
-}
+class_properties = {}
+class_property_descriptions = {}
 meta_properties = {
 "color": Color(0.1428, 0.56112, 0.84, 1)
 }

@@ -19,7 +19,9 @@ class_properties = {
 "West": 3
 }
 }
-class_property_descriptions = {}
+class_property_descriptions = {
+"direction": ["Entity's direction", 0]
+}
 meta_properties = {
 "color": Color(0.8, 0.8, 0.8, 1),
 "size": AABB(-8, -8, -8, 8, 8, 8)

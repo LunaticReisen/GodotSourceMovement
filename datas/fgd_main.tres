@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_u1crk")
 export_file = false
-model_key_word_supported = true
+target_map_editor = 1
 fgd_name = "GSMEX"
 base_fgd_files = Array[Resource]([ExtResource("1_3x2ic"), ExtResource("1_s1atc"), ExtResource("2_p85ga"), ExtResource("3_2t8y0")])
 entity_definitions = Array[Resource]([])
