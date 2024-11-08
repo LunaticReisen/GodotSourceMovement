@@ -13,6 +13,6 @@ normal_texture = ExtResource("1_pfjk6")
 refraction_enabled = true
 refraction_texture = ExtResource("1_pfjk6")
 uv1_scale = Vector3(0.027, 0.027, 0.027)
-uv1_offset = Vector3(134.096, 134.096, 134.096)
+uv1_offset = Vector3(102.266, 102.266, 102.266)
 uv1_triplanar = true
 uv1_world_triplanar = true

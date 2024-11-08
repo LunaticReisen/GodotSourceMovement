@@ -160,7 +160,6 @@ func handel_ladder() -> bool :
 
 	if ! was_climbing_ladder:
 		var ladder_top
-		var _invent : bool
 		for i in _ladder_climbing.get_child_count():
 			if _ladder_climbing.get_child(0).is_in_group("MARKER_LADDERTOP"):
 				ladder_top = _ladder_climbing.get_child(0).position.y
@@ -183,12 +182,8 @@ func handel_ladder() -> bool :
 		return false
 
 	if was_climbing_ladder and Input.is_action_just_pressed("jump"):
-		if _ladder_climbing.get_child(1).shape is ConvexPolygonShape3D :
-			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1 * Global.player_data.ladder_invent
-			Global.player.velocity = Global.player.vel
-		else :
-			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1
-			Global.player.velocity = Global.player.vel
+		Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 50
+		Global.player.velocity = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE *0.5
 		_ladder_climbing = null
 		return false
 
