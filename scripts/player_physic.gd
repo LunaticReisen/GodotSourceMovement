@@ -116,6 +116,7 @@ func handel_ladder() -> bool :
 	var ladder_global_transform : Transform3D = _ladder_climbing.global_transform
 	var pos_relative_to_ladder = ladder_global_transform.affine_inverse() * Global.player.global_position
 	
+	#separate the movement and multiply the head transform
 	var forward := Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
 	var side := Input.get_action_strength("move_right") - Input.get_action_strength("move_left") 
 
@@ -131,6 +132,7 @@ func handel_ladder() -> bool :
 
 	var should_dismount = false
 
+	#top marker : climbing to the top will force player get off the ladder
 	if ! was_climbing_ladder:
 		var mounting_from_top = pos_relative_to_ladder.y > _ladder_climbing.get_node("TopLadder").position.y
 		if mounting_from_top :
@@ -150,9 +152,21 @@ func handel_ladder() -> bool :
 		_ladder_climbing = null 
 		return false
 
+	#jumping handle
 	if was_climbing_ladder and Input.is_action_just_pressed("jump"):
+<<<<<<< Updated upstream
 		Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 50
 		Global.player.velocity = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE *0.5
+=======
+
+		#Add a invent to fix the trenchbroom mapping's problem
+		if _ladder_climbing.get_child(1).shape is ConvexPolygonShape3D :
+			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1
+			Global.player.velocity = Global.player.vel
+		else :
+			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1
+			Global.player.velocity = Global.player.vel
+>>>>>>> Stashed changes
 		_ladder_climbing = null
 		return false
 
@@ -200,10 +214,6 @@ func check_snap_up_stair(delta) -> bool :
 
 	# if test success and collided sb3d or cgs object will continue 
 	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
-		
-		# if !is_too_steep(_result.get_collision_normal()) or (is_too_steep(stairs_ahead_ray.get_collision_normal()) and is_too_steep(stairs_below_ray.get_collision_normal())):
-		# 	return false
-
 		var collide_step_height = ((step_pos_with_clearance.origin + _result.get_travel()) - Global.player.global_position).y
 
 		#if collide too high or too low or greater than max step height will return
@@ -296,6 +306,5 @@ func get_movement_axis():
 	if Input.get_action_strength("move_back"):
 		dir += basis.z
 	dir.y = 0
-	# dir -= basis.x
 	dir = dir.normalized()
 	return dir

@@ -80,6 +80,10 @@ func _ready():
 @export var swim_gravity_precent        : float = .3
 @export var swim_up_precent             : float = 2
 @export var camera_smooth_amount        : float = .7
+<<<<<<< Updated upstream
+=======
+@export var AIR_CAP                     : float = .5
+>>>>>>> Stashed changes
 var auto_bunny                          :  bool = false
 var step_switch                         :  bool = false
 var accel_switch                        :  bool = true

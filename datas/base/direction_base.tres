@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://cu4cq2edch2uo"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_yuhby"]
+
+[resource]
+script = ExtResource("1_yuhby")
+classname = "direction"
+description = "TrenchBroom:
++y is North(forward) , -y is South(back)
++x is East(right) , -x is West(left)
+
+Godot:
++x is North(forward) , -x is South(back)
++z is East(right) , -z is West(left)"
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"direction": {
+"East": 2,
+"North": 0,
+"South": 1,
+"West": 3
+}
+}
+class_property_descriptions = {
+"direction": ["Entity's direction", 0]
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

@@ -1,6 +1,6 @@
 # GodotSourceMovment
 
-使用 Godot 4.2.1
+Use Godot __4.3__  ~~4.2.1~~ 
 
 使用 __Godot Jolt__ 和 __Func_Godot__  插件
 
@@ -16,17 +16,17 @@
   - [x] 平滑镜头
   - [x] 蹲伏状态下爬楼梯
 - [x] 梯子
-- [x] 游
+- [x] 游泳
 
 ### 附加内容
 
 - [x] 物体交互 
 
+- [x] 用于TrenchBroom地图制作的FGD
+
 #### TO-DO
 
-写上少的那部分注释
-
-给梯子和水域写fgd方便在tb作图
+把部分没写注释的地方写上注释
 
 ## 如何使用
 
@@ -35,10 +35,6 @@ clone然后解压到你想要的位置，然后在godot导入项目即可
 ## 已知问题
 
 Lunar say maybe random stuck in stairs (it might be a small problem...?)
-
-部分没有注释
-
-还没有写实体相关的fgd方便制作梯子和水域
 
 ## Ref:
 
@@ -64,4 +60,12 @@ https://github.com/AkimBowX2/Godot-4_FPS_controller/blob/main/scenes/player/play
 
 https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
 
+<<<<<<< Updated upstream
 https://github.com/majikayogames/SimpleFPSController
+=======
+https://github.com/majikayogames/SimpleFPSController
+
+https://github.com/func-godot/func_godot_example_basic
+
+https://func-godot.github.io/func_godot_docs/
+>>>>>>> Stashed changes
