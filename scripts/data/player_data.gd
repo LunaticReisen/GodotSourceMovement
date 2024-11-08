@@ -81,6 +81,7 @@ func _ready():
 @export var swim_gravity_precent        : float = .2
 @export var swim_up_precent             : float = 2
 @export var camera_smooth_amount        : float = .7
+@export var ladder_invent               :   int = 1
 @export var AIR_CAP                     : float = .5
 var auto_bunny                          :  bool = false
 var step_switch                         :  bool = false

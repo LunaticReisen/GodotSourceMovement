@@ -453,12 +453,12 @@ transform = Transform3D(1.19249e-08, 0, 1, 0, 1, 0, -1, 0, 1.19249e-08, 1.054, 0
 collision_layer = 16
 collision_mask = 2
 
+[node name="TopLadder" type="Marker3D" parent="Node3D/Ladder/LadderArea3D" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.295, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Ladder/LadderArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002, 3.17686, -0.259)
 shape = SubResource("BoxShape3D_icuog")
-
-[node name="TopLadder" type="Marker3D" parent="Node3D/Ladder/LadderArea3D" groups=["MARKER_LADDERTOP"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.295, 0)
 
 [node name="Node3D" type="Node3D" parent="Node3D/Ladder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0.344139, 0)
