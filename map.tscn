@@ -50,48 +50,48 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 
 collision_layer = 16
 collision_mask = 2
 
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614258, 2.66617, -0.32431)
 shape = SubResource("BoxShape3D_supnh")
-
-[node name="Marker3D" type="Marker3D" parent="Level/Area3D" groups=["MARKER_LADDERTOP"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="Area3D2" type="Area3D" parent="Level" groups=["AREA_LADDER"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.05882, 0, -6.05091)
 collision_layer = 16
 collision_mask = 2
 
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D2" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614054, 2.66776, -0.32129)
 shape = SubResource("BoxShape3D_supnh")
-
-[node name="Marker3D" type="Marker3D" parent="Level/Area3D2" groups=["MARKER_LADDERTOP"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="Area3D3" type="Area3D" parent="Level" groups=["AREA_LADDER"]]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 8.45434, 0, -6.05091)
 collision_layer = 16
 collision_mask = 2
 
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D3" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614258, 2.66617, -0.32431)
 shape = SubResource("BoxShape3D_supnh")
-
-[node name="Marker3D" type="Marker3D" parent="Level/Area3D3" groups=["MARKER_LADDERTOP"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="Area3D4" type="Area3D" parent="Level" groups=["AREA_LADDER"]]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 12.1402, 0, -5.05091)
 collision_layer = 16
 collision_mask = 2
 
+[node name="Marker3D" type="Marker3D" parent="Level/Area3D4" groups=["MARKER_LADDERTOP"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Area3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.614258, 2.66617, -0.32431)
 shape = SubResource("BoxShape3D_supnh")
-
-[node name="Marker3D" type="Marker3D" parent="Level/Area3D4" groups=["MARKER_LADDERTOP"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, -12.4591, 6.52153, 0)

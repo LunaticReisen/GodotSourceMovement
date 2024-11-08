@@ -1,0 +1,32 @@
+Renderer info: NVIDIA GeForce RTX 3060/PCIe/SSE2 version 4.6.0 NVIDIA 560.81 from NVIDIA Corporation
+Depth buffer bits: 24
+Multisampling enabled
+Adding file system path "F:/program/TrenchBroom\\defaults\\assets"
+Adding file system path "F:/github/GodotSourceMovement\\."
+Loading document from F:\github\GodotSourceMovement\maps\func_godot_maps\staris.map
+Adding file system path "F:/program/TrenchBroom\\defaults\\assets"
+Adding file system path "F:/github/GodotSourceMovement\\."
+Adding file system path "F:/github/GodotSourceMovement\\meshs"
+Adding file system path "F:/github/GodotSourceMovement\\textures"
+Duplicate class info 'func_detail' (line 75, column 13)
+Duplicate class info 'func_detail_illusionary' (line 77, column 13)
+Duplicate class info 'func_geo' (line 79, column 13)
+Duplicate class info 'func_illusionary' (line 81, column 13)
+Loaded entity definition file GSMEX.fgd
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+No diffuse textures found for material 1 of model 'datas\models/prop_turtle.glb', loading fallback texture
+Loaded texture collection '"textures"'
+Loaded texture collection '"textures\\dev_textures"'
+Loaded texture collection '"textures\\input-prompts"'
+Loaded texture collection '"textures\\special"'
+Loaded "F:\\github\\GodotSourceMovement\\maps\\func_godot_maps\\staris.map" in 75ms
+Saved "F:\\github\\GodotSourceMovement\\maps\\func_godot_maps\\staris.map" in 9ms
+Saved "F:\\github\\GodotSourceMovement\\maps\\func_godot_maps\\staris.map" in 9ms
+Saved "F:\\github\\GodotSourceMovement\\maps\\func_godot_maps\\staris.map" in 9ms
+Reloading entity definitions
