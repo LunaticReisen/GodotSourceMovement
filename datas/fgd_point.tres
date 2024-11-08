@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("1_3atn5")
 export_file = false
-model_key_word_supported = true
+target_map_editor = 1
 fgd_name = "PointFGD"
 base_fgd_files = Array[Resource]([])
 entity_definitions = Array[Resource]([ExtResource("2_vstcb"), ExtResource("3_nmgj0"), ExtResource("4_wjef5"), ExtResource("4_44c7b")])

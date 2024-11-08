@@ -5,14 +5,6 @@ extends Area3D
 @export var direction : int
 @export var angle : float
 @export var collision_size : Vector3
-var _dir_name : String
-
-var Dir = {
-    0 : "North" ,
-    1 : "South" ,
-    2 : "East"  ,
-    3 : "West"  
-}
 
 func _func_godot_apply_properties(props: Dictionary) -> void:
     direction = props["direction"] as int
@@ -32,30 +24,29 @@ func _init():
 
 
 func _ready():
-    # match direction as int:
-    #     0 as int :
-    #         _dir_name = Dir[0]        
-    #     1 as int :
-    #         _dir_name = Dir[1]        
-    #     2 as int :
-    #         _dir_name = Dir[2]        
-    #     3 as int :
-    #         _dir_name = Dir[3]
-    # print(_dir_name)
-
     init_ladder_collision()
-    # print(collision_size)
     init_ladder_position()
     
-
 func init_ladder_collision():
-    if direction == 0 or direction == 1:
+    if direction == 0:
         for child in self.get_children():
             if child is CollisionShape3D:
                 self.rotation_degrees.y = 90
                 child.rotation_degrees.y = -90
 
-    if direction == 2 or direction == 3 :
+    if direction == 1:
+        for child in self.get_children():
+            if child is CollisionShape3D:
+                self.rotation_degrees.y = -90
+                child.rotation_degrees.y = 90
+
+    # if direction == 2:
+    #     for child in self.get_children():
+    #         if child is CollisionShape3D:
+    #             self.rotation_degrees.y = 180
+    #             child.rotation_degrees.y = 180
+
+    if direction == 3 :
         for child in self.get_children():
             if child is CollisionShape3D:
                 self.rotation_degrees.y = 180
@@ -69,41 +60,37 @@ func init_ladder_position():
     var invent : int = 1
     match direction:
         0 as int : #North
-            self.position.x += collision_size.x
+            self.global_position.x += collision_size.x
             for child in self.get_children():
                 if child is CollisionShape3D:
-                    child.position.x -= collision_size.x
+                    child.global_position.x -= collision_size.x
                     # print("0")
             pass
         1 as int : #South
-            if self.position.x < 0 :
-                invent = -1
-            self.position.x += collision_size.x/ 2 * invent
+            self.global_position.x -= collision_size.x
             for child in self.get_children():
                 if child is CollisionShape3D: 
-                    child.position.x -= collision_size.x * invent
+                    child.global_position.x += collision_size.x
                     # print("1")
             pass
         2 as int : #East
-            self.position.z += collision_size.z/ 2
+            self.global_position.z += collision_size.z
             for child in self.get_children():
                 if child is CollisionShape3D:
-                    child.position.z += collision_size.z
+                    child.global_position.z -= collision_size.z
                     # print("2") 
             pass
         3 as int : #West
-            self.position.z -= collision_size.z / 2
+            self.global_position.z -= collision_size.z
             for child in self.get_children():
                 if child is CollisionShape3D:
-                    child.position.z += collision_size.z
+                    child.global_position.z += collision_size.z
                     # print("3")
         _:
             # print("why")
             pass    
 
 func _on_ent_entered(ent: Node) -> void:
-    if direction == 1 or direction == 2:
-        Global.player_data.ladder_invent = -1
     print("LADDER:climb")
 
 func _on_ent_exited(ent: Node) -> void:
