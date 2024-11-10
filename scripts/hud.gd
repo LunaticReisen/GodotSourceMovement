@@ -6,11 +6,9 @@ func _ready():
 	$bg/bg2/switches/stepswitch.button_pressed = Global.player_data.step_switch
 	$bg/bg2/switches/accelswitch.button_pressed = Global.player_data.accel_switch
 	$bg/bg2/switches/bunnyswitch.button_pressed = Global.player_data.auto_bunny
-	$bg/bg2/switches/smoothswitch.button_pressed = Global.player_data.camera_smooth_switch
+	$bg/bg2/switches/surfswitch.button_pressed = false
 	$bg/bg2/switches/ladderswitch.button_pressed = Global.player_data.ladder_boosting
-	$bg/bg2/line_edits/edtior/surf_ang.set_placeholder(var_to_str(Global.player_data.SLOPE_LIMIT))
-	$bg/bg2/line_edits/edtior/step_ang.set_placeholder(var_to_str(Global.player_data.camera_smooth_amount))
-
+	$bg/bg2/line_edits/surf_ang.set_placeholder(var_to_str(Global.player_data.SLOPE_LIMIT))
 
 func _input(event):
 	#"ESC" can let the mouse free	
@@ -51,8 +49,11 @@ func _on_step_ang_text_submitted(new_text:String) -> void:
 func _on_surf_ang_text_submitted(new_text:String) -> void:
 	Global.player_data.SLOPE_LIMIT = float(new_text)
 
-func _on_smoothswitch_toggled(toggled_on:bool) -> void:
-	Global.player_data.camera_smooth_switch = toggled_on
-
 func _on_ladderswitch_toggled(toggled_on:bool) -> void:
 	Global.player_data.ladder_boosting = toggled_on
+
+func _on_surfswitch_toggled(toggled_on:bool) -> void:
+	if toggled_on:
+		Global.player_data.AIR_CAP = Global.player_data.SURF_AIR_CAP
+	else :
+		Global.player_data.AIR_CAP = Global.player_data.GROUND_AIR_CAP

@@ -60,12 +60,8 @@ https://github.com/AkimBowX2/Godot-4_FPS_controller/blob/main/scenes/player/play
 
 https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
 
-<<<<<<< Updated upstream
-https://github.com/majikayogames/SimpleFPSController
-=======
 https://github.com/majikayogames/SimpleFPSController
 
 https://github.com/func-godot/func_godot_example_basic
 
 https://func-godot.github.io/func_godot_docs/
->>>>>>> Stashed changes

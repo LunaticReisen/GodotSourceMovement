@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://syvs5beg2j3q"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_ybrkl"]
+
+[resource]
+script = ExtResource("1_ybrkl")
+classname = "Globalname"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"globalname": ""
+}
+class_property_descriptions = {
+"globalname": "Unique name in the Map Scene. When FuncGodot builds the map, this entity will be renamed to entity_ + globalname. This can be a useful alternative to targetname, especially when trying to reparent generated nodes."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

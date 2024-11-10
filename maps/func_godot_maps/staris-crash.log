@@ -1,0 +1,26 @@
+Renderer info: NVIDIA GeForce RTX 2070 SUPER/PCIe/SSE2 version 4.6.0 NVIDIA 560.81 from NVIDIA Corporation
+Depth buffer bits: 24
+Multisampling enabled
+Adding file system path "D:/Program/TrenchBroom\\defaults\\assets"
+Adding file system path "D:/Project/github/GodotSourceMovement\\."
+Loading document from D:\Project\github\GodotSourceMovement\maps\func_godot_maps\staris.map
+Duplicate class info 'func_detail' (line 57, column 13)
+Duplicate class info 'func_detail_illusionary' (line 59, column 13)
+Duplicate class info 'func_illusionary' (line 63, column 13)
+Loaded entity definition file GSMEX.fgd
+Loaded texture collection '"textures"'
+Loaded texture collection '"textures\\dev_textures"'
+Loaded texture collection '"textures\\input-prompts"'
+Loaded texture collection '"textures\\special"'
+Loaded "D:\\Project\\github\\GodotSourceMovement\\maps\\func_godot_maps\\staris.map" in 57ms
+Reloading texture collections
+Loaded texture collection '"textures"'
+Loaded texture collection '"textures\\dev_textures"'
+Loaded texture collection '"textures\\input-prompts"'
+Loaded texture collection '"textures\\special"'
+Reloading entity definitions
+Duplicate class info 'func_detail' (line 57, column 13)
+Duplicate class info 'func_detail_illusionary' (line 59, column 13)
+Duplicate class info 'func_illusionary' (line 63, column 13)
+Loaded entity definition file GSMEX.fgd
+Reloading entity definitions

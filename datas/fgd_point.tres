@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=6 format=3 uid="uid://dcahi87src2x1"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_3atn5"]
+[ext_resource type="Resource" uid="uid://ia1t5p4mhom3" path="res://datas/point/lights/light_omni.tres" id="2_vstcb"]
+[ext_resource type="Resource" uid="uid://dbvwttrr1uq6e" path="res://datas/point/lights/light_spot.tres" id="3_nmgj0"]
+[ext_resource type="Resource" uid="uid://cex5fajrn3wdc" path="res://datas/point/prop_turtle.tres" id="4_44c7b"]
+[ext_resource type="Resource" uid="uid://drhgccbh1koh8" path="res://datas/point/info_camera.tres" id="4_wjef5"]
+
+[resource]
+script = ExtResource("1_3atn5")
+export_file = false
+target_map_editor = 1
+fgd_name = "PointFGD"
+base_fgd_files = Array[Resource]([])
+entity_definitions = Array[Resource]([ExtResource("2_vstcb"), ExtResource("3_nmgj0"), ExtResource("4_wjef5"), ExtResource("4_44c7b")])

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDBaseClass" load_steps=2 format=3 uid="uid://kerywjgft7vh"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_base_class.gd" id="1_uy4g8"]
+
+[resource]
+script = ExtResource("1_uy4g8")
+classname = "Target"
+description = ""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"target": "",
+"targetfunc": ""
+}
+class_property_descriptions = {
+"target": "Entity group to call the use function on when this entity is triggered.",
+"targetfunc": "Function to call on target entities. As is, the target function cannot accept arguments, so make sure it doesn't require specifying arguments."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = ""
+name_property = ""

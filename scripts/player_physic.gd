@@ -30,7 +30,7 @@ func air_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel 
 
 	return vel
 
-func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, is_in_water : bool, delta): #ground accel
+func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta): #ground accel
 	var accelspeed : float
 	var accel_precent :float = Global.player_data.accel_precent
 
@@ -56,9 +56,31 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 		accel_precent = .45
 
 	vel += accelspeed * wish_dir * accel_precent
-	if is_in_water:
-		if vel.y > Global.player_data.FLOAT_MAX_SPEED:
-			vel.y = Global.player_data.FLOAT_MAX_SPEED
+	
+	return vel
+
+func water_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta): #water accel
+	var accelspeed : float
+	var accel_precent :float = Global.player_data.accel_precent
+	if (vel.length() >= Global.player_data.GROUND_MAX_SPEED):
+		return vel
+	accelspeed = Global.player_data.SWIM_ACCEL
+	var _currentspeed : float = vel.dot(wish_dir)
+	var addspeed : float = wish_speed - _currentspeed
+	if(addspeed <= 0):
+		return vel
+	accelspeed = accel * delta * wish_speed
+	if(accelspeed > addspeed):
+		accelspeed = addspeed
+	
+	# little "boost"
+	if (vel.length() > 5):
+		accel_precent = .2
+	vel.x += accelspeed * wish_dir.x * accel_precent
+	vel.y += accelspeed * wish_dir.y * accel_precent * .5
+	vel.z += accelspeed * wish_dir.z * accel_precent
+	if vel.y > Global.player_data.FLOAT_MAX_SPEED:
+		vel.y = Global.player_data.FLOAT_MAX_SPEED
 	
 	return vel
 
@@ -106,7 +128,7 @@ func handel_ladder() -> bool :
 	var was_climbing_ladder := _ladder_climbing and _ladder_climbing.overlaps_body(Global.player)
 	if !was_climbing_ladder:
 		_ladder_climbing = null
-		for ladder in get_tree().get_nodes_in_group("ladder") :
+		for ladder in get_tree().get_nodes_in_group("AREA_LADDER") :
 			if ladder.overlaps_body(Global.player):
 				_ladder_climbing = ladder
 				break
@@ -134,10 +156,15 @@ func handel_ladder() -> bool :
 
 	#top marker : climbing to the top will force player get off the ladder
 	if ! was_climbing_ladder:
-		var mounting_from_top = pos_relative_to_ladder.y > _ladder_climbing.get_node("TopLadder").position.y
-		if mounting_from_top :
-			if ladder_climb_vel > 0:
-				should_dismount = true
+		var ladder_top
+		var _invent : bool
+		for i in _ladder_climbing.get_child_count():
+			if _ladder_climbing.get_child(0).is_in_group("MARKER_LADDERTOP"):
+				ladder_top = _ladder_climbing.get_child(0).position.y
+		if !ladder_top == null:
+			if pos_relative_to_ladder.y > ladder_top :
+				if ladder_climb_vel > 0:
+					should_dismount = true
 		else :
 			if (ladder_global_transform.affine_inverse().basis * Vector3(Global.player.dir.x ,0 ,Global.player.dir.y)).z >= 0 :
 				should_dismount = true
@@ -154,10 +181,6 @@ func handel_ladder() -> bool :
 
 	#jumping handle
 	if was_climbing_ladder and Input.is_action_just_pressed("jump"):
-<<<<<<< Updated upstream
-		Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 50
-		Global.player.velocity = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE *0.5
-=======
 
 		#Add a invent to fix the trenchbroom mapping's problem
 		if _ladder_climbing.get_child(1).shape is ConvexPolygonShape3D :
@@ -166,7 +189,6 @@ func handel_ladder() -> bool :
 		else :
 			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1
 			Global.player.velocity = Global.player.vel
->>>>>>> Stashed changes
 		_ladder_climbing = null
 		return false
 

@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://bv2ip70qmb7em"
+path="res://.godot/imported/staris.3.map-b7660730b71392e0d3a1d08e0bb54d9d.tres"
+
+[deps]
+
+source_file="res://maps/func_godot_maps/autosave/staris.3.map"
+dest_files=["res://.godot/imported/staris.3.map-b7660730b71392e0d3a1d08e0bb54d9d.tres"]
+
+[params]
+

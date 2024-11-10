@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDModelPointClass" load_steps=3 format=3 uid="uid://cex5fajrn3wdc"]
 
-[ext_resource type="PackedScene" uid="uid://cuw3s8mc6rhc7" path="res://meshs/turtle-rb3d.tscn" id="1_f87n8"]
+[ext_resource type="PackedScene" uid="uid://b3aj2jnha1e3q" path="res://meshs/turtle-rb3d.tscn" id="1_qnaat"]
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_model_point_class.gd" id="2_mxdia"]
 
 [resource]
@@ -8,9 +8,9 @@ script = ExtResource("2_mxdia")
 target_map_editor = 1
 models_sub_folder = ""
 scale_expression = ""
-generate_size_property = true
+generate_size_property = false
 generate_gd_ignore_file = false
-scene_file = ExtResource("1_f87n8")
+scene_file = ExtResource("1_qnaat")
 apply_rotation_on_map_build = true
 classname = "prop_turtle"
 description = "little cute turtle ovo"
@@ -20,8 +20,8 @@ class_properties = {}
 class_property_descriptions = {}
 meta_properties = {
 "color": Color(0.8, 0.8, 0, 1),
-"model": "\"datas/models/prop_turtle.glb\"",
-"size": AABB(-1, -1, 0, 1, 1, 1)
+"model": "\"datas\\models/prop_turtle.glb\"",
+"size": AABB(-16, -16, -16, 16, 16, 16)
 }
 node_class = ""
 name_property = ""

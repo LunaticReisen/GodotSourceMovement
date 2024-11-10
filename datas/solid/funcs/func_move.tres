@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=5 format=3 uid="uid://b3t000ocefkge"]
+
+[ext_resource type="Resource" uid="uid://d4buv26pirxbl" path="res://datas/base/func_base.tres" id="1_0171l"]
+[ext_resource type="Resource" uid="uid://cwbnifad3sdgw" path="res://datas/base/targetname_base.tres" id="2_obvel"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="2_td02h"]
+[ext_resource type="Script" path="res://scripts/entities/funcs/func_move.gd" id="4_2ymj1"]
+
+[resource]
+script = ExtResource("2_td02h")
+spawn_type = 2
+origin_type = 0
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+build_occlusion = false
+render_layers = 1
+collision_shape_type = 2
+collision_layer = 1
+collision_mask = 0
+collision_priority = 1.0
+collision_shape_margin = 0.04
+script_class = ExtResource("4_2ymj1")
+classname = "func_move"
+description = "Movable and rotatable geometry. Valid move functions are use, toggle, mv_forward, and mv_reverse."
+func_godot_internal = false
+base_classes = Array[Resource]([ExtResource("1_0171l"), ExtResource("2_obvel")])
+class_properties = {
+"move_pos": Vector3(0, 0, 0),
+"move_rot": Vector3(0, 0, 0),
+"speed": 3.0
+}
+class_property_descriptions = {
+"move_pos": "Relative destination position in Quake Units. This will be converted into Godot Units in the FuncMove script.",
+"move_rot": "Rotation destination in degrees."
+}
+meta_properties = {
+"color": Color(0, 0.8, 0, 1)
+}
+node_class = "AnimatableBody3D"
+name_property = ""

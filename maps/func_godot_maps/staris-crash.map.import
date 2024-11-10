@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://ndukj6do620a"
+path="res://.godot/imported/staris-crash.map-d36c756ea543628f4ef9496c300053ca.tres"
+
+[deps]
+
+source_file="res://maps/func_godot_maps/staris-crash.map"
+dest_files=["res://.godot/imported/staris-crash.map-d36c756ea543628f4ef9496c300053ca.tres"]
+
+[params]
+

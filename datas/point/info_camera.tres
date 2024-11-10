@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=5 format=3 uid="uid://drhgccbh1koh8"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_estyx"]
+[ext_resource type="Resource" uid="uid://cwbnifad3sdgw" path="res://datas/base/targetname_base.tres" id="1_y4ai7"]
+[ext_resource type="Resource" uid="uid://syvs5beg2j3q" path="res://datas/base/globalname_base.tres" id="2_bc4l2"]
+[ext_resource type="Script" path="res://scripts/entities/info_camera.gd" id="4_y3hfq"]
+
+[resource]
+script = ExtResource("1_estyx")
+script_class = ExtResource("4_y3hfq")
+apply_rotation_on_map_build = true
+classname = "info_camera"
+description = "Info Camera"
+func_godot_internal = false
+base_classes = Array[Resource]([ExtResource("1_y4ai7"), ExtResource("2_bc4l2")])
+class_properties = {
+"active": false,
+"angles": Vector3(0, 0, 0),
+"camera_target": ""
+}
+class_property_descriptions = {
+"active": "If activeSets camera's current property. If multiple cameras have active set to true, the viewport will pick the most recent one.",
+"angles": "Camera orientation.",
+"camera_target": "This camera will actively follow the node with this globalname."
+}
+meta_properties = {
+"color": Color(0, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "Camera3D"
+name_property = ""

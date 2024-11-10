@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="TrenchBroomGameConfig" load_steps=6 format=3 uid="uid://dkir0skupkbk7"]
+[gd_resource type="Resource" script_class="TrenchBroomGameConfig" load_steps=8 format=3 uid="uid://dkir0skupkbk7"]
 
+[ext_resource type="Resource" uid="uid://37iduqf7tpxq" path="res://addons/func_godot/game_config/trenchbroom/tb_brush_tag_func.tres" id="1_1imof"]
 [ext_resource type="Resource" uid="uid://b4xhdj0e16lop" path="res://addons/func_godot/game_config/trenchbroom/tb_face_tag_clip.tres" id="1_cm8ks"]
 [ext_resource type="Resource" uid="uid://ca7377sfgj074" path="res://addons/func_godot/game_config/trenchbroom/tb_face_tag_skip.tres" id="2_aovb6"]
-[ext_resource type="Resource" uid="uid://crgpdahjaj" path="res://addons/func_godot/fgd/func_godot_fgd.tres" id="3_x6ibv"]
+[ext_resource type="Resource" uid="uid://co2sb1ng7cw4i" path="res://addons/func_godot/game_config/trenchbroom/tb_brush_tag_trigger.tres" id="2_vmjge"]
+[ext_resource type="Resource" uid="uid://tt4mj8flifi0" path="res://datas/fgd_main.tres" id="3_i72n2"]
 [ext_resource type="Texture2D" uid="uid://decwujsyhj0qy" path="res://addons/func_godot/icon32.png" id="4_rpwjo"]
 [ext_resource type="Script" path="res://addons/func_godot/src/trenchbroom/trenchbroom_game_config.gd" id="5_hb15e"]
 
@@ -23,9 +25,12 @@ map_formats = Array[Dictionary]([{
 }, {
 "format": "Quake3"
 }])
+textures_root_folder = "textures"
 texture_exclusion_patterns = Array[String](["*_albedo", "*_ao", "*_emission", "*_height", "*_metallic", "*_normal", "*_orm", "*_roughness", "*_sss"])
-fgd_file = ExtResource("3_x6ibv")
+palette_path = "textures/palette.lmp"
+fgd_file = ExtResource("3_i72n2")
 entity_scale = "32"
-default_uv_scale = Vector2(1, 1)
-brush_tags = Array[Resource]([])
+brush_tags = Array[Resource]([ExtResource("1_1imof"), ExtResource("2_vmjge")])
 brushface_tags = Array[Resource]([ExtResource("1_cm8ks"), ExtResource("2_aovb6")])
+default_uv_scale = Vector2(1, 1)
+game_config_version = 0
