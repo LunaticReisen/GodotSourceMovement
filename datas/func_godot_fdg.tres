@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_pqdxk")
 export_file = false
-model_key_word_supported = true
+target_map_editor = 1
 fgd_name = "godot_movement"
 base_fgd_files = Array[Resource]([ExtResource("1_kldby")])
 entity_definitions = Array[Resource]([])

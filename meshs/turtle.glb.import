@@ -31,6 +31,21 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:rigify/Skeleton3D": {
+"rest_pose/external_animation_library": null
+},
+"PATH:turtle_bone/Skeleton3D": {
+"rest_pose/external_animation_library": null
+},
+"PATH:turtle_bone/face_004": {
+"generate/physics": true,
+"physics/body_type": 1,
+"physics/layer": 2,
+"physics/mask": 23
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1

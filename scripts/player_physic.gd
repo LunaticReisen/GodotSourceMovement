@@ -51,7 +51,7 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 	if(accelspeed > addspeed):
 		accelspeed = addspeed
 	
-	# little "boost"
+	#little "boost"
 	if (vel.length() > 15):
 		accel_precent = .45
 
@@ -62,12 +62,9 @@ func accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : fl
 func water_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, accel : float, delta): #water accel
 	var accelspeed : float
 	var accel_precent :float = Global.player_data.accel_precent
-
 	if (vel.length() >= Global.player_data.GROUND_MAX_SPEED):
 		return vel
-
 	accelspeed = Global.player_data.SWIM_ACCEL
-
 	var _currentspeed : float = vel.dot(wish_dir)
 	var addspeed : float = wish_speed - _currentspeed
 	if(addspeed <= 0):
@@ -79,7 +76,6 @@ func water_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, acce
 	# little "boost"
 	if (vel.length() > 5):
 		accel_precent = .2
-
 	vel.x += accelspeed * wish_dir.x * accel_precent
 	vel.y += accelspeed * wish_dir.y * accel_precent * .5
 	vel.z += accelspeed * wish_dir.z * accel_precent
@@ -87,7 +83,6 @@ func water_accelerate(vel : Vector3,wish_dir : Vector3, wish_speed : float, acce
 		vel.y = Global.player_data.FLOAT_MAX_SPEED
 	
 	return vel
-
 
 func handel_friction(vel : Vector3, t : float, is_in_water : bool, delta):
 	var vec : Vector3 = vel
@@ -133,7 +128,7 @@ func handel_ladder() -> bool :
 	var was_climbing_ladder := _ladder_climbing and _ladder_climbing.overlaps_body(Global.player)
 	if !was_climbing_ladder:
 		_ladder_climbing = null
-		for ladder in get_tree().get_nodes_in_group("AREA_LADDER") :
+		for ladder in get_tree().get_nodes_in_group("ladder") :
 			if ladder.overlaps_body(Global.player):
 				_ladder_climbing = ladder
 				break
@@ -143,6 +138,7 @@ func handel_ladder() -> bool :
 	var ladder_global_transform : Transform3D = _ladder_climbing.global_transform
 	var pos_relative_to_ladder = ladder_global_transform.affine_inverse() * Global.player.global_position
 	
+	#separate the movement and multiply the head transform
 	var forward := Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
 	var side := Input.get_action_strength("move_right") - Input.get_action_strength("move_left") 
 
@@ -158,16 +154,12 @@ func handel_ladder() -> bool :
 
 	var should_dismount = false
 
+	#top marker : climbing to the top will force player get off the ladder
 	if ! was_climbing_ladder:
-		var ladder_top
-		var _invent : bool
-		for i in _ladder_climbing.get_child_count():
-			if _ladder_climbing.get_child(0).is_in_group("MARKER_LADDERTOP"):
-				ladder_top = _ladder_climbing.get_child(0).position.y
-		if !ladder_top == null:
-			if pos_relative_to_ladder.y > ladder_top :
-				if ladder_climb_vel > 0:
-					should_dismount = true
+		var mounting_from_top = pos_relative_to_ladder.y > _ladder_climbing.get_node("TopLadder").position.y
+		if mounting_from_top :
+			if ladder_climb_vel > 0:
+				should_dismount = true
 		else :
 			if (ladder_global_transform.affine_inverse().basis * Vector3(Global.player.dir.x ,0 ,Global.player.dir.y)).z >= 0 :
 				should_dismount = true
@@ -182,9 +174,12 @@ func handel_ladder() -> bool :
 		_ladder_climbing = null 
 		return false
 
+	#jumping handle
 	if was_climbing_ladder and Input.is_action_just_pressed("jump"):
+
+		#Add a invent to fix the trenchbroom mapping's problem
 		if _ladder_climbing.get_child(1).shape is ConvexPolygonShape3D :
-			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1 * Global.player_data.ladder_invent
+			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1
 			Global.player.velocity = Global.player.vel
 		else :
 			Global.player.vel = _ladder_climbing.global_transform.basis.z * Global.player_data.JUMP_FORCE * 1
@@ -236,10 +231,6 @@ func check_snap_up_stair(delta) -> bool :
 
 	# if test success and collided sb3d or cgs object will continue 
 	if body_test_motion_own(step_pos_with_clearance , Vector3(0 , -Global.player_data.MAX_STEP_HEIGHT * 2 , 0) , _result) and (_result.get_collider().is_class("StaticBody3D") or _result.get_collider().is_class("CSGShape3D")):
-		
-		# if !is_too_steep(_result.get_collision_normal()) or (is_too_steep(stairs_ahead_ray.get_collision_normal()) and is_too_steep(stairs_below_ray.get_collision_normal())):
-		# 	return false
-
 		var collide_step_height = ((step_pos_with_clearance.origin + _result.get_travel()) - Global.player.global_position).y
 
 		#if collide too high or too low or greater than max step height will return
@@ -332,6 +323,5 @@ func get_movement_axis():
 	if Input.get_action_strength("move_back"):
 		dir += basis.z
 	dir.y = 0
-	# dir -= basis.x
 	dir = dir.normalized()
 	return dir

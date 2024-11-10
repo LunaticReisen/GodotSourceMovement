@@ -26,7 +26,7 @@ radius = 0.4
 
 [node name="Player" type="CharacterBody3D" groups=["PLAYER"]]
 collision_layer = 2
-collision_mask = 29
+collision_mask = 31
 script = ExtResource("1_cclu0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

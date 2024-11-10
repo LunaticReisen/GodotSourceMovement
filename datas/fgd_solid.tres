@@ -13,7 +13,7 @@
 [resource]
 script = ExtResource("1_n87v7")
 export_file = false
-model_key_word_supported = true
+target_map_editor = 1
 fgd_name = "SolidFGD"
 base_fgd_files = Array[Resource]([])
 entity_definitions = Array[Resource]([ExtResource("1_clqpq"), ExtResource("2_g488m"), ExtResource("3_mqtmv"), ExtResource("4_2y1us"), ExtResource("5_tk340"), ExtResource("6_2qosd"), ExtResource("7_7gu2a"), ExtResource("8_d6niv")])

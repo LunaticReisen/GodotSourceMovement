@@ -165,7 +165,7 @@ func ground_move(delta) -> void:
 		accle = Global.player_data.RUN_ACCEL 
 
 	vel = player_physic.accelerate(vel, wish_dir, wish_speed, accle, delta)
-
+	
 	if (_wish_jump):
 		vel.y = Global.player_data.JUMP_FORCE
 		_wish_jump = false
