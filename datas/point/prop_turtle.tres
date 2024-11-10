@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDModelPointClass" load_steps=3 format=3 uid="uid://cex5fajrn3wdc"]
 
-[ext_resource type="PackedScene" uid="uid://d4m5i3yk2ecju" path="res://meshs/turtle.tscn" id="1_0gtpy"]
+[ext_resource type="PackedScene" uid="uid://b3aj2jnha1e3q" path="res://meshs/turtle-rb3d.tscn" id="1_qnaat"]
 [ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_model_point_class.gd" id="2_mxdia"]
 
 [resource]
@@ -10,7 +10,7 @@ models_sub_folder = ""
 scale_expression = ""
 generate_size_property = false
 generate_gd_ignore_file = false
-scene_file = ExtResource("1_0gtpy")
+scene_file = ExtResource("1_qnaat")
 apply_rotation_on_map_build = true
 classname = "prop_turtle"
 description = "little cute turtle ovo"

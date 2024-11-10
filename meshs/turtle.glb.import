@@ -33,6 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "nodes": {
+"PATH:rigify": {
+"import/skip_import": true
+},
 "PATH:rigify/Skeleton3D": {
 "rest_pose/external_animation_library": null
 },
