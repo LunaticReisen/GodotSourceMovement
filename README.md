@@ -20,16 +20,15 @@ Use __Godot Jolt__ and __Func_Godot__  Addons
 - [x] Ladder
 - [x] Swimming
 
-
 ### Additional Content
+
+- [x] FGD mapping support
 
 - [x] Interact with objects
 
 #### TO-DO
 
-Some function NEED code comments
-
-FGD for ladder and water
+Some function NEED to be code comments
 
 ## HOW TO USE
 
@@ -38,10 +37,6 @@ Clone it and unzip it on any where you like ,then use godot to import the sproje
 ## Know Issues
 
 Lunar say maybe random stuck in stairs (it might be a small problem...?)
-
-Some function did not have code comments
-
-No fgd for ladder and water
 
 ## Ref:
 
@@ -68,3 +63,7 @@ https://github.com/AkimBowX2/Godot-4_FPS_controller/blob/main/scenes/player/play
 https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
 
 https://github.com/majikayogames/SimpleFPSController
+
+https://github.com/func-godot/func_godot_example_basic
+
+https://func-godot.github.io/func_godot_docs/
