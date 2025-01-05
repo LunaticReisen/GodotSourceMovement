@@ -35,9 +35,9 @@ func _ready():
 @export var CROUCH_AIR_ADD_SPEED        : float = 5
 @export var CROUCH_AIR_ACCEL            : float = 8
 @export var CROUCH_AIR_DECCEL           : float = 1
-@export var CROUCH_HEIGHT               : float = .8
+@export var CROUCH_HEIGHT               : float = .7
 @export var CAMERA_HEIGHT               : float = 1.2
-@export var stand_height                : float = 1.6 #player's collision height
+@export var stand_height                : float = 1.5 #player's collision height
 
 @export_subgroup("slope")
 @export var SLOPE_LIMIT                 : float = 45

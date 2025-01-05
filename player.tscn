@@ -19,10 +19,11 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8lly0"]
 radius = 0.4
+height = 1.8
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_75emf"]
-height = 0.7
-radius = 0.4
+height = 0.6
+radius = 0.45
 
 [node name="Player" type="CharacterBody3D" groups=["PLAYER"]]
 collision_layer = 2
@@ -30,19 +31,19 @@ collision_mask = 31
 script = ExtResource("1_cclu0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 layers = 2
 mesh = SubResource("CapsuleMesh_8lly0")
 
 [node name="PlayerCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = ExtResource("2_0ouht")
 
 [node name="Root" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="CeilingCast" type="ShapeCast3D" parent="Root"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 shape = SubResource("CylinderShape3D_75emf")
 target_position = Vector3(0, 0, 0)
 
@@ -54,6 +55,7 @@ script = ExtResource("3_385kn")
 
 [node name="Camera" type="Camera3D" parent="Root/Head/StairsSmooth"]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 cull_mask = 1048573
 fov = 90.0
 
