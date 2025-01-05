@@ -66,4 +66,3 @@ https://github.com/majikayogames/SimpleFPSController
 
 https://github.com/func-godot/func_godot_example_basic
 
-https://func-godot.github.io/func_godot_docs/
