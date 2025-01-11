@@ -204,18 +204,31 @@ func handel_ladder() -> bool :
 
 # stairs function
 func check_snap_to_stairs() :
+	Global.player_data._snap_down_floor = false
 	var is_snap := false
 	# if lower ray cast colliding , and collider normal >= slope limit deg , will return true
 	var floor_below : bool = stairs_below_ray.is_colliding() and !is_too_steep(stairs_below_ray.get_collision_normal())
 	var was_on_floor_last_frame = Engine.get_physics_frames() - Global.player_data.last_frame_on_floor == 1
-	
+
 	if !Global.player_data.on_floor and Global.player.vel.y <= 0 and (was_on_floor_last_frame or is_snap) and floor_below:
+		# print("true")
 		var _result = PhysicsTestMotionResult3D.new()
-		if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT , 0) , _result):
+		if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT * (1+get_player_speed_rate()) , 0) , _result):
 			save_camera_pos()
-			Global.player.position.y += _result.get_travel().y*1
+			Global.player.position.y += _result.get_travel().y
+			# Global.player.position.y += _result.get_travel().y* (1+get_player_speed_rate())
 			apply_floor_snap_own()
 			is_snap = true
+
+	if Global.player_data.snap_down_floor_switch:
+		if Global.player.vel.y < 0 and was_on_floor_last_frame and !Global.player_data.on_floor:
+			var _result = PhysicsTestMotionResult3D.new()
+			if body_test_motion_own(Global.player.global_transform , Vector3(0, - Global.player_data.MAX_STEP_HEIGHT*4 , 0) , _result):
+				save_camera_pos()
+				Global.player.position.y += _result.get_travel().y* (1+get_player_speed_rate())
+				apply_floor_snap_own()
+				Global.player_data._snap_down_floor = true
+
 	Global.player_data.snap_stair_last_frame = is_snap
 
 func check_snap_up_stair(delta) -> bool :
@@ -308,6 +321,14 @@ func is_too_steep(normal : Vector3) -> bool :
 		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
 	else :
 		return normal.angle_to(Vector3.UP) > Global.player_data.SLOPE_LIMIT 
+
+func get_player_speed_rate():
+	var _rate = Global.player.get_current_speed() / Global.player.speed_changer()
+	if Global.player.speed_changer() >= 6.5:
+		return _rate
+	else :
+		return 0
+
 
 
 #Initialize

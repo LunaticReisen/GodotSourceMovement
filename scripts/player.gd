@@ -53,6 +53,7 @@ var cam_aligned_wish_dir := Vector3.ZERO
 var t1 : float
 var t2 : float
 var t3 : float = 0
+var t4 : float = 0
 
 #endregion 
 
@@ -148,6 +149,9 @@ func process_movement(delta) -> void:
 
 #See more in https://github.com/WiggleWizard/quake3-movement-unity3d/blob/master/CPMPlayer.cs
 func ground_move(delta) -> void:
+	if last_movement_state == "air":
+		player_physic.apply_floor_snap_own()
+	player_physic.apply_floor_snap_own()
 	Global.player_data.on_floor = true
 	var accle : float
 	if (!_wish_jump):
@@ -281,18 +285,36 @@ func handel_jump() -> void:
 func handel_crouch(delta) -> bool:
 	collider_shape = collider.shape		#Player collider shape
 	collide = ceilingcast.is_colliding()	#Initialize
+	if is_on_stand:
+		t1 = 0	#reset
 	if (Input.is_action_pressed("crouch") or is_on_crouching):
 		t1 += delta * 15	#smooth the position
+		# print(t1)
 		collider_shape.height = Global.player_data.CROUCH_HEIGHT		#control colldier height
 		if (!collide):
 			head.position.y = lerp(head.position.y,Global.player_data.CAMERA_HEIGHT,t1)	#control camera height
+			# if head.position.y > Global.player_data.CAMERA_HEIGHT and is_on_crouching != false:
+			# 	# head.position.y -= 0.05
+			# 	head.position.y = Global.player_data.CAMERA_HEIGHT
+			t1 += delta * 5	#smooth the position
+			# print(t1)
 		is_on_crouching = true
 		if(head.position.y >= Global.player_data.CAMERA_HEIGHT):
 			if(head.position.y - Global.player_data.CAMERA_HEIGHT <= 0.01):
-				head.position.y = Global.player_data.CAMERA_HEIGHT
-			t1 = 0	#reset
-			is_crouching = true
-			is_on_crouching = false
+				# head.position.y = Global.player_data.CAMERA_HEIGHT
+				is_crouching = true
+				is_on_crouching = false
+	if !is_on_crouching:
+		t1 = 0
+
+	# if head.position.y == 1.5 and t4 == 0:
+	# 	print(head.position.y)
+	# 	t4 = 1
+	# elif head.position.y != 1.5 :
+	# 	print(head.position.y)
+	# else :
+	# 	t4 = 0
+	# print(is_on_crouching)
 
 	# handel standing	
 	# if last frame collide something, it will not stand up
@@ -390,18 +412,21 @@ func move_and_slide_own() -> bool:
 		collided = true
 	return collided
 
-func speed_changer() -> void:
+func speed_changer():
 	if (Input.is_action_pressed("dash") and !is_crouching):
 		currentspeed = Global.player_data.DASH_SPEED
+		return Global.player_data.DASH_SPEED
 	elif is_in_water():
 		if (is_crouching or is_on_crouching):
 			currentspeed = Global.player_data.SWIM_SPEED
-			return
+			return Global.player_data.SWIM_SPEED
 		currentspeed = Global.player_data.SWIM_SPEED
 	elif (is_crouching or is_on_crouching):
 		currentspeed = Global.player_data.CROUCH_SPEED
+		return Global.player_data.CROUCH_SPEED
 	else :
 		currentspeed = Global.player_data.WALK_SPEED
+		return Global.player_data.WALK_SPEED
 
 func get_current_speed():
 	pos = velocity
@@ -410,6 +435,8 @@ func get_current_speed():
 
 func get_current_speed_full():
 	return velocity.length()
+
+
 
 func debug_var():
 	Global.debug_panel.add_property("velocity", velocity ,1)
@@ -421,10 +448,12 @@ func debug_var():
 	Global.debug_panel.add_property("movement_state", movement_state ,7)
 	Global.debug_panel.add_property("step", is_stepping , 8)
 	Global.debug_panel.add_property("snap to stair last frame", Global.player_data.snap_stair_last_frame , 9)
-	Global.debug_panel.add_property("ladder", is_on_ladder , 10)
-	Global.debug_panel.add_property("water", is_in_water() , 11)
-	Global.debug_panel.add_property("jump", _wish_jump , 12)
-	Global.debug_panel.add_property("wish_dir", DEBUG_wishdir , 13)
+	Global.debug_panel.add_property("snap to floor last frame", Global.player_data._snap_down_floor , 10)
+	Global.debug_panel.add_property("ladder", is_on_ladder , 11)
+	Global.debug_panel.add_property("water", is_in_water() , 12)
+	Global.debug_panel.add_property("jump", _wish_jump , 13)
+	Global.debug_panel.add_property("wish_dir", DEBUG_wishdir , 15)
+	Global.debug_panel.add_property("head high", head.position.y , 20)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():
