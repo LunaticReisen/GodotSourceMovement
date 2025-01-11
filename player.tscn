@@ -55,7 +55,7 @@ script = ExtResource("3_385kn")
 
 [node name="Camera" type="Camera3D" parent="Root/Head/StairsSmooth"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.77492)
 cull_mask = 1048573
 fov = 90.0
 

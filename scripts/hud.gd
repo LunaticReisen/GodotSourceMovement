@@ -31,8 +31,8 @@ func _on_countine_button_pressed() -> void:
 	hide()
 
 func _on_settings_button_pressed() -> void:
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	get_tree().reload_current_scene()
+
 
 func _on_bunnyswitch_toggled(toggled_on:bool) -> void:
 	Global.player_data.auto_bunny = toggled_on

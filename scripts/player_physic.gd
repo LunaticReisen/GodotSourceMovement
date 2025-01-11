@@ -276,6 +276,8 @@ func save_camera_pos() :
 		Global.player_data.camera_smooth_pos = head.global_position
 
 func camera_smooth(delta) :
+	if Global.player.is_crouching or Global.player.is_on_stand:
+		return
 	if Global.player_data.camera_smooth_pos == null : 
 		return
 	head.global_position.y = Global.player_data.camera_smooth_pos.y

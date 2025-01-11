@@ -288,14 +288,15 @@ func handel_crouch(delta) -> bool:
 	if is_on_stand:
 		t1 = 0	#reset
 	if (Input.is_action_pressed("crouch") or is_on_crouching):
+		if t4 == 0:
+			position.y += 0.1
+			t4 +=1
 		t1 += delta * 15	#smooth the position
 		# print(t1)
 		collider_shape.height = Global.player_data.CROUCH_HEIGHT		#control colldier height
 		if (!collide):
+			t4 += 1
 			head.position.y = lerp(head.position.y,Global.player_data.CAMERA_HEIGHT,t1)	#control camera height
-			# if head.position.y > Global.player_data.CAMERA_HEIGHT and is_on_crouching != false:
-			# 	# head.position.y -= 0.05
-			# 	head.position.y = Global.player_data.CAMERA_HEIGHT
 			t1 += delta * 5	#smooth the position
 			# print(t1)
 		is_on_crouching = true
@@ -327,6 +328,9 @@ func handel_crouch(delta) -> bool:
 			is_last_frame_collide = is_collide
 			return true
 		elif (!is_collide) :
+			if t4 == 1:
+				position.y += 0.3
+				t4 = 0
 			if(Input.is_action_just_released("crouch") or is_on_stand) :
 				#position.y += 0.55		#if you want a goldscr style jumping, ctrl+/ this line
 				t2 += delta * 5		#smooth the position
