@@ -29,7 +29,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.6271
 [node name="main" parent="Level" instance=ExtResource("2_46ycu")]
 
 [node name="intreaction" parent="Level" instance=ExtResource("3_wy6x1")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 33, 0, 2)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18, 0, 15)
 
 [node name="Stairs" parent="Level" instance=ExtResource("4_cu6ar")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, 35.5)

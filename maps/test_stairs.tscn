@@ -1,18 +1,18 @@
 [gd_scene load_steps=298 format=4 uid="uid://qh0gfehkdctm"]
 
-[ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_3jks5"]
+[ext_resource type="Script" uid="uid://dw4q514346ccw" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_3jks5"]
 [ext_resource type="Resource" uid="uid://ddcctd0mftjl0" path="res://datas/map_settings.tres" id="2_msk5x"]
 [ext_resource type="Material" uid="uid://6ich18hf34bu" path="res://textures/dev_textures/texture_06.tres" id="3_5ouqv"]
 [ext_resource type="Material" uid="uid://bxjuvtifntomi" path="res://textures/dev_textures/texture_01.tres" id="4_15iuw"]
 [ext_resource type="Material" uid="uid://qmxgj3umouro" path="res://textures/dev_textures/texture_02.tres" id="6_8q4t5"]
-[ext_resource type="Script" path="res://scripts/entities/funcs/func_water.gd" id="6_olsjt"]
+[ext_resource type="Script" uid="uid://cdaqs8avr3mf0" path="res://scripts/entities/funcs/func_water.gd" id="6_olsjt"]
 [ext_resource type="Material" uid="uid://dv4jamw2w2hur" path="res://textures/dev_textures/texture_08.tres" id="6_t5q8w"]
 [ext_resource type="Material" uid="uid://0ngxcbm4j041" path="res://textures/special/water_texture.tres" id="7_phreh"]
-[ext_resource type="Script" path="res://scripts/entities/funcs/func_move.gd" id="8_xid35"]
+[ext_resource type="Script" uid="uid://rs38mp258cci" path="res://scripts/entities/funcs/func_move.gd" id="8_xid35"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_y2dfj"]
 [ext_resource type="PackedScene" uid="uid://d4m5i3yk2ecju" path="res://meshs/turtle.tscn" id="10_7xa3k"]
-[ext_resource type="Script" path="res://scripts/entities/triggers/trigger_area.gd" id="11_4g7g4"]
-[ext_resource type="Script" path="res://scripts/entities/funcs/func_ladder.gd" id="12_yp3t6"]
+[ext_resource type="Script" uid="uid://cfrfr38x0vl3w" path="res://scripts/entities/triggers/trigger_area.gd" id="11_4g7g4"]
+[ext_resource type="Script" uid="uid://bly58jrph8fkf" path="res://scripts/entities/funcs/func_ladder.gd" id="12_yp3t6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7mhr"]
 albedo_texture = ExtResource("9_y2dfj")
@@ -1871,49 +1871,57 @@ target = "door"
 shape = SubResource("ConvexPolygonShape3D_80yqm")
 
 [node name="entity_18_func_ladder" type="Area3D" parent="FuncGodotMap" groups=["AREA_LADDER"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 4, 8)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.75, 4, 8)
 collision_layer = 16
 collision_mask = 2
 collision_priority = 999.0
 script = ExtResource("12_yp3t6")
 direction = 1
 angle = 270.0
+collision_size = Vector3(0.25, 4, 1)
 
 [node name="entity_18_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_18_func_ladder"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.75)
 shape = SubResource("ConvexPolygonShape3D_g1b3f")
 
 [node name="entity_19_func_ladder" type="Area3D" parent="FuncGodotMap" groups=["AREA_LADDER"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 8)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.25, 4, 8)
 collision_layer = 16
 collision_mask = 2
 collision_priority = 999.0
 script = ExtResource("12_yp3t6")
 angle = 90.0
+collision_size = Vector3(0.25, 4, 1)
 
 [node name="entity_19_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_19_func_ladder"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -0.75)
 shape = SubResource("ConvexPolygonShape3D_pefp8")
 
 [node name="entity_20_func_ladder" type="Area3D" parent="FuncGodotMap" groups=["AREA_LADDER"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 4, 10.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 4, 11.25)
 collision_layer = 16
 collision_mask = 2
 collision_priority = 999.0
 script = ExtResource("12_yp3t6")
 direction = 2
+collision_size = Vector3(1, 4, 0.25)
 
 [node name="entity_20_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_20_func_ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
 shape = SubResource("ConvexPolygonShape3D_us2f2")
 
 [node name="entity_21_func_ladder" type="Area3D" parent="FuncGodotMap" groups=["AREA_LADDER"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 4, 5.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.5, 4, 4.75)
 collision_layer = 16
 collision_mask = 2
 collision_priority = 999.0
 script = ExtResource("12_yp3t6")
 direction = 3
 angle = 180.0
+collision_size = Vector3(1, 4, 0.25)
 
 [node name="entity_21_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_21_func_ladder"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -0.75)
 shape = SubResource("ConvexPolygonShape3D_oinyd")
 
 [node name="layer_0_Ladder" type="Node3D" parent="FuncGodotMap"]

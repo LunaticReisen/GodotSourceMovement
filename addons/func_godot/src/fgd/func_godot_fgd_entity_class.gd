@@ -25,6 +25,9 @@ var prefix: String = ""
 ## Descriptions for previously defined key value pair properties.
 @export var class_property_descriptions : Dictionary = {}
 
+## Automatically applies entity class properties to matching properties in the generated node. When using this feature, class properties need to be the correct type or you may run into errors on map build.
+@export var auto_apply_to_matching_node_properties : bool = false
+
 ## Appearance properties for the map editor. See the [**Valve FGD**](https://developer.valvesoftware.com/wiki/FGD#Entity_Description) and [**TrenchBroom**](https://trenchbroom.github.io/manual/latest/#display-models-for-entities) documentation for more information.
 @export var meta_properties : Dictionary = {
 	"size": AABB(Vector3(-8, -8, -8), Vector3(8, 8, 8)),
@@ -95,7 +98,7 @@ func build_def_text(target_editor: FuncGodotFGDFile.FuncGodotTargetMapEditors = 
 	res += " = " + classname
 	
 	if prefix != "@BaseClass": # having a description in BaseClasses crashes some editors
-		var normalized_description = description.replace("\n", " ").strip_edges() if prefix != "@BaseClass" else ""
+		var normalized_description = description.replace("\"", "\'")
 		if normalized_description != "":
 			res += " : \"%s\" " % [normalized_description]
 		else: # Having no description crashes some editors
@@ -172,6 +175,7 @@ func build_def_text(target_editor: FuncGodotFGDFile.FuncGodotTargetMapEditors = 
 				prop_val += "\t]"
 			TYPE_NODE_PATH:
 				prop_type = "target_destination"
+				prop_val = "\"\""
 			TYPE_OBJECT:
 				if value is Resource:
 					prop_val = value.resource_path
@@ -186,6 +190,7 @@ func build_def_text(target_editor: FuncGodotFGDFile.FuncGodotTargetMapEditors = 
 						prop_type = "sound"
 				else:
 					prop_type = "target_source"
+					prop_val = "\"\""
 		
 		if prop_val:
 			res += "\t"

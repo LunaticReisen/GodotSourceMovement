@@ -1,11 +1,11 @@
 [gd_scene load_steps=19 format=3 uid="uid://rn24b4x6mmga"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_cclu0"]
+[ext_resource type="Script" uid="uid://dwdajul21vneu" path="res://scripts/player.gd" id="1_cclu0"]
 [ext_resource type="Shape3D" uid="uid://cs7m3drkfeskt" path="res://meshs/player-cylin.tres" id="2_0ouht"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="3_385kn"]
-[ext_resource type="Script" path="res://scripts/player_physic.gd" id="4_ek334"]
+[ext_resource type="Script" uid="uid://cu5b5hwt0uu2f" path="res://scripts/camera.gd" id="3_385kn"]
+[ext_resource type="Script" uid="uid://dek5yn4dtvo0q" path="res://scripts/player_physic.gd" id="4_ek334"]
 [ext_resource type="Texture2D" uid="uid://p1kbcjfo4uc0" path="res://textures/input-prompts/keyboard_f.png" id="4_qmik6"]
-[ext_resource type="Script" path="res://scripts/control_ui.gd" id="6_bl3c1"]
+[ext_resource type="Script" uid="uid://bysmxbkr57o14" path="res://scripts/control_ui.gd" id="6_bl3c1"]
 [ext_resource type="Texture2D" uid="uid://bntspsjru3brd" path="res://textures/input-prompts/keyboard_arrow_up.png" id="7_5w6ga"]
 [ext_resource type="Texture2D" uid="uid://dv7sf7f75e7an" path="res://textures/input-prompts/keyboard_arrow_down.png" id="8_oy7qu"]
 [ext_resource type="Texture2D" uid="uid://dlpuwjafs7ceh" path="res://textures/input-prompts/keyboard_arrow_right.png" id="9_oksfo"]
@@ -13,9 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://b270vs5ugdyay" path="res://textures/input-prompts/keyboard_down.png" id="11_7xk5e"]
 [ext_resource type="Texture2D" uid="uid://c6nxjqrtw1ggb" path="res://textures/input-prompts/keyboard_caret.png" id="11_rx8s6"]
 [ext_resource type="Texture2D" uid="uid://6ln6fks67btd" path="res://textures/input-prompts/keyboard_minus.png" id="12_drlw7"]
-[ext_resource type="Script" path="res://scripts/debug_panel.gd" id="13_odvkc"]
-[ext_resource type="Script" path="res://scripts/data/player_data.gd" id="13_uys3g"]
-[ext_resource type="Script" path="res://scripts/grab.gd" id="14_3a036"]
+[ext_resource type="Script" uid="uid://b0uybv07jeacw" path="res://scripts/debug_panel.gd" id="13_odvkc"]
+[ext_resource type="Script" uid="uid://3xrd56dcj1cx" path="res://scripts/data/player_data.gd" id="13_uys3g"]
+[ext_resource type="Script" uid="uid://bb8p5s6nx8aqm" path="res://scripts/grab.gd" id="14_3a036"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8lly0"]
 radius = 0.4
@@ -55,7 +55,6 @@ script = ExtResource("3_385kn")
 
 [node name="Camera" type="Camera3D" parent="Root/Head/StairsSmooth"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.77492)
 cull_mask = 1048573
 fov = 90.0
 

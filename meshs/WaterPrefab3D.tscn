@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dmyla25h441el"]
 
-[ext_resource type="Script" path="res://scripts/water.gd" id="1_cd1js"]
+[ext_resource type="Script" uid="uid://cnpwplou3a5da" path="res://scripts/water.gd" id="1_cd1js"]
 [ext_resource type="Material" uid="uid://0ngxcbm4j041" path="res://textures/special/water_texture.tres" id="1_xf1k4"]
-[ext_resource type="Shader" path="res://textures/camera_water_ripple.gdshader" id="2_372ig"]
+[ext_resource type="Shader" uid="uid://cc83d7ckkeujh" path="res://textures/camera_water_ripple.gdshader" id="2_372ig"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b3i6q"]
 size = Vector3(6.11865, 24.373, 7.47876)

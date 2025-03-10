@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=4 format=3 uid="uid://ptvum0fd8lvk"]
 
-[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_fxf43"]
+[ext_resource type="Script" uid="uid://cxpqurk25owc8" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_fxf43"]
 [ext_resource type="Resource" uid="uid://hnx0olvm0jt2" path="res://datas/base/trigger_base.tres" id="1_l46wr"]
-[ext_resource type="Script" path="res://scripts/entities/triggers/trigger_area.gd" id="3_aq6gq"]
+[ext_resource type="Script" uid="uid://cfrfr38x0vl3w" path="res://scripts/entities/triggers/trigger_area.gd" id="3_aq6gq"]
 
 [resource]
 script = ExtResource("1_fxf43")

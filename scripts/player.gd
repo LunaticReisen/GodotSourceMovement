@@ -131,6 +131,7 @@ func _physics_process(delta):
 			topspeed = get_current_speed()
 	last_movement_state = movement_state
 		
+	# print(head.position.y)
 	# print(Global.player_data.AIR_CAP)
 
 func process_movement(delta) -> void:
@@ -297,7 +298,8 @@ func handel_crouch(delta) -> bool:
 		if (!collide):
 			t4 += 1
 			head.position.y = lerp(head.position.y,Global.player_data.CAMERA_HEIGHT,t1)	#control camera height
-			t1 += delta * 5	#smooth the position
+			# head.position.y = move_toward(head.position.y , Global.player_data.CAMERA_HEIGHT , t1)
+			# t1 += delta * 5	#smooth the position
 			# print(t1)
 		is_on_crouching = true
 		if(head.position.y >= Global.player_data.CAMERA_HEIGHT):
@@ -324,6 +326,7 @@ func handel_crouch(delta) -> bool:
 			is_collide = true
 		else :
 			is_collide = false
+
 		if (is_collide):
 			is_last_frame_collide = is_collide
 			return true
@@ -333,8 +336,9 @@ func handel_crouch(delta) -> bool:
 				t4 = 0
 			if(Input.is_action_just_released("crouch") or is_on_stand) :
 				#position.y += 0.55		#if you want a goldscr style jumping, ctrl+/ this line
-				t2 += delta * 5		#smooth the position
-				head.position.y = lerp(head.position.y,Global.player_data.stand_height,t2)		#control camera height
+				t2 += delta * 1		#smooth the position
+				# head.position.y = lerp(head.position.y,Global.player_data.stand_height,t2)		#control camera height
+				head.position.y = move_toward(head.position.y , Global.player_data.stand_height , t2)
 				collider_shape.height = Global.player_data.stand_height		#control colldier height
 				is_on_stand = true
 				is_last_frame_collide = is_collide
@@ -457,7 +461,7 @@ func debug_var():
 	Global.debug_panel.add_property("water", is_in_water() , 12)
 	Global.debug_panel.add_property("jump", _wish_jump , 13)
 	Global.debug_panel.add_property("wish_dir", DEBUG_wishdir , 15)
-	Global.debug_panel.add_property("head high", head.position.y , 20)
+	Global.debug_panel.add_property("head high", head.position.y , 16)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():

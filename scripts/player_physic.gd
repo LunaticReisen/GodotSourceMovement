@@ -276,8 +276,8 @@ func save_camera_pos() :
 		Global.player_data.camera_smooth_pos = head.global_position
 
 func camera_smooth(delta) :
-	if Global.player.is_crouching or Global.player.is_on_stand:
-		return
+	# if Global.player.is_crouching or Global.player.is_on_stand:
+	# 	return
 	if Global.player_data.camera_smooth_pos == null : 
 		return
 	head.global_position.y = Global.player_data.camera_smooth_pos.y
@@ -288,7 +288,7 @@ func camera_smooth(delta) :
 	if head.position.y == 0:
 		Global.player_data.camera_smooth_pos = null
 
-# apply_floor_snap from cb3d , I just reworte it
+# apply_floor_snap from cb3d , I just reworte it in gds
 func apply_floor_snap_own():
 	var add_vel :Vector3
 	if Global.player_data.on_floor :

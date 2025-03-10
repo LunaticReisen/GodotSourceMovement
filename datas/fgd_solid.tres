@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=10 format=3 uid="uid://cnrh5xw6qygo7"]
 
 [ext_resource type="Resource" uid="uid://bv37jafqtfyuw" path="res://datas/solid/funcs/func_detail.tres" id="1_clqpq"]
-[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_n87v7"]
+[ext_resource type="Script" uid="uid://df1l5axa2xp2h" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_n87v7"]
 [ext_resource type="Resource" uid="uid://4h23glniadlk" path="res://datas/solid/funcs/func_detail_illusionary.tres" id="2_g488m"]
 [ext_resource type="Resource" uid="uid://dbc8wa7c1nbgx" path="res://datas/solid/funcs/func_geo.tres" id="3_mqtmv"]
 [ext_resource type="Resource" uid="uid://ckh3askbgkynt" path="res://datas/solid/funcs/func_illusionary.tres" id="4_2y1us"]

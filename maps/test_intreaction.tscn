@@ -1,20 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://qg1ttebv16qf"]
-
-[ext_resource type="Material" uid="uid://bkvskxh742nnb" path="res://textures/dev-1024x2-o.tres" id="1_bqsoe"]
-[ext_resource type="Material" uid="uid://bc0cqxcsbx8ck" path="res://textures/dev-1024-o.tres" id="2_2h2os"]
-[ext_resource type="Material" uid="uid://dygevgn3am8sf" path="res://textures/new_standard_material_3d.tres" id="3_mbjsf"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_stlgw"]
-size = Vector2(50, 50)
+[gd_scene load_steps=10 format=3 uid="uid://qg1ttebv16qf"]
 
 [sub_resource type="Environment" id="Environment_i0cdm"]
 background_mode = 1
 background_color = Color(0.956863, 0.94902, 0.960784, 1)
 ambient_light_color = Color(0.372549, 0.372549, 0.372549, 1)
 ssao_enabled = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_e74tw"]
-size = Vector3(19.77, 0.16, 20.845)
 
 [sub_resource type="BoxMesh" id="BoxMesh_q2fmf"]
 
@@ -40,39 +30,8 @@ points = PackedVector3Array(2.12045, -0.357945, -0.157913, 0.538661, 0.36685, 0.
 
 [node name="Node3D" type="Node3D"]
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-transform = Transform3D(0.384, 0, 0, 0, 1, 0, 0, 0, 0.337, 0, 0, 0)
-operation = 2
-use_collision = true
-collision_layer = 15
-collision_mask = 15
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-size = Vector3(50, 6, 50)
-material = ExtResource("1_bqsoe")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15146, -0.5)
-operation = 2
-size = Vector3(49, 8.70377, 50)
-material = ExtResource("2_2h2os")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
-transform = Transform3D(0.384, 0, 0, 0, 1, 0, 0, 0, 0.337, 0, 0, 0)
-use_collision = true
-mesh = SubResource("PlaneMesh_stlgw")
-material = ExtResource("3_mbjsf")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i0cdm")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.67717, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.38729, 0)
-shape = SubResource("BoxShape3D_e74tw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.782304, -0.46834, 0.41068, -0.00250053, 0.65694, 0.753939, -0.622892, -0.590836, 0.512756, -12.4591, 6.52153, 0)
