@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://cu4cq2edch2uo" path="res://datas/base/direction_base.tres" id="1_53yrg"]
 [ext_resource type="Script" uid="uid://bly58jrph8fkf" path="res://scripts/entities/funcs/func_ladder.gd" id="2_1i0m4"]
-[ext_resource type="Script" uid="uid://cxpqurk25owc8" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="2_l48o2"]
+[ext_resource type="Script" uid="uid://b7luu4e7qy8m7" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="2_l48o2"]
 
 [resource]
 script = ExtResource("2_l48o2")
@@ -18,6 +18,11 @@ collision_layer = 16
 collision_mask = 2
 collision_priority = 999.0
 collision_shape_margin = 0.04
+add_textures_metadata = false
+add_vertex_metadata = false
+add_face_position_metadata = false
+add_face_normal_metadata = false
+add_collision_shape_face_range_metadata = false
 script_class = ExtResource("2_1i0m4")
 classname = "func_ladder"
 description = "ladder area for climb"
@@ -27,6 +32,7 @@ class_properties = {
 "angle": 0.0
 }
 class_property_descriptions = {}
+auto_apply_to_matching_node_properties = false
 meta_properties = {
 "color": Color(0.974734, 0, 0.387382, 1)
 }

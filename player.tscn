@@ -185,3 +185,11 @@ target_position = Vector3(0, -0.9, 0)
 [node name="StairsAHeadRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.368548, -0.970544)
 target_position = Vector3(0, -0.6, 0)
+
+[node name="Camera_Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+one_shot = true
+ignore_time_scale = true
+
+[connection signal="timeout" from="Camera_Timer" to="." method="_on_camera_timer_timeout"]

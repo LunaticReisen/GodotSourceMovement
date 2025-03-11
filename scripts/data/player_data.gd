@@ -16,7 +16,7 @@ func _ready():
 @export var SWIM_UP_SPEED               : float = 5
 
 @export_subgroup("accelration")
-@export var RUN_ACCEL                   : float = 7
+@export var RUN_ACCEL                   : float = 8
 @export var SWIM_ACCEL                   : float = 4
 @export var RUN_DECEEL                  : float = 4
 @export var SWIM_DECEEL                  : float = 3.5
@@ -93,3 +93,4 @@ var _snap_down_floor                    :  bool = false
 var ladder_boosting                     :  bool = true
 var _floor_margin                       : float = 0.001
 var camera_smooth_pos                           = null
+var camera_smooth_lock                  :  bool = false

@@ -4,6 +4,8 @@ class_name Player_Physic
 
 @onready var camera = $"../Root/Head/StairsSmooth/Camera"
 
+
+var i : int = 0
 var step_height: Vector3
 var step_incremental_check_height: Vector3
 @onready var stairs_ahead_ray : RayCast3D = $"../StairsAHeadRay"
@@ -156,10 +158,15 @@ func handel_ladder() -> bool :
 
 	#top marker : climbing to the top will force player get off the ladder
 	if ! was_climbing_ladder:
-		var mounting_from_top = pos_relative_to_ladder.y > _ladder_climbing.get_node("TopLadder").position.y
-		if mounting_from_top :
-			if ladder_climb_vel > 0:
-				should_dismount = true
+		var ladder_top
+		var _invent : bool
+		for i in _ladder_climbing.get_child_count():
+			if _ladder_climbing.get_child(0).is_in_group("MARKER_LADDERTOP"):
+				ladder_top = _ladder_climbing.get_child(0).position.y
+		if !ladder_top == null:
+			if pos_relative_to_ladder.y > ladder_top :
+				if ladder_climb_vel > 0:
+					should_dismount = true
 		else :
 			if (ladder_global_transform.affine_inverse().basis * Vector3(Global.player.dir.x ,0 ,Global.player.dir.y)).z >= 0 :
 				should_dismount = true
@@ -276,8 +283,10 @@ func save_camera_pos() :
 		Global.player_data.camera_smooth_pos = head.global_position
 
 func camera_smooth(delta) :
-	# if Global.player.is_crouching or Global.player.is_on_stand:
-	# 	return
+	i+=1
+	if Global.player_data.camera_smooth_lock:
+		# print("smooth"+ var_to_str(i))
+		return
 	if Global.player_data.camera_smooth_pos == null : 
 		return
 	head.global_position.y = Global.player_data.camera_smooth_pos.y

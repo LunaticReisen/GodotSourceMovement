@@ -21,6 +21,12 @@ func _input(event):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			hide()
 			get_tree().paused = false
+	
+	if(event.is_action_pressed("test_text")):
+		if (Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		elif (Input.mouse_mode == Input.MOUSE_MODE_VISIBLE):
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()

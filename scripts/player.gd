@@ -9,6 +9,7 @@ extends CharacterBody3D
 @onready var stairs_smooth = $Root/Head/StairsSmooth
 @onready var stairs_ahead_ray : RayCast3D = $"StairsAHeadRay"
 @onready var stairs_below_ray : RayCast3D = $"StairsBelowRay"
+@onready var camera_timer : Timer = $"Camera_Timer"
 
 
 var pos : Vector3
@@ -36,7 +37,7 @@ var is_on_stand : bool = false
 var is_last_frame_collide :bool = false
 var is_collide :bool = false
 var collide :bool = false
-var crouching :bool
+var crouching :bool = false
 
 var is_it_collide :bool
 
@@ -49,11 +50,11 @@ var is_on_ladder :bool
 
 var cam_aligned_wish_dir := Vector3.ZERO
 
-#crouch timer
-var t1 : float
-var t2 : float
-var t3 : float = 0
-var t4 : float = 0
+#timer
+var timer_crouching : float
+var timer_standing : float
+var timer_water : float = 0
+var timer_add_y : float = 0
 
 #endregion 
 
@@ -89,13 +90,13 @@ func _physics_process(delta):
 	if !is_in_water():
 		if !Global.player_data.step_switch:
 			# if crouch, add some magic in y axis for those raycast
-			if (is_crouching or is_on_crouching)and t3 == 0:
-				t3 += 1
+			if crouching and timer_water == 0:
+				timer_water += 1
 				stairs_ahead_ray.position.y += .3
 				stairs_below_ray.position.y += .5
 	
-			if (is_on_stand or !is_crouching) and t3 == 1:
-				t3 -= 1
+			if crouching and timer_water == 1:
+				timer_water -= 1
 				stairs_ahead_ray.position.y -= .5
 				stairs_below_ray.position.y -= .3
 	
@@ -131,8 +132,11 @@ func _physics_process(delta):
 			topspeed = get_current_speed()
 	last_movement_state = movement_state
 		
+	# print(%Camera.global_position.y)
 	# print(head.position.y)
 	# print(Global.player_data.AIR_CAP)
+	if stairs_below_ray.position.y != 0:
+		stairs_below_ray.position.y = 0
 
 func process_movement(delta) -> void:
 	raw_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")	#Initialize
@@ -284,40 +288,33 @@ func handel_jump() -> void:
 	_wish_jump =false
 
 func handel_crouch(delta) -> bool:
+	var _crouch : bool 
 	collider_shape = collider.shape		#Player collider shape
 	collide = ceilingcast.is_colliding()	#Initialize
 	if is_on_stand:
-		t1 = 0	#reset
+		timer_crouching = 0	#reset
 	if (Input.is_action_pressed("crouch") or is_on_crouching):
-		if t4 == 0:
+		if timer_add_y == 0:
 			position.y += 0.1
-			t4 +=1
-		t1 += delta * 15	#smooth the position
-		# print(t1)
+			timer_add_y +=1
+		timer_crouching += delta * 2	#smooth the position
+		# print(timer_crouching)
 		collider_shape.height = Global.player_data.CROUCH_HEIGHT		#control colldier height
 		if (!collide):
-			t4 += 1
-			head.position.y = lerp(head.position.y,Global.player_data.CAMERA_HEIGHT,t1)	#control camera height
-			# head.position.y = move_toward(head.position.y , Global.player_data.CAMERA_HEIGHT , t1)
-			# t1 += delta * 5	#smooth the position
-			# print(t1)
+			timer_add_y += 1
+			# head.position.y = lerp(head.position.y,Global.player_data.CAMERA_HEIGHT,timer_crouching)	#control camera height
+			# head.position.y = move_toward(head.position.y , Global.player_data.CAMERA_HEIGHT , timer_crouching)
+			head.position.y = Global.player_data.CAMERA_HEIGHT
+			timer_crouching += delta * 5	#smooth the position
+			# print(timer_crouching)
 		is_on_crouching = true
 		if(head.position.y >= Global.player_data.CAMERA_HEIGHT):
-			if(head.position.y - Global.player_data.CAMERA_HEIGHT <= 0.01):
+			if(head.position.y - Global.player_data.CAMERA_HEIGHT <= 0.001):
 				# head.position.y = Global.player_data.CAMERA_HEIGHT
 				is_crouching = true
 				is_on_crouching = false
 	if !is_on_crouching:
-		t1 = 0
-
-	# if head.position.y == 1.5 and t4 == 0:
-	# 	print(head.position.y)
-	# 	t4 = 1
-	# elif head.position.y != 1.5 :
-	# 	print(head.position.y)
-	# else :
-	# 	t4 = 0
-	# print(is_on_crouching)
+		timer_crouching = 0
 
 	# handel standing	
 	# if last frame collide something, it will not stand up
@@ -331,36 +328,43 @@ func handel_crouch(delta) -> bool:
 			is_last_frame_collide = is_collide
 			return true
 		elif (!is_collide) :
-			if t4 == 1:
+			if timer_add_y == 1:
 				position.y += 0.3
-				t4 = 0
+				timer_add_y = 0
 			if(Input.is_action_just_released("crouch") or is_on_stand) :
 				#position.y += 0.55		#if you want a goldscr style jumping, ctrl+/ this line
-				t2 += delta * 1		#smooth the position
-				# head.position.y = lerp(head.position.y,Global.player_data.stand_height,t2)		#control camera height
-				head.position.y = move_toward(head.position.y , Global.player_data.stand_height , t2)
+				timer_standing += delta * 2		#smooth the position
+				# head.position.y = lerp(head.position.y,Global.player_data.stand_height,timer_standing)		#control camera height
+				head.position.y = move_toward(head.position.y , Global.player_data.stand_height , timer_standing)
 				collider_shape.height = Global.player_data.stand_height		#control colldier height
 				is_on_stand = true
 				is_last_frame_collide = is_collide
 				if (head.position.y >= Global.player_data.stand_height) :
-					t2 = 0		#reset
+					timer_standing = 0		#reset
 					is_on_stand = false
 					is_crouching =false
 					is_last_frame_collide = is_collide
-			elif (is_last_frame_collide == true and Input.is_action_pressed("crouch")) : 
+					camera_timer.start()
+			elif (is_last_frame_collide and Input.is_action_pressed("crouch")) : 
 				return true
-			elif (is_last_frame_collide == true and !Input.is_action_pressed("crouch")) : #just copy and paste
+			elif (is_last_frame_collide and !Input.is_action_pressed("crouch")) : #just copy and paste
 				#position.y += 0.55		#if you want a goldscr style jumping, ctrl+/ this line
-				t2 += delta * 5		#smooth the position
-				head.position.y = lerp(head.position.y,Global.player_data.stand_height,t2)		#control camera height
+				# timer_standing += delta * 5		#smooth the position
+				head.position.y = lerp(head.position.y,Global.player_data.stand_height,timer_standing)		#control camera height
+				# head.position.y = move_toward(head.position.y , Global.player_data.stand_height , timer_standing)
 				collider_shape.height = Global.player_data.stand_height		#control colldier height
 				is_on_stand = true
 				is_last_frame_collide = is_collide
 
 	if (is_crouching or is_on_crouching):
-		return true
+		_crouch = true
+		Global.player_data.camera_smooth_lock = true
+		if !camera_timer.is_stopped():
+			camera_timer.stop()
 	else :
-		return false
+		_crouch = false
+
+	return _crouch
 
 # https://www.reddit.com/r/godot/comments/16do5ua/move_and_slide_works_differently_between_35_and_4/
 
@@ -461,7 +465,8 @@ func debug_var():
 	Global.debug_panel.add_property("water", is_in_water() , 12)
 	Global.debug_panel.add_property("jump", _wish_jump , 13)
 	Global.debug_panel.add_property("wish_dir", DEBUG_wishdir , 15)
-	Global.debug_panel.add_property("head high", head.position.y , 16)
+	# Global.debug_panel.add_property("head high", head.position.y , 16)
+	Global.debug_panel.add_property("camera_smooth_lock", Global.player_data.camera_smooth_lock , 16)
 
 func get_delta_time():
 	if Engine.is_in_physics_frame():
@@ -477,3 +482,6 @@ func _on_check_button_toggled(toggled_on : bool) -> void:
 		Global.player_data.auto_bunny = true
 	if !toggled_on:
 		Global.player_data.auto_bunny = false
+
+func _on_camera_timer_timeout() -> void:
+	Global.player_data.camera_smooth_lock = false
